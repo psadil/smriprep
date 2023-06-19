@@ -1,0 +1,22 @@
+digraph morph_grayords_wf{
+  label="morph_grayords_wf";
+  morph_grayords_wf_inputnode[label="inputnode (utility)", style=filled, fillcolor="#FFFFC8"];
+  morph_grayords_wf_get_surfaces[label="get_surfaces (io)", style=filled, fillcolor="#FFFFC8"];
+  morph_grayords_wf_surfmorph_list[label="surfmorph_list (utility)", style=filled, fillcolor="#FFFFC8"];
+  morph_grayords_wf_surf2surf[label="surf2surf (freesurfer)", style=filled, fillcolor="#FFFFC8"];
+  morph_grayords_wf_resample[label="resample (workbench)", style=filled, fillcolor="#FFFFC8"];
+  morph_grayords_wf_gen_cifti[label="gen_cifti (cifti)", style=filled, fillcolor="#FFFFC8"];
+  morph_grayords_wf_outputnode[label="outputnode (utility)", style=filled, fillcolor="#FFFFC8"];
+  morph_grayords_wf_inputnode -> morph_grayords_wf_get_surfaces;
+  morph_grayords_wf_inputnode -> morph_grayords_wf_get_surfaces;
+  morph_grayords_wf_inputnode -> morph_grayords_wf_surf2surf;
+  morph_grayords_wf_inputnode -> morph_grayords_wf_surf2surf;
+  morph_grayords_wf_get_surfaces -> morph_grayords_wf_surfmorph_list;
+  morph_grayords_wf_get_surfaces -> morph_grayords_wf_surfmorph_list;
+  morph_grayords_wf_get_surfaces -> morph_grayords_wf_surfmorph_list;
+  morph_grayords_wf_surfmorph_list -> morph_grayords_wf_surf2surf;
+  morph_grayords_wf_surf2surf -> morph_grayords_wf_resample;
+  morph_grayords_wf_resample -> morph_grayords_wf_gen_cifti;
+  morph_grayords_wf_gen_cifti -> morph_grayords_wf_outputnode;
+  morph_grayords_wf_gen_cifti -> morph_grayords_wf_outputnode;
+}
