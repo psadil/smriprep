@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>smriprep.interfaces.freesurfer &mdash; smriprep 0.12.2 documentation</title>
+  <title>smriprep.interfaces.freesurfer &mdash; smriprep 0.12.3.dev17 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/banner.css" type="text/css" />
@@ -33,7 +33,7 @@
             smriprep
           </a>
               <div class="version">
-                0.12.2
+                0.12.3.dev17
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -78,12 +78,9 @@
   
 
 
-    
-    
 
 
 
-    <p class="scv-banner scv-sphinx_rtd_theme"><b>Warning:</b> This document is for an old version of smriprep.</p>
 <h1>Source code for smriprep.interfaces.freesurfer</h1><div class="highlight"><pre>
 <span></span><span class="c1"># emacs: -*- mode: python; py-indent-offset: 4; indent-tabs-mode: nil -*-</span>
 <span class="c1"># vi: set ft=python sts=4 ts=4 sw=4 et:</span>
@@ -255,8 +252,8 @@
         <span class="n">no_run</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="n">flags</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">step</span><span class="p">,</span> <span class="n">outfiles</span><span class="p">,</span> <span class="n">infiles</span> <span class="ow">in</span> <span class="n">steps</span><span class="p">:</span>
-            <span class="n">flag</span> <span class="o">=</span> <span class="s2">&quot;-</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">step</span><span class="p">)</span>
-            <span class="n">noflag</span> <span class="o">=</span> <span class="s2">&quot;-no</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">step</span><span class="p">)</span>
+            <span class="n">flag</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;-</span><span class="si">{</span><span class="n">step</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">noflag</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;-no</span><span class="si">{</span><span class="n">step</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="k">if</span> <span class="n">noflag</span> <span class="ow">in</span> <span class="n">cmd</span><span class="p">:</span>
                 <span class="k">continue</span>
             <span class="k">elif</span> <span class="n">flag</span> <span class="ow">in</span> <span class="n">cmd</span><span class="p">:</span>
@@ -350,6 +347,7 @@
 <span class="sd">    Wraps mris_convert to automatically select the correct ?h.white surface if</span>
 <span class="sd">    passed a file from the subject&#39;s surf/ directory</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">input_spec</span> <span class="o">=</span> <span class="n">_MRIsConvertDataInputSpec</span>
 
     <span class="k">def</span> <span class="nf">_gen_filename</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
@@ -434,7 +432,7 @@
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <span class="fa fa-book"> Other Versions</span>
-        v: 0.12.2
+        v: master
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
@@ -447,7 +445,7 @@
             <dd><a href="../../../0.11.1/index.html">0.11.1</a></dd>
             <dd><a href="../../../0.12.0/index.html">0.12.0</a></dd>
             <dd><a href="../../../0.12.1/index.html">0.12.1</a></dd>
-            <dd><a href="../../../0.12.2/_modules/smriprep/interfaces/freesurfer.html">0.12.2</a></dd>
+            <dd><a href="../../../0.12.2/index.html">0.12.2</a></dd>
             <dd><a href="../../../0.8.0/index.html">0.8.0</a></dd>
             <dd><a href="../../../0.8.0rc1/index.html">0.8.0rc1</a></dd>
             <dd><a href="../../../0.8.0rc2/index.html">0.8.0rc2</a></dd>
@@ -469,7 +467,7 @@
             <dd><a href="../../../maint_0.12.x/index.html">maint/0.12.x</a></dd>
             <dd><a href="../../../maint_0.8.x/index.html">maint/0.8.x</a></dd>
             <dd><a href="../../../maint_0.9.x/index.html">maint/0.9.x</a></dd>
-            <dd><a href="../../../master/index.html">master</a></dd>
+            <dd><a href="../../../master/_modules/smriprep/interfaces/freesurfer.html">master</a></dd>
             <dd><a href="../../../next/index.html">next</a></dd>
             <dd><a href="../../../rel_0.8.0rc1/index.html">rel/0.8.0rc1</a></dd>
         </dl>

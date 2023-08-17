@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>What’s new? &mdash; smriprep 0.12.2 documentation</title>
+  <title>What’s new? &mdash; smriprep 0.12.3.dev17 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/banner.css" type="text/css" />
@@ -35,7 +35,7 @@
             smriprep
           </a>
               <div class="version">
-                0.12.2
+                0.12.3.dev17
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -50,6 +50,7 @@
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">Library API (application program interface)</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">What’s new?</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#august-16-2023">0.12.2 (August 16, 2023)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#june-15-2023">0.12.1 (June 15, 2023)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#june-05-2023">0.12.0 (June 05, 2023)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#march-23-2023">0.11.1 (March 23, 2023)</a></li>
@@ -134,6 +135,18 @@
     <p class="scv-banner scv-sphinx_rtd_theme"><a href="../master/changes.html"><b>Warning:</b> This document is for the development version of smriprep. The main version is master.</a></p>
 <section id="what-s-new">
 <h1>What’s new?<a class="headerlink" href="#what-s-new" title="Permalink to this heading"></a></h1>
+<section id="august-16-2023">
+<h2>0.12.2 (August 16, 2023)<a class="headerlink" href="#august-16-2023" title="Permalink to this heading"></a></h2>
+<p>Bug-fix release in the 0.12.x series.</p>
+<p>In rare cases where Freesurfer is unable to align to its default atlas in
+Talairach registration, it was unable to fall back to the Schwartz atlas
+because we were not including it in the Docker image. This release exists
+to provide an updated Docker image, and no upgrade is needed for users not
+encountering this issue.</p>
+<ul class="simple">
+<li><p>DOCKER: Include 3T18yoSchwartzReactN32 FreeSurfer atlas in image (#357)</p></li>
+</ul>
+</section>
 <section id="june-15-2023">
 <h2>0.12.1 (June 15, 2023)<a class="headerlink" href="#june-15-2023" title="Permalink to this heading"></a></h2>
 <p>Bug-fix release in the 0.12.x series.</p>
