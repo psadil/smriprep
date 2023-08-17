@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>smriprep.interfaces.templateflow &mdash; smriprep 0.12.2.dev16 documentation</title>
+  <title>smriprep.interfaces.templateflow &mdash; smriprep 0.12.2 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/banner.css" type="text/css" />
@@ -33,7 +33,7 @@
             smriprep
           </a>
               <div class="version">
-                0.12.2.dev16
+                0.12.2
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -126,8 +126,12 @@
 <span class="k">class</span> <span class="nc">_TemplateFlowSelectInputSpec</span><span class="p">(</span><span class="n">BaseInterfaceInputSpec</span><span class="p">):</span>
     <span class="n">template</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Str</span><span class="p">(</span><span class="s2">&quot;MNI152NLin2009cAsym&quot;</span><span class="p">,</span> <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Template ID&quot;</span><span class="p">)</span>
     <span class="n">atlas</span> <span class="o">=</span> <span class="n">InputMultiObject</span><span class="p">(</span><span class="n">traits</span><span class="o">.</span><span class="n">Str</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Specify an atlas&quot;</span><span class="p">)</span>
-    <span class="n">cohort</span> <span class="o">=</span> <span class="n">InputMultiObject</span><span class="p">(</span><span class="n">traits</span><span class="o">.</span><span class="n">Either</span><span class="p">(</span><span class="n">traits</span><span class="o">.</span><span class="n">Str</span><span class="p">,</span> <span class="n">traits</span><span class="o">.</span><span class="n">Int</span><span class="p">),</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Specify a cohort&quot;</span><span class="p">)</span>
-    <span class="n">resolution</span> <span class="o">=</span> <span class="n">InputMultiObject</span><span class="p">(</span><span class="n">traits</span><span class="o">.</span><span class="n">Int</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Specify a template resolution index&quot;</span><span class="p">)</span>
+    <span class="n">cohort</span> <span class="o">=</span> <span class="n">InputMultiObject</span><span class="p">(</span>
+        <span class="n">traits</span><span class="o">.</span><span class="n">Either</span><span class="p">(</span><span class="n">traits</span><span class="o">.</span><span class="n">Str</span><span class="p">,</span> <span class="n">traits</span><span class="o">.</span><span class="n">Int</span><span class="p">),</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Specify a cohort&quot;</span>
+    <span class="p">)</span>
+    <span class="n">resolution</span> <span class="o">=</span> <span class="n">InputMultiObject</span><span class="p">(</span>
+        <span class="n">traits</span><span class="o">.</span><span class="n">Int</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Specify a template resolution index&quot;</span>
+    <span class="p">)</span>
     <span class="n">template_spec</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">DictStrAny</span><span class="p">(</span>
         <span class="p">{</span><span class="s2">&quot;atlas&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;cohort&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">},</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Template specifications&quot;</span>
     <span class="p">)</span>
@@ -218,9 +222,10 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;t1w_file&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">desc</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;T1w&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">specs</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;brain_mask&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-            <span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;brain&quot;</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;mask&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">specs</span>
-        <span class="p">)</span> <span class="ow">or</span> <span class="n">tf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;brain&quot;</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;mask&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">specs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;brain_mask&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">tf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;brain&quot;</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;mask&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">specs</span><span class="p">)</span>
+            <span class="ow">or</span> <span class="n">tf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;brain&quot;</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;mask&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">specs</span><span class="p">)</span>
+        <span class="p">)</span>
         <span class="k">return</span> <span class="n">runtime</span></div>
 
 
@@ -310,6 +315,7 @@
             <dd><a href="../../../../0.11.1/index.html">0.11.1</a></dd>
             <dd><a href="../../../../0.12.0/index.html">0.12.0</a></dd>
             <dd><a href="../../../../0.12.1/index.html">0.12.1</a></dd>
+            <dd><a href="../../../../0.12.2/index.html">0.12.2</a></dd>
             <dd><a href="../../../../0.8.0/index.html">0.8.0</a></dd>
             <dd><a href="../../../../0.8.0rc1/index.html">0.8.0rc1</a></dd>
             <dd><a href="../../../../0.8.0rc2/index.html">0.8.0rc2</a></dd>

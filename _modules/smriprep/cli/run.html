@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>smriprep.cli.run &mdash; smriprep 0.12.2.dev16 documentation</title>
+  <title>smriprep.cli.run &mdash; smriprep 0.12.2 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/banner.css" type="text/css" />
@@ -33,7 +33,7 @@
             smriprep
           </a>
               <div class="version">
-                0.12.2.dev16
+                0.12.2
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -77,9 +77,12 @@
   
 
 
+    
+    
 
 
 
+    <p class="scv-banner scv-sphinx_rtd_theme"><b>Warning:</b> This document is for an old version of smriprep.</p>
 <h1>Source code for smriprep.cli.run</h1><div class="highlight"><pre>
 <span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="c1"># emacs: -*- mode: python; py-indent-offset: 4; indent-tabs-mode: nil -*-</span>
@@ -120,7 +123,10 @@
     <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span>
         <span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">_cmd</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">workflow</span><span class="o">.</span><span class="n">_get_all_nodes</span><span class="p">()</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">interface</span><span class="p">,</span> <span class="s2">&quot;_cmd&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">which</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">_cmd</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="nb">hasattr</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">interface</span><span class="p">,</span> <span class="s2">&quot;_cmd&quot;</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="n">which</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">_cmd</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span> <span class="ow">is</span> <span class="kc">None</span>
+        <span class="p">)</span>
     <span class="p">)</span></div>
 
 
@@ -165,7 +171,9 @@
     <span class="p">)</span>
 
     <span class="c1"># optional arguments</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--version&quot;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;version&quot;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;smriprep v</span><span class="si">{</span><span class="n">__version__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--version&quot;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;version&quot;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="s2">&quot;smriprep v</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">__version__</span><span class="p">)</span>
+    <span class="p">)</span>
 
     <span class="n">g_bids</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">add_argument_group</span><span class="p">(</span><span class="s2">&quot;Options for filtering BIDS queries&quot;</span><span class="p">)</span>
     <span class="n">g_bids</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
@@ -215,7 +223,8 @@
     <span class="n">g_perfm</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
         <span class="s2">&quot;--low-mem&quot;</span><span class="p">,</span>
         <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span>
-        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;attempt to reduce memory usage (will increase disk usage &quot;</span> <span class="s2">&quot;in working directory)&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;attempt to reduce memory usage (will increase disk usage &quot;</span>
+        <span class="s2">&quot;in working directory)&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">g_perfm</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
         <span class="s2">&quot;--use-plugin&quot;</span><span class="p">,</span>
@@ -223,14 +232,16 @@
         <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">help</span><span class="o">=</span><span class="s2">&quot;nipype plugin configuration file&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="n">g_perfm</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--boilerplate&quot;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;generate boilerplate only&quot;</span><span class="p">)</span>
+    <span class="n">g_perfm</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--boilerplate&quot;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;generate boilerplate only&quot;</span>
+    <span class="p">)</span>
     <span class="n">g_perfm</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
         <span class="s2">&quot;-v&quot;</span><span class="p">,</span>
         <span class="s2">&quot;--verbose&quot;</span><span class="p">,</span>
         <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;verbose_count&quot;</span><span class="p">,</span>
         <span class="n">action</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">,</span>
         <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;increases log verbosity for each occurrence, debug level is -vvv&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;increases log verbosity for each occurence, debug level is -vvv&quot;</span><span class="p">,</span>
     <span class="p">)</span>
 
     <span class="n">g_conf</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">add_argument_group</span><span class="p">(</span><span class="s2">&quot;Workflow configuration&quot;</span><span class="p">)</span>
@@ -351,7 +362,8 @@
         <span class="s2">&quot;--stop-on-first-crash&quot;</span><span class="p">,</span>
         <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span>
         <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Force stopping on first crash, even if a work directory&quot;</span> <span class="s2">&quot; was specified.&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Force stopping on first crash, even if a work directory&quot;</span>
+        <span class="s2">&quot; was specified.&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">g_other</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
         <span class="s2">&quot;--notrack&quot;</span><span class="p">,</span>
@@ -454,7 +466,7 @@
     <span class="k">if</span> <span class="n">missing</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cannot run sMRIPrep. Missing dependencies:&quot;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">iface</span><span class="p">,</span> <span class="n">cmd</span> <span class="ow">in</span> <span class="n">missing</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\t</span><span class="si">{</span><span class="n">cmd</span><span class="si">}</span><span class="s2"> (Interface: </span><span class="si">{</span><span class="n">iface</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="si">{}</span><span class="s2"> (Interface: </span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">iface</span><span class="p">))</span>
         <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 
     <span class="c1"># Clean up master process before running workflow, which may create forks</span>
@@ -469,8 +481,12 @@
             <span class="kn">from</span> <span class="nn">niworkflows.utils.misc</span> <span class="kn">import</span> <span class="n">_copy_any</span>
 
             <span class="n">dseg_tsv</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;fsaverage&quot;</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;dseg&quot;</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;.tsv&quot;</span><span class="p">]))</span>
-            <span class="n">_copy_any</span><span class="p">(</span><span class="n">dseg_tsv</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">output_dir</span><span class="p">)</span> <span class="o">/</span> <span class="s2">&quot;smriprep&quot;</span> <span class="o">/</span> <span class="s2">&quot;desc-aseg_dseg.tsv&quot;</span><span class="p">))</span>
-            <span class="n">_copy_any</span><span class="p">(</span><span class="n">dseg_tsv</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">output_dir</span><span class="p">)</span> <span class="o">/</span> <span class="s2">&quot;smriprep&quot;</span> <span class="o">/</span> <span class="s2">&quot;desc-aparcaseg_dseg.tsv&quot;</span><span class="p">))</span>
+            <span class="n">_copy_any</span><span class="p">(</span>
+                <span class="n">dseg_tsv</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">output_dir</span><span class="p">)</span> <span class="o">/</span> <span class="s2">&quot;smriprep&quot;</span> <span class="o">/</span> <span class="s2">&quot;desc-aseg_dseg.tsv&quot;</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">_copy_any</span><span class="p">(</span>
+                <span class="n">dseg_tsv</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">output_dir</span><span class="p">)</span> <span class="o">/</span> <span class="s2">&quot;smriprep&quot;</span> <span class="o">/</span> <span class="s2">&quot;desc-aparcaseg_dseg.tsv&quot;</span><span class="p">)</span>
+            <span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="s2">&quot;sMRIPrep finished without errors&quot;</span><span class="p">)</span>
     <span class="k">finally</span><span class="p">:</span>
         <span class="kn">from</span> <span class="nn">niworkflows.reports</span> <span class="kn">import</span> <span class="n">generate_reports</span>
@@ -478,7 +494,9 @@
 
         <span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="s2">&quot;Writing reports for participants: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">subject_list</span><span class="p">))</span>
         <span class="c1"># Generate reports phase</span>
-        <span class="n">errno</span> <span class="o">+=</span> <span class="n">generate_reports</span><span class="p">(</span><span class="n">subject_list</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">,</span> <span class="n">run_uuid</span><span class="p">,</span> <span class="n">packagename</span><span class="o">=</span><span class="s2">&quot;smriprep&quot;</span><span class="p">)</span>
+        <span class="n">errno</span> <span class="o">+=</span> <span class="n">generate_reports</span><span class="p">(</span>
+            <span class="n">subject_list</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">,</span> <span class="n">run_uuid</span><span class="p">,</span> <span class="n">packagename</span><span class="o">=</span><span class="s2">&quot;smriprep&quot;</span>
+        <span class="p">)</span>
         <span class="n">write_derivative_description</span><span class="p">(</span><span class="n">bids_dir</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">output_dir</span><span class="p">)</span> <span class="o">/</span> <span class="s2">&quot;smriprep&quot;</span><span class="p">))</span>
         <span class="n">write_bidsignore</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">output_dir</span><span class="p">)</span> <span class="o">/</span> <span class="s2">&quot;smriprep&quot;</span><span class="p">)</span>
     <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">errno</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">))</span></div>
@@ -521,14 +539,18 @@
 <span class="s2">    &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span>
 
     <span class="c1"># Set up some instrumental utilities</span>
-    <span class="n">run_uuid</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">_</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">-%H%M%S&quot;</span><span class="p">),</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())</span>
+    <span class="n">run_uuid</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">-%H%M%S&quot;</span><span class="p">),</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())</span>
 
     <span class="c1"># First check that bids_dir looks like a BIDS folder</span>
     <span class="n">bids_dir</span> <span class="o">=</span> <span class="n">opts</span><span class="o">.</span><span class="n">bids_dir</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
     <span class="n">layout</span> <span class="o">=</span> <span class="n">BIDSLayout</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">bids_dir</span><span class="p">),</span> <span class="n">validate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">subject_list</span> <span class="o">=</span> <span class="n">collect_participants</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">participant_label</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">participant_label</span><span class="p">)</span>
+    <span class="n">subject_list</span> <span class="o">=</span> <span class="n">collect_participants</span><span class="p">(</span>
+        <span class="n">layout</span><span class="p">,</span> <span class="n">participant_label</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">participant_label</span>
+    <span class="p">)</span>
 
-    <span class="n">bids_filters</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">opts</span><span class="o">.</span><span class="n">bids_filter_file</span><span class="o">.</span><span class="n">read_text</span><span class="p">())</span> <span class="k">if</span> <span class="n">opts</span><span class="o">.</span><span class="n">bids_filter_file</span> <span class="k">else</span> <span class="kc">None</span>
+    <span class="n">bids_filters</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">opts</span><span class="o">.</span><span class="n">bids_filter_file</span><span class="o">.</span><span class="n">read_text</span><span class="p">())</span> <span class="k">if</span> <span class="n">opts</span><span class="o">.</span><span class="n">bids_filter_file</span> <span class="k">else</span> <span class="kc">None</span>
+    <span class="p">)</span>
 
     <span class="c1"># Load base plugin_settings from file if --use-plugin</span>
     <span class="k">if</span> <span class="n">opts</span><span class="o">.</span><span class="n">use_plugin</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -616,7 +638,9 @@
     <span class="k">if</span> <span class="n">opts</span><span class="o">.</span><span class="n">reports_only</span><span class="p">:</span>
         <span class="kn">from</span> <span class="nn">niworkflows.reports</span> <span class="kn">import</span> <span class="n">generate_reports</span>
 
-        <span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="s2">&quot;Running --reports-only on participants </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">subject_list</span><span class="p">))</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span>
+            <span class="mi">25</span><span class="p">,</span> <span class="s2">&quot;Running --reports-only on participants </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">subject_list</span><span class="p">)</span>
+        <span class="p">)</span>
         <span class="k">if</span> <span class="n">opts</span><span class="o">.</span><span class="n">run_uuid</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">run_uuid</span> <span class="o">=</span> <span class="n">opts</span><span class="o">.</span><span class="n">run_uuid</span>
         <span class="n">retval</span><span class="p">[</span><span class="s2">&quot;return_code&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">generate_reports</span><span class="p">(</span>
@@ -706,7 +730,9 @@
     <span class="k">except</span> <span class="p">(</span><span class="ne">FileNotFoundError</span><span class="p">,</span> <span class="n">CalledProcessError</span><span class="p">,</span> <span class="n">TimeoutExpired</span><span class="p">):</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Could not generate CITATION.tex file:</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cmd</span><span class="p">))</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">copyfile</span><span class="p">(</span><span class="n">pkgrf</span><span class="p">(</span><span class="s2">&quot;smriprep&quot;</span><span class="p">,</span> <span class="s2">&quot;data/boilerplate.bib&quot;</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">log_dir</span> <span class="o">/</span> <span class="s2">&quot;CITATION.bib&quot;</span><span class="p">))</span>
+        <span class="n">copyfile</span><span class="p">(</span>
+            <span class="n">pkgrf</span><span class="p">(</span><span class="s2">&quot;smriprep&quot;</span><span class="p">,</span> <span class="s2">&quot;data/boilerplate.bib&quot;</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">log_dir</span> <span class="o">/</span> <span class="s2">&quot;CITATION.bib&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
     <span class="k">return</span> <span class="n">retval</span></div>
 
 
@@ -741,7 +767,7 @@
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <span class="fa fa-book"> Other Versions</span>
-        v: master
+        v: 0.12.2
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
@@ -754,6 +780,7 @@
             <dd><a href="../../../0.11.1/index.html">0.11.1</a></dd>
             <dd><a href="../../../0.12.0/index.html">0.12.0</a></dd>
             <dd><a href="../../../0.12.1/index.html">0.12.1</a></dd>
+            <dd><a href="../../../0.12.2/_modules/smriprep/cli/run.html">0.12.2</a></dd>
             <dd><a href="../../../0.8.0/index.html">0.8.0</a></dd>
             <dd><a href="../../../0.8.0rc1/index.html">0.8.0rc1</a></dd>
             <dd><a href="../../../0.8.0rc2/index.html">0.8.0rc2</a></dd>
@@ -775,7 +802,7 @@
             <dd><a href="../../../maint_0.12.x/index.html">maint/0.12.x</a></dd>
             <dd><a href="../../../maint_0.8.x/index.html">maint/0.8.x</a></dd>
             <dd><a href="../../../maint_0.9.x/index.html">maint/0.9.x</a></dd>
-            <dd><a href="../../../master/_modules/smriprep/cli/run.html">master</a></dd>
+            <dd><a href="../../../master/index.html">master</a></dd>
             <dd><a href="../../../next/index.html">next</a></dd>
             <dd><a href="../../../rel_0.8.0rc1/index.html">rel/0.8.0rc1</a></dd>
         </dl>

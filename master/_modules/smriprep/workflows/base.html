@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>smriprep.workflows.base &mdash; smriprep 0.12.2.dev16 documentation</title>
+  <title>smriprep.workflows.base &mdash; smriprep 0.12.2 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/banner.css" type="text/css" />
@@ -33,7 +33,7 @@
             smriprep
           </a>
               <div class="version">
-                0.12.2.dev16
+                0.12.2
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -276,7 +276,9 @@
         <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">single_subject_wf</span><span class="o">.</span><span class="n">_get_all_nodes</span><span class="p">():</span>
             <span class="n">node</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">single_subject_wf</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">freesurfer</span><span class="p">:</span>
-            <span class="n">smriprep_wf</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">fsdir</span><span class="p">,</span> <span class="s2">&quot;subjects_dir&quot;</span><span class="p">,</span> <span class="n">single_subject_wf</span><span class="p">,</span> <span class="s2">&quot;inputnode.subjects_dir&quot;</span><span class="p">)</span>
+            <span class="n">smriprep_wf</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+                <span class="n">fsdir</span><span class="p">,</span> <span class="s2">&quot;subjects_dir&quot;</span><span class="p">,</span> <span class="n">single_subject_wf</span><span class="p">,</span> <span class="s2">&quot;inputnode.subjects_dir&quot;</span>
+            <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">smriprep_wf</span><span class="o">.</span><span class="n">add_nodes</span><span class="p">([</span><span class="n">single_subject_wf</span><span class="p">])</span>
 
@@ -441,9 +443,13 @@
             <span class="n">Path</span><span class="p">(</span><span class="n">output_dir</span><span class="p">)</span> <span class="o">/</span> <span class="s2">&quot;smriprep&quot;</span><span class="p">,</span> <span class="n">subject_id</span><span class="p">,</span> <span class="n">std_spaces</span><span class="p">,</span> <span class="n">freesurfer</span>
         <span class="p">)</span>
 
-    <span class="n">inputnode</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">niu</span><span class="o">.</span><span class="n">IdentityInterface</span><span class="p">(</span><span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;subjects_dir&quot;</span><span class="p">]),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;inputnode&quot;</span><span class="p">)</span>
+    <span class="n">inputnode</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span>
+        <span class="n">niu</span><span class="o">.</span><span class="n">IdentityInterface</span><span class="p">(</span><span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;subjects_dir&quot;</span><span class="p">]),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;inputnode&quot;</span>
+    <span class="p">)</span>
 
-    <span class="n">bidssrc</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">BIDSDataGrabber</span><span class="p">(</span><span class="n">subject_data</span><span class="o">=</span><span class="n">subject_data</span><span class="p">,</span> <span class="n">anat_only</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;bidssrc&quot;</span><span class="p">)</span>
+    <span class="n">bidssrc</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span>
+        <span class="n">BIDSDataGrabber</span><span class="p">(</span><span class="n">subject_data</span><span class="o">=</span><span class="n">subject_data</span><span class="p">,</span> <span class="n">anat_only</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;bidssrc&quot;</span>
+    <span class="p">)</span>
 
     <span class="n">bids_info</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span>
         <span class="n">BIDSInfo</span><span class="p">(</span><span class="n">bids_dir</span><span class="o">=</span><span class="n">layout</span><span class="o">.</span><span class="n">root</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;bids_info&quot;</span><span class="p">,</span> <span class="n">run_without_submitting</span><span class="o">=</span><span class="kc">True</span>
@@ -570,6 +576,7 @@
             <dd><a href="../../../../0.11.1/index.html">0.11.1</a></dd>
             <dd><a href="../../../../0.12.0/index.html">0.12.0</a></dd>
             <dd><a href="../../../../0.12.1/index.html">0.12.1</a></dd>
+            <dd><a href="../../../../0.12.2/index.html">0.12.2</a></dd>
             <dd><a href="../../../../0.8.0/index.html">0.8.0</a></dd>
             <dd><a href="../../../../0.8.0rc1/index.html">0.8.0rc1</a></dd>
             <dd><a href="../../../../0.8.0rc2/index.html">0.8.0rc2</a></dd>

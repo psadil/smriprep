@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>smriprep.interfaces.cifti &mdash; smriprep 0.12.2.dev16 documentation</title>
+  <title>smriprep.interfaces.cifti &mdash; smriprep 0.12.2 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/banner.css" type="text/css" />
@@ -33,7 +33,7 @@
             smriprep
           </a>
               <div class="version">
-                0.12.2.dev16
+                0.12.2
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -103,7 +103,9 @@
         <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;CIFTI surface target space&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="n">grayordinates</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Enum</span><span class="p">(</span><span class="s2">&quot;91k&quot;</span><span class="p">,</span> <span class="s2">&quot;170k&quot;</span><span class="p">,</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Final CIFTI grayordinates&quot;</span><span class="p">)</span>
+    <span class="n">grayordinates</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Enum</span><span class="p">(</span>
+        <span class="s2">&quot;91k&quot;</span><span class="p">,</span> <span class="s2">&quot;170k&quot;</span><span class="p">,</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Final CIFTI grayordinates&quot;</span>
+    <span class="p">)</span>
     <span class="n">scalar_surfs</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">List</span><span class="p">(</span>
         <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
         <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -121,11 +123,11 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generate a HCP-style CIFTI-2 image from scalar surface files.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
     <span class="n">input_spec</span> <span class="o">=</span> <span class="n">_GenerateDScalarInputSpec</span>
     <span class="n">output_spec</span> <span class="o">=</span> <span class="n">_GenerateDScalarOutputSpec</span>
 
     <span class="k">def</span> <span class="nf">_run_interface</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">runtime</span><span class="p">):</span>
+
         <span class="n">surface_labels</span><span class="p">,</span> <span class="n">metadata</span> <span class="o">=</span> <span class="n">_prepare_cifti</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">grayordinates</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;out_file&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_create_cifti_image</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">scalar_surfs</span><span class="p">,</span>
@@ -172,14 +174,14 @@
             <span class="s2">&quot;surface-den&quot;</span><span class="p">:</span> <span class="s2">&quot;32k&quot;</span><span class="p">,</span>
             <span class="s2">&quot;tf-res&quot;</span><span class="p">:</span> <span class="s2">&quot;02&quot;</span><span class="p">,</span>
             <span class="s2">&quot;grayords&quot;</span><span class="p">:</span> <span class="s2">&quot;91,282&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;res-mm&quot;</span><span class="p">:</span> <span class="s2">&quot;2mm&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;res-mm&quot;</span><span class="p">:</span> <span class="s2">&quot;2mm&quot;</span>
         <span class="p">},</span>
         <span class="s2">&quot;170k&quot;</span><span class="p">:</span> <span class="p">{</span>
             <span class="s2">&quot;surface-den&quot;</span><span class="p">:</span> <span class="s2">&quot;59k&quot;</span><span class="p">,</span>
             <span class="s2">&quot;tf-res&quot;</span><span class="p">:</span> <span class="s2">&quot;06&quot;</span><span class="p">,</span>
             <span class="s2">&quot;grayords&quot;</span><span class="p">:</span> <span class="s2">&quot;170,494&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;res-mm&quot;</span><span class="p">:</span> <span class="s2">&quot;1.6mm&quot;</span><span class="p">,</span>
-        <span class="p">},</span>
+            <span class="s2">&quot;res-mm&quot;</span><span class="p">:</span> <span class="s2">&quot;1.6mm&quot;</span>
+        <span class="p">}</span>
     <span class="p">}</span>
     <span class="k">if</span> <span class="n">grayordinates</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">grayord_key</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Grayordinates </span><span class="si">{</span><span class="n">grayordinates</span><span class="si">}</span><span class="s2"> is not supported.&quot;</span><span class="p">)</span>
@@ -214,7 +216,7 @@
         <span class="s2">&quot;SpatialReference&quot;</span><span class="p">:</span> <span class="p">{</span>
             <span class="s2">&quot;CIFTI_STRUCTURE_CORTEX_LEFT&quot;</span><span class="p">:</span> <span class="n">surfaces_url</span> <span class="o">%</span> <span class="s2">&quot;L&quot;</span><span class="p">,</span>
             <span class="s2">&quot;CIFTI_STRUCTURE_CORTEX_RIGHT&quot;</span><span class="p">:</span> <span class="n">surfaces_url</span> <span class="o">%</span> <span class="s2">&quot;R&quot;</span><span class="p">,</span>
-        <span class="p">},</span>
+        <span class="p">}</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="n">surface_labels</span><span class="p">,</span> <span class="n">metadata</span>
 
@@ -318,6 +320,7 @@
             <dd><a href="cifti.html">0.11.1</a></dd>
             <dd><a href="../../../../0.12.0/index.html">0.12.0</a></dd>
             <dd><a href="../../../../0.12.1/index.html">0.12.1</a></dd>
+            <dd><a href="../../../../0.12.2/index.html">0.12.2</a></dd>
             <dd><a href="../../../../0.8.0/index.html">0.8.0</a></dd>
             <dd><a href="../../../../0.8.0rc1/index.html">0.8.0rc1</a></dd>
             <dd><a href="../../../../0.8.0rc2/index.html">0.8.0rc2</a></dd>
