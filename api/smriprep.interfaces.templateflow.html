@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>smriprep.interfaces.templateflow module &mdash; smriprep 0.12.3.dev17 documentation</title>
+  <title>smriprep.interfaces.templateflow module &mdash; smriprep 0.12.3.dev22 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/banner.css" type="text/css" />
@@ -12,11 +12,11 @@
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/jquery.js?v=1413ff29"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=7b397ac5"></script>
+        <script src="../_static/doctools.js?v=6afcdcd2"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -36,7 +36,7 @@
             smriprep
           </a>
               <div class="version">
-                0.12.3.dev17
+                0.12.3.dev22
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -103,12 +103,12 @@
 
 
 
-<section id="module-smriprep.interfaces.templateflow">
-<span id="smriprep-interfaces-templateflow-module"></span><h1>smriprep.interfaces.templateflow module<a class="headerlink" href="#module-smriprep.interfaces.templateflow" title="Permalink to this heading"></a></h1>
-<p>Interfaces to get templates from TemplateFlow.</p>
+<section id="smriprep-interfaces-templateflow-module">
+<h1>smriprep.interfaces.templateflow module<a class="headerlink" href="#smriprep-interfaces-templateflow-module" title="Link to this heading"></a></h1>
+<p id="module-smriprep.interfaces.templateflow">Interfaces to get templates from TemplateFlow.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="smriprep.interfaces.templateflow.TemplateDesc">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smriprep.interfaces.templateflow.</span></span><span class="sig-name descname"><span class="pre">TemplateDesc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">from_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resource_monitor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">inputs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smriprep/interfaces/templateflow.html#TemplateDesc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smriprep.interfaces.templateflow.TemplateDesc" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smriprep.interfaces.templateflow.</span></span><span class="sig-name descname"><span class="pre">TemplateDesc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">from_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resource_monitor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">inputs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smriprep/interfaces/templateflow.html#TemplateDesc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smriprep.interfaces.templateflow.TemplateDesc" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleInterface</span></code></p>
 <p>Select template description and name pairs.</p>
 <p>This interface is necessary to ensure the good functioning
@@ -148,7 +148,7 @@ with iterables and JoinNodes.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="smriprep.interfaces.templateflow.TemplateFlowSelect">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smriprep.interfaces.templateflow.</span></span><span class="sig-name descname"><span class="pre">TemplateFlowSelect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">from_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resource_monitor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">inputs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smriprep/interfaces/templateflow.html#TemplateFlowSelect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smriprep.interfaces.templateflow.TemplateFlowSelect" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smriprep.interfaces.templateflow.</span></span><span class="sig-name descname"><span class="pre">TemplateFlowSelect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">from_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resource_monitor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">inputs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smriprep/interfaces/templateflow.html#TemplateFlowSelect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smriprep.interfaces.templateflow.TemplateFlowSelect" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleInterface</span></code></p>
 <p>Select TemplateFlow elements.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">select</span> <span class="o">=</span> <span class="n">TemplateFlowSelect</span><span class="p">(</span><span class="n">resolution</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -275,6 +275,8 @@ with iterables and JoinNodes.</p>
             <dt>Branches</dt>
             <dd><a href="../dependabot_pip_certifi-2023.7.22/api/smriprep.interfaces.templateflow.html">dependabot/pip/certifi-2023.7.22</a></dd>
             <dd><a href="../enh_calabel/api/smriprep.interfaces.templateflow.html">enh/calabel</a></dd>
+            <dd><a href="../enh_msm/api/smriprep.interfaces.templateflow.html">enh/msm</a></dd>
+            <dd><a href="../enh_split-surfaces/api/smriprep.interfaces.templateflow.html">enh/split-surfaces</a></dd>
             <dd><a href="../fix_parcstats/api/smriprep.interfaces.templateflow.html">fix/parcstats</a></dd>
             <dd><a href="../fix_recon-report/api/smriprep.interfaces.templateflow.html">fix/recon-report</a></dd>
             <dd><a href="../fix_tfselect-resless/api/smriprep.interfaces.templateflow.html">fix/tfselect-resless</a></dd>

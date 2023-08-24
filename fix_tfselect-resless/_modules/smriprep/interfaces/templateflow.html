@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>smriprep.interfaces.templateflow &mdash; smriprep 0.12.3.dev17 documentation</title>
+  <title>smriprep.interfaces.templateflow &mdash; smriprep 0.12.3.dev22 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/banner.css" type="text/css" />
@@ -11,11 +11,11 @@
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
+        <script src="../../../_static/jquery.js?v=1413ff29"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=7b397ac5"></script>
+        <script src="../../../_static/doctools.js?v=6afcdcd2"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
@@ -33,7 +33,7 @@
             smriprep
           </a>
               <div class="version">
-                0.12.3.dev17
+                0.12.3.dev22
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -138,7 +138,9 @@
     <span class="n">brain_mask</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Template&#39;s brain mask&quot;</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="TemplateFlowSelect"><a class="viewcode-back" href="../../../api/smriprep.interfaces.templateflow.html#smriprep.interfaces.templateflow.TemplateFlowSelect">[docs]</a><span class="k">class</span> <span class="nc">TemplateFlowSelect</span><span class="p">(</span><span class="n">SimpleInterface</span><span class="p">):</span>
+<div class="viewcode-block" id="TemplateFlowSelect">
+<a class="viewcode-back" href="../../../api/smriprep.interfaces.templateflow.html#smriprep.interfaces.templateflow.TemplateFlowSelect">[docs]</a>
+<span class="k">class</span> <span class="nc">TemplateFlowSelect</span><span class="p">(</span><span class="n">SimpleInterface</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Select TemplateFlow elements.</span>
 
@@ -224,6 +226,7 @@
         <span class="k">return</span> <span class="n">runtime</span></div>
 
 
+
 <span class="k">class</span> <span class="nc">_TemplateDescInputSpec</span><span class="p">(</span><span class="n">BaseInterfaceInputSpec</span><span class="p">):</span>
     <span class="n">template</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Str</span><span class="p">(</span><span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;univocal template identifier&quot;</span><span class="p">)</span>
 
@@ -233,7 +236,9 @@
     <span class="n">spec</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Dict</span><span class="p">(</span><span class="n">desc</span><span class="o">=</span><span class="s2">&quot;template arguments&quot;</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="TemplateDesc"><a class="viewcode-back" href="../../../api/smriprep.interfaces.templateflow.html#smriprep.interfaces.templateflow.TemplateDesc">[docs]</a><span class="k">class</span> <span class="nc">TemplateDesc</span><span class="p">(</span><span class="n">SimpleInterface</span><span class="p">):</span>
+<div class="viewcode-block" id="TemplateDesc">
+<a class="viewcode-back" href="../../../api/smriprep.interfaces.templateflow.html#smriprep.interfaces.templateflow.TemplateDesc">[docs]</a>
+<span class="k">class</span> <span class="nc">TemplateDesc</span><span class="p">(</span><span class="n">SimpleInterface</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Select template description and name pairs.</span>
 
@@ -271,6 +276,7 @@
                 <span class="n">descsplit</span> <span class="o">=</span> <span class="n">desc</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;spec&quot;</span><span class="p">][</span><span class="n">descsplit</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">descsplit</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">runtime</span></div>
+
 </pre></div>
 
            </div>
@@ -326,6 +332,8 @@
             <dt>Branches</dt>
             <dd><a href="../../../../dependabot_pip_certifi-2023.7.22/index.html">dependabot/pip/certifi-2023.7.22</a></dd>
             <dd><a href="../../../../enh_calabel/index.html">enh/calabel</a></dd>
+            <dd><a href="../../../../enh_msm/index.html">enh/msm</a></dd>
+            <dd><a href="../../../../enh_split-surfaces/index.html">enh/split-surfaces</a></dd>
             <dd><a href="../../../../fix_parcstats/index.html">fix/parcstats</a></dd>
             <dd><a href="../../../../fix_recon-report/index.html">fix/recon-report</a></dd>
             <dd><a href="templateflow.html">fix/tfselect-resless</a></dd>

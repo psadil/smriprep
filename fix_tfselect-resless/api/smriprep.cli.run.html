@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>smriprep.cli.run module &mdash; smriprep 0.12.3.dev17 documentation</title>
+  <title>smriprep.cli.run module &mdash; smriprep 0.12.3.dev22 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/banner.css" type="text/css" />
@@ -12,11 +12,11 @@
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/jquery.js?v=1413ff29"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=7b397ac5"></script>
+        <script src="../_static/doctools.js?v=6afcdcd2"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -36,7 +36,7 @@
             smriprep
           </a>
               <div class="version">
-                0.12.3.dev17
+                0.12.3.dev22
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -100,18 +100,18 @@
 
 
     <p class="scv-banner scv-sphinx_rtd_theme"><a href="../../master/api/smriprep.cli.run.html"><b>Warning:</b> This document is for the development version of smriprep. The main version is master.</a></p>
-<section id="module-smriprep.cli.run">
-<span id="smriprep-cli-run-module"></span><h1>smriprep.cli.run module<a class="headerlink" href="#module-smriprep.cli.run" title="Permalink to this heading"></a></h1>
-<p>sMRIPrep: Structural MRI PREProcessing workflow.</p>
+<section id="smriprep-cli-run-module">
+<h1>smriprep.cli.run module<a class="headerlink" href="#smriprep-cli-run-module" title="Link to this heading"></a></h1>
+<p id="module-smriprep.cli.run">sMRIPrep: Structural MRI PREProcessing workflow.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="smriprep.cli.run.build_opts">
-<span class="sig-prename descclassname"><span class="pre">smriprep.cli.run.</span></span><span class="sig-name descname"><span class="pre">build_opts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smriprep/cli/run.html#build_opts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smriprep.cli.run.build_opts" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">smriprep.cli.run.</span></span><span class="sig-name descname"><span class="pre">build_opts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smriprep/cli/run.html#build_opts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smriprep.cli.run.build_opts" title="Link to this definition"></a></dt>
 <dd><p>Trigger a new process that builds the workflow graph, based on the input options.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="smriprep.cli.run.build_workflow">
-<span class="sig-prename descclassname"><span class="pre">smriprep.cli.run.</span></span><span class="sig-name descname"><span class="pre">build_workflow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retval</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smriprep/cli/run.html#build_workflow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smriprep.cli.run.build_workflow" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">smriprep.cli.run.</span></span><span class="sig-name descname"><span class="pre">build_workflow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retval</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smriprep/cli/run.html#build_workflow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smriprep.cli.run.build_workflow" title="Link to this definition"></a></dt>
 <dd><p>Create the Nipype Workflow that supports the whole execution graph, given the inputs.</p>
 <p>All the checks and the construction of the workflow are done
 inside this function that has pickleable inputs and output
@@ -122,19 +122,19 @@ a hard-limited memory-scope.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="smriprep.cli.run.check_deps">
-<span class="sig-prename descclassname"><span class="pre">smriprep.cli.run.</span></span><span class="sig-name descname"><span class="pre">check_deps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">workflow</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smriprep/cli/run.html#check_deps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smriprep.cli.run.check_deps" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">smriprep.cli.run.</span></span><span class="sig-name descname"><span class="pre">check_deps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">workflow</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smriprep/cli/run.html#check_deps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smriprep.cli.run.check_deps" title="Link to this definition"></a></dt>
 <dd><p>Make sure all dependencies are installed.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="smriprep.cli.run.get_parser">
-<span class="sig-prename descclassname"><span class="pre">smriprep.cli.run.</span></span><span class="sig-name descname"><span class="pre">get_parser</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smriprep/cli/run.html#get_parser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smriprep.cli.run.get_parser" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">smriprep.cli.run.</span></span><span class="sig-name descname"><span class="pre">get_parser</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smriprep/cli/run.html#get_parser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smriprep.cli.run.get_parser" title="Link to this definition"></a></dt>
 <dd><p>Build parser object.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="smriprep.cli.run.main">
-<span class="sig-prename descclassname"><span class="pre">smriprep.cli.run.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smriprep/cli/run.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smriprep.cli.run.main" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">smriprep.cli.run.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smriprep/cli/run.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smriprep.cli.run.main" title="Link to this definition"></a></dt>
 <dd><p>Set an entrypoint.</p>
 </dd></dl>
 
@@ -197,6 +197,8 @@ a hard-limited memory-scope.</p>
             <dt>Branches</dt>
             <dd><a href="../../dependabot_pip_certifi-2023.7.22/api/smriprep.cli.run.html">dependabot/pip/certifi-2023.7.22</a></dd>
             <dd><a href="../../enh_calabel/api/smriprep.cli.run.html">enh/calabel</a></dd>
+            <dd><a href="../../enh_msm/api/smriprep.cli.run.html">enh/msm</a></dd>
+            <dd><a href="../../enh_split-surfaces/api/smriprep.cli.run.html">enh/split-surfaces</a></dd>
             <dd><a href="../../fix_parcstats/api/smriprep.cli.run.html">fix/parcstats</a></dd>
             <dd><a href="../../fix_recon-report/api/smriprep.cli.run.html">fix/recon-report</a></dd>
             <dd><a href="smriprep.cli.run.html">fix/tfselect-resless</a></dd>

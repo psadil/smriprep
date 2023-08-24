@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>smriprep.interfaces.workbench module &mdash; smriprep 0.12.3.dev17 documentation</title>
+  <title>smriprep.interfaces.workbench module &mdash; smriprep 0.12.3.dev22 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/banner.css" type="text/css" />
@@ -12,11 +12,11 @@
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/jquery.js?v=1413ff29"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=7b397ac5"></script>
+        <script src="../_static/doctools.js?v=6afcdcd2"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -36,7 +36,7 @@
             smriprep
           </a>
               <div class="version">
-                0.12.3.dev17
+                0.12.3.dev22
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -105,11 +105,11 @@
 
 
     <p class="scv-banner scv-sphinx_rtd_theme"><a href="../../master/api/smriprep.interfaces.workbench.html"><b>Warning:</b> This document is for an old version of smriprep. The main version is master.</a></p>
-<section id="module-smriprep.interfaces.workbench">
-<span id="smriprep-interfaces-workbench-module"></span><h1>smriprep.interfaces.workbench module<a class="headerlink" href="#module-smriprep.interfaces.workbench" title="Permalink to this heading"></a></h1>
-<dl class="py class">
+<section id="smriprep-interfaces-workbench-module">
+<h1>smriprep.interfaces.workbench module<a class="headerlink" href="#smriprep-interfaces-workbench-module" title="Link to this heading"></a></h1>
+<dl class="py class" id="module-smriprep.interfaces.workbench">
 <dt class="sig sig-object py" id="smriprep.interfaces.workbench.CreateSignedDistanceVolume">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smriprep.interfaces.workbench.</span></span><span class="sig-name descname"><span class="pre">CreateSignedDistanceVolume</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">terminal_output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_cmdline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">inputs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smriprep/interfaces/workbench.html#CreateSignedDistanceVolume"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smriprep.interfaces.workbench.CreateSignedDistanceVolume" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smriprep.interfaces.workbench.</span></span><span class="sig-name descname"><span class="pre">CreateSignedDistanceVolume</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">terminal_output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_cmdline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">inputs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smriprep/interfaces/workbench.html#CreateSignedDistanceVolume"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smriprep.interfaces.workbench.CreateSignedDistanceVolume" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">WBCommand</span></code></p>
 <p>Wrapped executable: <code class="docutils literal notranslate"><span class="pre">wb_command</span> <span class="pre">-create-signed-distance-volume</span></code>.</p>
 <p>Create signed distance volume from surface</p>
@@ -220,7 +220,7 @@ Maps to a command-line argument: <code class="code docutils literal notranslate"
 
 <dl class="py class">
 <dt class="sig sig-object py" id="smriprep.interfaces.workbench.SurfaceResample">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smriprep.interfaces.workbench.</span></span><span class="sig-name descname"><span class="pre">SurfaceResample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">terminal_output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_cmdline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">inputs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smriprep/interfaces/workbench.html#SurfaceResample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smriprep.interfaces.workbench.SurfaceResample" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smriprep.interfaces.workbench.</span></span><span class="sig-name descname"><span class="pre">SurfaceResample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">terminal_output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_cmdline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">inputs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smriprep/interfaces/workbench.html#SurfaceResample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smriprep.interfaces.workbench.SurfaceResample" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">WBCommand</span></code></p>
 <p>Wrapped executable: <code class="docutils literal notranslate"><span class="pre">wb_command</span> <span class="pre">-surface-resample</span></code>.</p>
 <p>RESAMPLE A SURFACE TO A DIFFERENT MESH.</p>
@@ -270,7 +270,7 @@ Maps to a command-line argument: <code class="code docutils literal notranslate"
 
 <dl class="py class">
 <dt class="sig sig-object py" id="smriprep.interfaces.workbench.SurfaceSphereProjectUnproject">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smriprep.interfaces.workbench.</span></span><span class="sig-name descname"><span class="pre">SurfaceSphereProjectUnproject</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">terminal_output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_cmdline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">inputs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smriprep/interfaces/workbench.html#SurfaceSphereProjectUnproject"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smriprep.interfaces.workbench.SurfaceSphereProjectUnproject" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smriprep.interfaces.workbench.</span></span><span class="sig-name descname"><span class="pre">SurfaceSphereProjectUnproject</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">terminal_output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_cmdline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">inputs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smriprep/interfaces/workbench.html#SurfaceSphereProjectUnproject"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smriprep.interfaces.workbench.SurfaceSphereProjectUnproject" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">WBCommand</span></code></p>
 <p>Wrapped executable: <code class="docutils literal notranslate"><span class="pre">wb_command</span> <span class="pre">-surface-sphere-project-unproject</span></code>.</p>
 <p>COPY REGISTRATION DEFORMATIONS TO DIFFERENT SPHERE.</p>
@@ -364,6 +364,8 @@ Maps to a command-line argument: <code class="code docutils literal notranslate"
             <dt>Branches</dt>
             <dd><a href="../../dependabot_pip_certifi-2023.7.22/api/smriprep.interfaces.workbench.html">dependabot/pip/certifi-2023.7.22</a></dd>
             <dd><a href="../../enh_calabel/index.html">enh/calabel</a></dd>
+            <dd><a href="../../enh_msm/api/smriprep.interfaces.workbench.html">enh/msm</a></dd>
+            <dd><a href="../../enh_split-surfaces/api/smriprep.interfaces.workbench.html">enh/split-surfaces</a></dd>
             <dd><a href="../../fix_parcstats/index.html">fix/parcstats</a></dd>
             <dd><a href="../../fix_recon-report/index.html">fix/recon-report</a></dd>
             <dd><a href="../../fix_tfselect-resless/index.html">fix/tfselect-resless</a></dd>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>smriprep.interfaces.reports &mdash; smriprep 0.12.3.dev17 documentation</title>
+  <title>smriprep.interfaces.reports &mdash; smriprep 0.12.3.dev22 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/banner.css" type="text/css" />
@@ -11,11 +11,11 @@
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
+        <script src="../../../_static/jquery.js?v=1413ff29"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=7b397ac5"></script>
+        <script src="../../../_static/doctools.js?v=6afcdcd2"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
@@ -33,7 +33,7 @@
             smriprep
           </a>
               <div class="version">
-                0.12.3.dev17
+                0.12.3.dev22
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -151,7 +151,9 @@
     <span class="n">out_report</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;HTML segment containing summary&quot;</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="SummaryInterface"><a class="viewcode-back" href="../../../api/smriprep.interfaces.reports.html#smriprep.interfaces.reports.SummaryInterface">[docs]</a><span class="k">class</span> <span class="nc">SummaryInterface</span><span class="p">(</span><span class="n">SimpleInterface</span><span class="p">):</span>
+<div class="viewcode-block" id="SummaryInterface">
+<a class="viewcode-back" href="../../../api/smriprep.interfaces.reports.html#smriprep.interfaces.reports.SummaryInterface">[docs]</a>
+<span class="k">class</span> <span class="nc">SummaryInterface</span><span class="p">(</span><span class="n">SimpleInterface</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Base Nipype interface for html summaries.&quot;&quot;&quot;</span>
 
     <span class="n">output_spec</span> <span class="o">=</span> <span class="n">_SummaryOutputSpec</span>
@@ -165,6 +167,7 @@
 
     <span class="k">def</span> <span class="nf">_generate_segment</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
 
 
 <span class="k">class</span> <span class="nc">_SubjectSummaryInputSpec</span><span class="p">(</span><span class="n">BaseInterfaceInputSpec</span><span class="p">):</span>
@@ -181,7 +184,9 @@
     <span class="n">subject_id</span> <span class="o">=</span> <span class="n">Str</span><span class="p">(</span><span class="n">desc</span><span class="o">=</span><span class="s2">&quot;FreeSurfer subject ID&quot;</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="SubjectSummary"><a class="viewcode-back" href="../../../api/smriprep.interfaces.reports.html#smriprep.interfaces.reports.SubjectSummary">[docs]</a><span class="k">class</span> <span class="nc">SubjectSummary</span><span class="p">(</span><span class="n">SummaryInterface</span><span class="p">):</span>
+<div class="viewcode-block" id="SubjectSummary">
+<a class="viewcode-back" href="../../../api/smriprep.interfaces.reports.html#smriprep.interfaces.reports.SubjectSummary">[docs]</a>
+<span class="k">class</span> <span class="nc">SubjectSummary</span><span class="p">(</span><span class="n">SummaryInterface</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Subject html summary reportlet.&quot;&quot;&quot;</span>
 
     <span class="n">input_spec</span> <span class="o">=</span> <span class="n">_SubjectSummaryInputSpec</span>
@@ -226,13 +231,16 @@
         <span class="p">)</span></div>
 
 
+
 <span class="k">class</span> <span class="nc">_AboutSummaryInputSpec</span><span class="p">(</span><span class="n">BaseInterfaceInputSpec</span><span class="p">):</span>
     <span class="n">version</span> <span class="o">=</span> <span class="n">Str</span><span class="p">(</span><span class="n">desc</span><span class="o">=</span><span class="s2">&quot;sMRIPrep version&quot;</span><span class="p">)</span>
     <span class="n">command</span> <span class="o">=</span> <span class="n">Str</span><span class="p">(</span><span class="n">desc</span><span class="o">=</span><span class="s2">&quot;sMRIPrep command&quot;</span><span class="p">)</span>
     <span class="c1"># Date not included - update timestamp only if version or command changes</span>
 
 
-<div class="viewcode-block" id="AboutSummary"><a class="viewcode-back" href="../../../api/smriprep.interfaces.reports.html#smriprep.interfaces.reports.AboutSummary">[docs]</a><span class="k">class</span> <span class="nc">AboutSummary</span><span class="p">(</span><span class="n">SummaryInterface</span><span class="p">):</span>
+<div class="viewcode-block" id="AboutSummary">
+<a class="viewcode-back" href="../../../api/smriprep.interfaces.reports.html#smriprep.interfaces.reports.AboutSummary">[docs]</a>
+<span class="k">class</span> <span class="nc">AboutSummary</span><span class="p">(</span><span class="n">SummaryInterface</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;About section reportlet.&quot;&quot;&quot;</span>
 
     <span class="n">input_spec</span> <span class="o">=</span> <span class="n">_AboutSummaryInputSpec</span>
@@ -245,6 +253,7 @@
         <span class="p">)</span></div>
 
 
+
 <span class="k">class</span> <span class="nc">_FSSurfaceReportInputSpec</span><span class="p">(</span><span class="n">_SVGReportCapableInputSpec</span><span class="p">,</span> <span class="n">_FSSourceInputSpec</span><span class="p">):</span>
     <span class="k">pass</span>
 
@@ -253,7 +262,9 @@
     <span class="k">pass</span>
 
 
-<div class="viewcode-block" id="FSSurfaceReport"><a class="viewcode-back" href="../../../api/smriprep.interfaces.reports.html#smriprep.interfaces.reports.FSSurfaceReport">[docs]</a><span class="k">class</span> <span class="nc">FSSurfaceReport</span><span class="p">(</span><span class="n">SimpleInterface</span><span class="p">):</span>
+<div class="viewcode-block" id="FSSurfaceReport">
+<a class="viewcode-back" href="../../../api/smriprep.interfaces.reports.html#smriprep.interfaces.reports.FSSurfaceReport">[docs]</a>
+<span class="k">class</span> <span class="nc">FSSurfaceReport</span><span class="p">(</span><span class="n">SimpleInterface</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Replaces ``ReconAllRPT``, without need of calling recon-all.&quot;&quot;&quot;</span>
 
     <span class="n">input_spec</span> <span class="o">=</span> <span class="n">_FSSurfaceReportInputSpec</span>
@@ -293,6 +304,7 @@
             <span class="n">out_file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;out_report&quot;</span><span class="p">],</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">runtime</span></div>
+
 </pre></div>
 
            </div>
@@ -348,6 +360,8 @@
             <dt>Branches</dt>
             <dd><a href="../../../../dependabot_pip_certifi-2023.7.22/index.html">dependabot/pip/certifi-2023.7.22</a></dd>
             <dd><a href="../../../../enh_calabel/index.html">enh/calabel</a></dd>
+            <dd><a href="../../../../enh_msm/index.html">enh/msm</a></dd>
+            <dd><a href="../../../../enh_split-surfaces/index.html">enh/split-surfaces</a></dd>
             <dd><a href="../../../../fix_parcstats/index.html">fix/parcstats</a></dd>
             <dd><a href="reports.html">fix/recon-report</a></dd>
             <dd><a href="../../../../fix_tfselect-resless/index.html">fix/tfselect-resless</a></dd>

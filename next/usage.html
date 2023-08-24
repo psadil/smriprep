@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Usage &mdash; smriprep 0.12.3.dev17 documentation</title>
+  <title>Usage &mdash; smriprep 0.12.3.dev22 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/banner.css" type="text/css" />
@@ -12,11 +12,11 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/jquery.js?v=1413ff29"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=7b397ac5"></script>
+        <script src="_static/doctools.js?v=6afcdcd2"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -36,7 +36,7 @@
             smriprep
           </a>
               <div class="version">
-                0.12.3.dev17
+                0.12.3.dev22
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -110,9 +110,9 @@
 
     <p class="scv-banner scv-sphinx_rtd_theme"><a href="../master/usage.html"><b>Warning:</b> This document is for the development version of smriprep. The main version is master.</a></p>
 <section id="usage">
-<span id="id1"></span><h1>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h1>
+<span id="id1"></span><h1>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h1>
 <section id="execution-and-the-bids-format">
-<h2>Execution and the BIDS format<a class="headerlink" href="#execution-and-the-bids-format" title="Permalink to this heading"></a></h2>
+<h2>Execution and the BIDS format<a class="headerlink" href="#execution-and-the-bids-format" title="Link to this heading"></a></h2>
 <p>The <em>sMRIPrep</em> workflow takes as principal input the path of the dataset
 that is to be processed.
 The input dataset is required to be in valid <abbr title="Brain Imaging Data Structure">BIDS</abbr> format, and it must include at least one T1w structural image and
@@ -127,7 +127,7 @@ Example:</p>
 </div>
 </section>
 <section id="command-line-arguments">
-<h2>Command-Line Arguments<a class="headerlink" href="#command-line-arguments" title="Permalink to this heading"></a></h2>
+<h2>Command-Line Arguments<a class="headerlink" href="#command-line-arguments" title="Link to this heading"></a></h2>
 <p><p>sMRIPrep: Structural MRI PREProcessing workflows</p>
 </p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">smriprep</span>
@@ -166,7 +166,7 @@ Example:</p>
 </pre></div>
 </div>
 <section id="positional-arguments">
-<h3>Positional Arguments<a class="headerlink" href="#positional-arguments" title="Permalink to this heading"></a></h3>
+<h3>Positional Arguments<a class="headerlink" href="#positional-arguments" title="Link to this heading"></a></h3>
 <dl class="option-list">
 <dt><kbd>bids_dir</kbd></dt>
 <dd><p>the root folder of a BIDS valid dataset (sub-XXXXX folders should be found at the top level in this folder).</p>
@@ -181,7 +181,7 @@ Example:</p>
 </dl>
 </section>
 <section id="named-arguments">
-<h3>Named Arguments<a class="headerlink" href="#named-arguments" title="Permalink to this heading"></a></h3>
+<h3>Named Arguments<a class="headerlink" href="#named-arguments" title="Link to this heading"></a></h3>
 <dl class="option-list">
 <dt><kbd>--version</kbd></dt>
 <dd><p>show program’s version number and exit</p>
@@ -189,7 +189,7 @@ Example:</p>
 </dl>
 </section>
 <section id="options-for-filtering-bids-queries">
-<h3>Options for filtering BIDS queries<a class="headerlink" href="#options-for-filtering-bids-queries" title="Permalink to this heading"></a></h3>
+<h3>Options for filtering BIDS queries<a class="headerlink" href="#options-for-filtering-bids-queries" title="Link to this heading"></a></h3>
 <dl class="option-list">
 <dt><kbd>--participant-label, --participant_label</kbd></dt>
 <dd><p>a space delimited list of participant identifiers or a single identifier (the sub- prefix can be removed)</p>
@@ -200,7 +200,7 @@ Example:</p>
 </dl>
 </section>
 <section id="options-to-handle-performance">
-<h3>Options to handle performance<a class="headerlink" href="#options-to-handle-performance" title="Permalink to this heading"></a></h3>
+<h3>Options to handle performance<a class="headerlink" href="#options-to-handle-performance" title="Link to this heading"></a></h3>
 <dl class="option-list">
 <dt><kbd>--nprocs, --ncpus, --nthreads, --n_cpus, -n-cpus</kbd></dt>
 <dd><p>number of CPUs to be used.</p>
@@ -226,7 +226,7 @@ Example:</p>
 </dl>
 </section>
 <section id="workflow-configuration">
-<h3>Workflow configuration<a class="headerlink" href="#workflow-configuration" title="Permalink to this heading"></a></h3>
+<h3>Workflow configuration<a class="headerlink" href="#workflow-configuration" title="Link to this heading"></a></h3>
 <dl class="option-list">
 <dt><kbd>--output-spaces</kbd></dt>
 <dd><p>paths or keywords prescribing output spaces - standard spaces will be extracted for spatial normalization.</p>
@@ -237,7 +237,7 @@ Example:</p>
 </dl>
 </section>
 <section id="specific-options-for-ants-registrations">
-<h3>Specific options for ANTs registrations<a class="headerlink" href="#specific-options-for-ants-registrations" title="Permalink to this heading"></a></h3>
+<h3>Specific options for ANTs registrations<a class="headerlink" href="#specific-options-for-ants-registrations" title="Link to this heading"></a></h3>
 <dl class="option-list">
 <dt><kbd>--skull-strip-template</kbd></dt>
 <dd><p>select a template for skull-stripping with antsBrainExtraction</p>
@@ -252,7 +252,7 @@ Example:</p>
 </dl>
 </section>
 <section id="specific-options-for-freesurfer-preprocessing">
-<h3>Specific options for FreeSurfer preprocessing<a class="headerlink" href="#specific-options-for-freesurfer-preprocessing" title="Permalink to this heading"></a></h3>
+<h3>Specific options for FreeSurfer preprocessing<a class="headerlink" href="#specific-options-for-freesurfer-preprocessing" title="Link to this heading"></a></h3>
 <dl class="option-list">
 <dt><kbd>--fs-license-file</kbd></dt>
 <dd><p>Path to FreeSurfer license key file. Get it (for free) by registering at <a class="reference external" href="https://surfer.nmr.mgh.harvard.edu/registration.html">https://surfer.nmr.mgh.harvard.edu/registration.html</a></p>
@@ -263,7 +263,7 @@ Example:</p>
 </dl>
 </section>
 <section id="surface-preprocessing-options">
-<h3>Surface preprocessing options<a class="headerlink" href="#surface-preprocessing-options" title="Permalink to this heading"></a></h3>
+<h3>Surface preprocessing options<a class="headerlink" href="#surface-preprocessing-options" title="Link to this heading"></a></h3>
 <dl class="option-list">
 <dt><kbd>--no-submm-recon</kbd></dt>
 <dd><p>disable sub-millimeter (hires) reconstruction</p>
@@ -274,7 +274,7 @@ Example:</p>
 </dl>
 </section>
 <section id="other-options">
-<h3>Other options<a class="headerlink" href="#other-options" title="Permalink to this heading"></a></h3>
+<h3>Other options<a class="headerlink" href="#other-options" title="Link to this heading"></a></h3>
 <dl class="option-list">
 <dt><kbd>-w, --work-dir</kbd></dt>
 <dd><p>path where intermediate results should be stored</p>
@@ -307,7 +307,7 @@ Example:</p>
 </section>
 </section>
 <section id="the-command-line-interface-of-the-docker-wrapper">
-<h2>The command-line interface of the docker wrapper<a class="headerlink" href="#the-command-line-interface-of-the-docker-wrapper" title="Permalink to this heading"></a></h2>
+<h2>The command-line interface of the docker wrapper<a class="headerlink" href="#the-command-line-interface-of-the-docker-wrapper" title="Link to this heading"></a></h2>
 <p><p>The sMRIPrep on Docker wrapper.</p>
 <p>This is a lightweight Python wrapper to run sMRIPrep.
 Docker must be installed and running. This can be checked
@@ -342,7 +342,7 @@ individual reports).</p>
 </pre></div>
 </div>
 <section id="positional-arguments">
-<h3>Positional Arguments<a class="headerlink" href="#positional-arguments" title="Permalink to this heading"></a></h3>
+<h3>Positional Arguments<a class="headerlink" href="#positional-arguments" title="Link to this heading"></a></h3>
 <dl class="option-list">
 <dt><kbd>bids_dir</kbd></dt>
 <dd></dd>
@@ -354,7 +354,7 @@ individual reports).</p>
 </dl>
 </section>
 <section id="named-arguments">
-<h3>Named Arguments<a class="headerlink" href="#named-arguments" title="Permalink to this heading"></a></h3>
+<h3>Named Arguments<a class="headerlink" href="#named-arguments" title="Link to this heading"></a></h3>
 <dl class="option-list">
 <dt><kbd>-h, --help</kbd></dt>
 <dd><p>show this help message and exit</p>
@@ -368,7 +368,7 @@ individual reports).</p>
 </dl>
 </section>
 <section id="wrapper-options">
-<h3>Wrapper options<a class="headerlink" href="#wrapper-options" title="Permalink to this heading"></a></h3>
+<h3>Wrapper options<a class="headerlink" href="#wrapper-options" title="Link to this heading"></a></h3>
 <p>Standard options that require mapping files into the container</p>
 <dl class="option-list">
 <dt><kbd>-w, --work-dir</kbd></dt>
@@ -389,7 +389,7 @@ individual reports).</p>
 </dl>
 </section>
 <section id="developer-options">
-<h3>Developer options<a class="headerlink" href="#developer-options" title="Permalink to this heading"></a></h3>
+<h3>Developer options<a class="headerlink" href="#developer-options" title="Link to this heading"></a></h3>
 <p>Tools for testing and debugging sMRIPrep</p>
 <dl class="option-list">
 <dt><kbd>--patch</kbd></dt>
@@ -414,7 +414,7 @@ individual reports).</p>
 </section>
 </section>
 <section id="the-freesurfer-license">
-<span id="fs-license"></span><h2>The FreeSurfer license<a class="headerlink" href="#the-freesurfer-license" title="Permalink to this heading"></a></h2>
+<span id="fs-license"></span><h2>The FreeSurfer license<a class="headerlink" href="#the-freesurfer-license" title="Link to this heading"></a></h2>
 <p><em>sMRIPrep</em> uses FreeSurfer tools, which require a license to run.</p>
 <p>To obtain a FreeSurfer license, simply register for free at
 <a class="reference external" href="https://surfer.nmr.mgh.harvard.edu/registration.html">https://surfer.nmr.mgh.harvard.edu/registration.html</a>.</p>
@@ -519,6 +519,8 @@ RUNNING: docker run --rm -it -v /path/to/data/dir:/data:ro \
             <dt>Branches</dt>
             <dd><a href="../dependabot_pip_certifi-2023.7.22/usage.html">dependabot/pip/certifi-2023.7.22</a></dd>
             <dd><a href="../enh_calabel/usage.html">enh/calabel</a></dd>
+            <dd><a href="../enh_msm/usage.html">enh/msm</a></dd>
+            <dd><a href="../enh_split-surfaces/usage.html">enh/split-surfaces</a></dd>
             <dd><a href="../fix_parcstats/usage.html">fix/parcstats</a></dd>
             <dd><a href="../fix_recon-report/usage.html">fix/recon-report</a></dd>
             <dd><a href="../fix_tfselect-resless/usage.html">fix/tfselect-resless</a></dd>

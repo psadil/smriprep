@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>smriprep.workflows.surfaces &mdash; smriprep 0.12.3.dev17 documentation</title>
+  <title>smriprep.workflows.surfaces &mdash; smriprep 0.12.3.dev22 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/banner.css" type="text/css" />
@@ -11,11 +11,11 @@
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
+        <script src="../../../_static/jquery.js?v=1413ff29"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=7b397ac5"></script>
+        <script src="../../../_static/doctools.js?v=6afcdcd2"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
@@ -33,7 +33,7 @@
             smriprep
           </a>
               <div class="version">
-                0.12.3.dev17
+                0.12.3.dev22
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -138,7 +138,9 @@
 <span class="kn">from</span> <span class="nn">..interfaces.workbench</span> <span class="kn">import</span> <span class="n">CreateSignedDistanceVolume</span>
 
 
-<div class="viewcode-block" id="init_surface_recon_wf"><a class="viewcode-back" href="../../../api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_surface_recon_wf">[docs]</a><span class="k">def</span> <span class="nf">init_surface_recon_wf</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">omp_nthreads</span><span class="p">,</span> <span class="n">hires</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;surface_recon_wf&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="init_surface_recon_wf">
+<a class="viewcode-back" href="../../../api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_surface_recon_wf">[docs]</a>
+<span class="k">def</span> <span class="nf">init_surface_recon_wf</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">omp_nthreads</span><span class="p">,</span> <span class="n">hires</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;surface_recon_wf&quot;</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Reconstruct anatomical surfaces using FreeSurfer&#39;s ``recon-all``.</span>
 
@@ -295,6 +297,13 @@
                 <span class="s2">&quot;out_aseg&quot;</span><span class="p">,</span>
                 <span class="s2">&quot;out_aparc&quot;</span><span class="p">,</span>
                 <span class="s2">&quot;morphometrics&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;midthickness&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;pial&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;white&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;inflated&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;thickness&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;sulc&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;curv&quot;</span><span class="p">,</span>
             <span class="p">]</span>
         <span class="p">),</span>
         <span class="n">name</span><span class="o">=</span><span class="s2">&quot;outputnode&quot;</span><span class="p">,</span>
@@ -380,7 +389,14 @@
         <span class="p">(</span><span class="n">autorecon_resume_wf</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;outputnode.subjects_dir&#39;</span><span class="p">,</span> <span class="s1">&#39;subjects_dir&#39;</span><span class="p">),</span>
                                            <span class="p">(</span><span class="s1">&#39;outputnode.subject_id&#39;</span><span class="p">,</span> <span class="s1">&#39;subject_id&#39;</span><span class="p">)]),</span>
         <span class="p">(</span><span class="n">gifti_surface_wf</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;outputnode.surfaces&#39;</span><span class="p">,</span> <span class="s1">&#39;surfaces&#39;</span><span class="p">),</span>
-                                        <span class="p">(</span><span class="s1">&#39;outputnode.morphometrics&#39;</span><span class="p">,</span> <span class="s1">&#39;morphometrics&#39;</span><span class="p">)]),</span>
+                                        <span class="p">(</span><span class="s1">&#39;outputnode.morphometrics&#39;</span><span class="p">,</span> <span class="s1">&#39;morphometrics&#39;</span><span class="p">),</span>
+                                        <span class="p">(</span><span class="s1">&#39;outputnode.midthickness&#39;</span><span class="p">,</span> <span class="s1">&#39;midthickness&#39;</span><span class="p">),</span>
+                                        <span class="p">(</span><span class="s1">&#39;outputnode.pial&#39;</span><span class="p">,</span> <span class="s1">&#39;pial&#39;</span><span class="p">),</span>
+                                        <span class="p">(</span><span class="s1">&#39;outputnode.white&#39;</span><span class="p">,</span> <span class="s1">&#39;white&#39;</span><span class="p">),</span>
+                                        <span class="p">(</span><span class="s1">&#39;outputnode.inflated&#39;</span><span class="p">,</span> <span class="s1">&#39;inflated&#39;</span><span class="p">),</span>
+                                        <span class="p">(</span><span class="s1">&#39;outputnode.thickness&#39;</span><span class="p">,</span> <span class="s1">&#39;thickness&#39;</span><span class="p">),</span>
+                                        <span class="p">(</span><span class="s1">&#39;outputnode.sulc&#39;</span><span class="p">,</span> <span class="s1">&#39;sulc&#39;</span><span class="p">),</span>
+                                        <span class="p">(</span><span class="s1">&#39;outputnode.curv&#39;</span><span class="p">,</span> <span class="s1">&#39;curv&#39;</span><span class="p">)]),</span>
         <span class="p">(</span><span class="n">t1w2fsnative_xfm</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;out_lta&#39;</span><span class="p">,</span> <span class="s1">&#39;t1w2fsnative_xfm&#39;</span><span class="p">)]),</span>
         <span class="p">(</span><span class="n">fsnative2t1w_xfm</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;out_reg_file&#39;</span><span class="p">,</span> <span class="s1">&#39;fsnative2t1w_xfm&#39;</span><span class="p">)]),</span>
         <span class="p">(</span><span class="n">refine</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;out_file&#39;</span><span class="p">,</span> <span class="s1">&#39;out_brainmask&#39;</span><span class="p">)]),</span>
@@ -392,7 +408,10 @@
     <span class="k">return</span> <span class="n">workflow</span></div>
 
 
-<div class="viewcode-block" id="init_autorecon_resume_wf"><a class="viewcode-back" href="../../../api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_autorecon_resume_wf">[docs]</a><span class="k">def</span> <span class="nf">init_autorecon_resume_wf</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">omp_nthreads</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;autorecon_resume_wf&quot;</span><span class="p">):</span>
+
+<div class="viewcode-block" id="init_autorecon_resume_wf">
+<a class="viewcode-back" href="../../../api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_autorecon_resume_wf">[docs]</a>
+<span class="k">def</span> <span class="nf">init_autorecon_resume_wf</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">omp_nthreads</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;autorecon_resume_wf&quot;</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Resume recon-all execution, assuming the `-autorecon1` stage has been completed.</span>
 
@@ -565,7 +584,10 @@
     <span class="k">return</span> <span class="n">workflow</span></div>
 
 
-<div class="viewcode-block" id="init_sphere_reg_wf"><a class="viewcode-back" href="../../../api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_sphere_reg_wf">[docs]</a><span class="k">def</span> <span class="nf">init_sphere_reg_wf</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;sphere_reg_wf&quot;</span><span class="p">):</span>
+
+<div class="viewcode-block" id="init_sphere_reg_wf">
+<a class="viewcode-back" href="../../../api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_sphere_reg_wf">[docs]</a>
+<span class="k">def</span> <span class="nf">init_sphere_reg_wf</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;sphere_reg_wf&quot;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate GIFTI registration files to fsLR space&quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">..interfaces.surf</span> <span class="kn">import</span> <span class="n">FixGiftiMetadata</span>
     <span class="kn">from</span> <span class="nn">..interfaces.workbench</span> <span class="kn">import</span> <span class="n">SurfaceSphereProjectUnproject</span>
@@ -629,7 +651,10 @@
     <span class="k">return</span> <span class="n">workflow</span></div>
 
 
-<div class="viewcode-block" id="init_gifti_surface_wf"><a class="viewcode-back" href="../../../api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_gifti_surface_wf">[docs]</a><span class="k">def</span> <span class="nf">init_gifti_surface_wf</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;gifti_surface_wf&quot;</span><span class="p">):</span>
+
+<div class="viewcode-block" id="init_gifti_surface_wf">
+<a class="viewcode-back" href="../../../api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_gifti_surface_wf">[docs]</a>
+<span class="k">def</span> <span class="nf">init_gifti_surface_wf</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;gifti_surface_wf&quot;</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Prepare GIFTI surfaces from a FreeSurfer subjects directory.</span>
 
@@ -660,15 +685,29 @@
 
 <span class="sd">    Outputs</span>
 <span class="sd">    -------</span>
+<span class="sd">    midthickness</span>
+<span class="sd">        Left and right midthickness (or graymid) surface GIFTIs</span>
+<span class="sd">    pial</span>
+<span class="sd">        Left and right pial surface GIFTIs</span>
+<span class="sd">    white</span>
+<span class="sd">        Left and right white surface GIFTIs</span>
+<span class="sd">    inflated</span>
+<span class="sd">        Left and right inflated surface GIFTIs</span>
 <span class="sd">    surfaces</span>
 <span class="sd">        GIFTI surfaces for gray/white matter boundary, pial surface,</span>
 <span class="sd">        midthickness (or graymid) surface, and inflated surfaces</span>
+<span class="sd">    thickness</span>
+<span class="sd">        Left and right cortical thickness GIFTIs</span>
+<span class="sd">    sulc</span>
+<span class="sd">        Left and right sulcal depth map GIFTIs</span>
+<span class="sd">    curv</span>
+<span class="sd">        Left and right curvature map GIFTIs</span>
 <span class="sd">    morphometrics</span>
 <span class="sd">        GIFTIs of cortical thickness, curvature, and sulcal depth</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">..interfaces.freesurfer</span> <span class="kn">import</span> <span class="n">MRIsConvertData</span>
-    <span class="kn">from</span> <span class="nn">..interfaces.surf</span> <span class="kn">import</span> <span class="n">NormalizeSurf</span>
+    <span class="kn">from</span> <span class="nn">..interfaces.surf</span> <span class="kn">import</span> <span class="n">NormalizeSurf</span><span class="p">,</span> <span class="n">AggregateSurfaces</span>
 
     <span class="n">workflow</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
 
@@ -676,7 +715,21 @@
         <span class="n">niu</span><span class="o">.</span><span class="n">IdentityInterface</span><span class="p">([</span><span class="s2">&quot;subjects_dir&quot;</span><span class="p">,</span> <span class="s2">&quot;subject_id&quot;</span><span class="p">,</span> <span class="s2">&quot;fsnative2t1w_xfm&quot;</span><span class="p">]),</span>
         <span class="n">name</span><span class="o">=</span><span class="s2">&quot;inputnode&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="n">outputnode</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">niu</span><span class="o">.</span><span class="n">IdentityInterface</span><span class="p">([</span><span class="s2">&quot;surfaces&quot;</span><span class="p">,</span> <span class="s2">&quot;morphometrics&quot;</span><span class="p">]),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;outputnode&quot;</span><span class="p">)</span>
+    <span class="n">outputnode</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span>
+        <span class="n">niu</span><span class="o">.</span><span class="n">IdentityInterface</span><span class="p">([</span>
+            <span class="s2">&quot;pial&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;white&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;inflated&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;midthickness&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;thickness&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;sulc&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;curv&quot;</span><span class="p">,</span>
+            <span class="c1"># Preserve grouping</span>
+            <span class="s2">&quot;surfaces&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;morphometrics&quot;</span><span class="p">,</span>
+        <span class="p">]),</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;outputnode&quot;</span>
+    <span class="p">)</span>
 
     <span class="n">get_surfaces</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">nio</span><span class="o">.</span><span class="n">FreeSurferSource</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;get_surfaces&quot;</span><span class="p">)</span>
 
@@ -710,6 +763,8 @@
         <span class="n">name</span><span class="o">=</span><span class="s2">&quot;morphs2gii&quot;</span><span class="p">,</span>
     <span class="p">)</span>
 
+    <span class="n">agg_surfaces</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">AggregateSurfaces</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;agg_surfaces&quot;</span><span class="p">)</span>
+
     <span class="c1"># fmt:off</span>
     <span class="n">workflow</span><span class="o">.</span><span class="n">connect</span><span class="p">([</span>
         <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">get_surfaces</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;subjects_dir&#39;</span><span class="p">,</span> <span class="s1">&#39;subjects_dir&#39;</span><span class="p">),</span>
@@ -734,12 +789,25 @@
                                         <span class="p">(</span><span class="s1">&#39;curv&#39;</span><span class="p">,</span> <span class="s1">&#39;in3&#39;</span><span class="p">)]),</span>
         <span class="p">(</span><span class="n">surfmorph_list</span><span class="p">,</span> <span class="n">morphs2gii</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;out&#39;</span><span class="p">,</span> <span class="s1">&#39;scalarcurv_file&#39;</span><span class="p">)]),</span>
         <span class="p">(</span><span class="n">morphs2gii</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;converted&#39;</span><span class="p">,</span> <span class="s1">&#39;morphometrics&#39;</span><span class="p">)]),</span>
+        <span class="c1"># Output individual surfaces as well</span>
+        <span class="p">(</span><span class="n">fix_surfs</span><span class="p">,</span> <span class="n">agg_surfaces</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;out_file&#39;</span><span class="p">,</span> <span class="s1">&#39;surfaces&#39;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">morphs2gii</span><span class="p">,</span> <span class="n">agg_surfaces</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;converted&#39;</span><span class="p">,</span> <span class="s1">&#39;morphometrics&#39;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">agg_surfaces</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;pial&#39;</span><span class="p">,</span> <span class="s1">&#39;pial&#39;</span><span class="p">),</span>
+                                    <span class="p">(</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="s1">&#39;white&#39;</span><span class="p">),</span>
+                                    <span class="p">(</span><span class="s1">&#39;inflated&#39;</span><span class="p">,</span> <span class="s1">&#39;inflated&#39;</span><span class="p">),</span>
+                                    <span class="p">(</span><span class="s1">&#39;midthickness&#39;</span><span class="p">,</span> <span class="s1">&#39;midthickness&#39;</span><span class="p">),</span>
+                                    <span class="p">(</span><span class="s1">&#39;thickness&#39;</span><span class="p">,</span> <span class="s1">&#39;thickness&#39;</span><span class="p">),</span>
+                                    <span class="p">(</span><span class="s1">&#39;sulc&#39;</span><span class="p">,</span> <span class="s1">&#39;sulc&#39;</span><span class="p">),</span>
+                                    <span class="p">(</span><span class="s1">&#39;curv&#39;</span><span class="p">,</span> <span class="s1">&#39;curv&#39;</span><span class="p">)]),</span>
     <span class="p">])</span>
     <span class="c1"># fmt:on</span>
     <span class="k">return</span> <span class="n">workflow</span></div>
 
 
-<div class="viewcode-block" id="init_segs_to_native_wf"><a class="viewcode-back" href="../../../api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_segs_to_native_wf">[docs]</a><span class="k">def</span> <span class="nf">init_segs_to_native_wf</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;segs_to_native&quot;</span><span class="p">,</span> <span class="n">segmentation</span><span class="o">=</span><span class="s2">&quot;aseg&quot;</span><span class="p">):</span>
+
+<div class="viewcode-block" id="init_segs_to_native_wf">
+<a class="viewcode-back" href="../../../api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_segs_to_native_wf">[docs]</a>
+<span class="k">def</span> <span class="nf">init_segs_to_native_wf</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;segs_to_native&quot;</span><span class="p">,</span> <span class="n">segmentation</span><span class="o">=</span><span class="s2">&quot;aseg&quot;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get a segmentation from FreeSurfer conformed space into native T1w space.</span>
 
@@ -820,7 +888,10 @@
     <span class="k">return</span> <span class="n">workflow</span></div>
 
 
-<div class="viewcode-block" id="init_anat_ribbon_wf"><a class="viewcode-back" href="../../../api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_anat_ribbon_wf">[docs]</a><span class="k">def</span> <span class="nf">init_anat_ribbon_wf</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;anat_ribbon_wf&quot;</span><span class="p">):</span>
+
+<div class="viewcode-block" id="init_anat_ribbon_wf">
+<a class="viewcode-back" href="../../../api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_anat_ribbon_wf">[docs]</a>
+<span class="k">def</span> <span class="nf">init_anat_ribbon_wf</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;anat_ribbon_wf&quot;</span><span class="p">):</span>
     <span class="n">DEFAULT_MEMORY_MIN_GB</span> <span class="o">=</span> <span class="mf">0.01</span>
     <span class="n">workflow</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Workflow</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
 
@@ -978,7 +1049,10 @@
     <span class="k">return</span> <span class="n">workflow</span></div>
 
 
-<div class="viewcode-block" id="init_morph_grayords_wf"><a class="viewcode-back" href="../../../api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_morph_grayords_wf">[docs]</a><span class="k">def</span> <span class="nf">init_morph_grayords_wf</span><span class="p">(</span>
+
+<div class="viewcode-block" id="init_morph_grayords_wf">
+<a class="viewcode-back" href="../../../api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_morph_grayords_wf">[docs]</a>
+<span class="k">def</span> <span class="nf">init_morph_grayords_wf</span><span class="p">(</span>
     <span class="n">grayord_density</span><span class="p">:</span> <span class="n">ty</span><span class="o">.</span><span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;91k&#39;</span><span class="p">,</span> <span class="s1">&#39;170k&#39;</span><span class="p">],</span>
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;morph_grayords_wf&quot;</span><span class="p">,</span>
 <span class="p">):</span>
@@ -1165,6 +1239,7 @@
     <span class="k">return</span> <span class="n">workflow</span></div>
 
 
+
 <span class="k">def</span> <span class="nf">_check_cw256</span><span class="p">(</span><span class="n">in_files</span><span class="p">,</span> <span class="n">default_flags</span><span class="p">):</span>
     <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
     <span class="kn">from</span> <span class="nn">nibabel.funcs</span> <span class="kn">import</span> <span class="n">concat_images</span>
@@ -1242,6 +1317,8 @@
             <dt>Branches</dt>
             <dd><a href="../../../../dependabot_pip_certifi-2023.7.22/index.html">dependabot/pip/certifi-2023.7.22</a></dd>
             <dd><a href="../../../../enh_calabel/index.html">enh/calabel</a></dd>
+            <dd><a href="../../../../enh_msm/index.html">enh/msm</a></dd>
+            <dd><a href="../../../../enh_split-surfaces/index.html">enh/split-surfaces</a></dd>
             <dd><a href="surfaces.html">fix/parcstats</a></dd>
             <dd><a href="../../../../fix_recon-report/index.html">fix/recon-report</a></dd>
             <dd><a href="../../../../fix_tfselect-resless/index.html">fix/tfselect-resless</a></dd>

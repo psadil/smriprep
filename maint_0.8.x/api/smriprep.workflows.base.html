@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>smriprep.workflows.base module &mdash; smriprep 0.12.3.dev17 documentation</title>
+  <title>smriprep.workflows.base module &mdash; smriprep 0.12.3.dev22 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/banner.css" type="text/css" />
@@ -12,11 +12,11 @@
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/jquery.js?v=1413ff29"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=7b397ac5"></script>
+        <script src="../_static/doctools.js?v=6afcdcd2"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -36,7 +36,7 @@
             smriprep
           </a>
               <div class="version">
-                0.12.3.dev17
+                0.12.3.dev22
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -104,12 +104,12 @@
 
 
     <p class="scv-banner scv-sphinx_rtd_theme"><a href="../../master/api/smriprep.workflows.base.html"><b>Warning:</b> This document is for the development version of smriprep. The main version is master.</a></p>
-<section id="module-smriprep.workflows.base">
-<span id="smriprep-workflows-base-module"></span><h1>smriprep.workflows.base module<a class="headerlink" href="#module-smriprep.workflows.base" title="Permalink to this heading"></a></h1>
-<p><em>sMRIPrep</em> base processing workflows.</p>
+<section id="smriprep-workflows-base-module">
+<h1>smriprep.workflows.base module<a class="headerlink" href="#smriprep-workflows-base-module" title="Link to this heading"></a></h1>
+<p id="module-smriprep.workflows.base"><em>sMRIPrep</em> base processing workflows.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="smriprep.workflows.base.init_single_subject_wf">
-<span class="sig-prename descclassname"><span class="pre">smriprep.workflows.base.</span></span><span class="sig-name descname"><span class="pre">init_single_subject_wf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sloppy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fast_track</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freesurfer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hires</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitudinal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">low_mem</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">omp_nthreads</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skull_strip_fixed_seed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skull_strip_mode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skull_strip_template</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spaces</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subject_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bids_filters</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smriprep/workflows/base.html#init_single_subject_wf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smriprep.workflows.base.init_single_subject_wf" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">smriprep.workflows.base.</span></span><span class="sig-name descname"><span class="pre">init_single_subject_wf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sloppy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fast_track</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freesurfer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hires</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitudinal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">low_mem</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">omp_nthreads</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skull_strip_fixed_seed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skull_strip_mode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skull_strip_template</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spaces</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subject_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bids_filters</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smriprep/workflows/base.html#init_single_subject_wf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smriprep.workflows.base.init_single_subject_wf" title="Link to this definition"></a></dt>
 <dd><p>Create a single subject workflow.</p>
 <p>This workflow organizes the preprocessing pipeline for a single subject.
 It collects and reports information about the subject, and prepares
@@ -160,7 +160,7 @@ A dict with the following structure {&lt;suffix&gt;:{&lt;entity&gt;:&lt;filter&g
 
 <dl class="py function">
 <dt class="sig sig-object py" id="smriprep.workflows.base.init_smriprep_wf">
-<span class="sig-prename descclassname"><span class="pre">smriprep.workflows.base.</span></span><span class="sig-name descname"><span class="pre">init_smriprep_wf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sloppy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fast_track</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freesurfer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fs_subjects_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hires</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitudinal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">low_mem</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">omp_nthreads</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_uuid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skull_strip_mode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skull_strip_fixed_seed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skull_strip_template</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spaces</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subject_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">work_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bids_filters</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smriprep/workflows/base.html#init_smriprep_wf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smriprep.workflows.base.init_smriprep_wf" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">smriprep.workflows.base.</span></span><span class="sig-name descname"><span class="pre">init_smriprep_wf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sloppy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fast_track</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freesurfer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fs_subjects_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hires</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitudinal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">low_mem</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">omp_nthreads</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_uuid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skull_strip_mode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skull_strip_fixed_seed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skull_strip_template</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spaces</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subject_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">work_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bids_filters</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smriprep/workflows/base.html#init_smriprep_wf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smriprep.workflows.base.init_smriprep_wf" title="Link to this definition"></a></dt>
 <dd><p>Create the execution graph of <em>sMRIPrep</em>, with a sub-workflow for each subject.</p>
 <p>If FreeSurfer’s <code class="docutils literal notranslate"><span class="pre">recon-all</span></code> is to be run, a FreeSurfer derivatives folder is
 created and populated with any needed template subjects.</p>
@@ -263,6 +263,8 @@ A dict with the following structure {&lt;suffix&gt;:{&lt;entity&gt;:&lt;filter&g
             <dt>Branches</dt>
             <dd><a href="../../dependabot_pip_certifi-2023.7.22/api/smriprep.workflows.base.html">dependabot/pip/certifi-2023.7.22</a></dd>
             <dd><a href="../../enh_calabel/api/smriprep.workflows.base.html">enh/calabel</a></dd>
+            <dd><a href="../../enh_msm/api/smriprep.workflows.base.html">enh/msm</a></dd>
+            <dd><a href="../../enh_split-surfaces/api/smriprep.workflows.base.html">enh/split-surfaces</a></dd>
             <dd><a href="../../fix_parcstats/api/smriprep.workflows.base.html">fix/parcstats</a></dd>
             <dd><a href="../../fix_recon-report/api/smriprep.workflows.base.html">fix/recon-report</a></dd>
             <dd><a href="../../fix_tfselect-resless/api/smriprep.workflows.base.html">fix/tfselect-resless</a></dd>
