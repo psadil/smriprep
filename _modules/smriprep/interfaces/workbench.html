@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>smriprep.interfaces.workbench &mdash; smriprep 0.12.3.dev24 documentation</title>
+  <title>smriprep.interfaces.workbench &mdash; smriprep 0.12.3.dev50 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/banner.css" type="text/css" />
@@ -33,7 +33,7 @@
             smriprep
           </a>
               <div class="version">
-                0.12.3.dev24
+                0.12.3.dev50
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -228,6 +228,223 @@
     <span class="n">input_spec</span> <span class="o">=</span> <span class="n">CreateSignedDistanceVolumeInputSpec</span>
     <span class="n">output_spec</span> <span class="o">=</span> <span class="n">CreateSignedDistanceVolumeOutputSpec</span>
     <span class="n">_cmd</span> <span class="o">=</span> <span class="s2">&quot;wb_command -create-signed-distance-volume&quot;</span></div>
+
+
+
+<span class="k">class</span> <span class="nc">SurfaceAffineRegressionInputSpec</span><span class="p">(</span><span class="n">CommandLineInputSpec</span><span class="p">):</span>
+    <span class="n">in_surface</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span>
+        <span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">position</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Surface to warp&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">target_surface</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span>
+        <span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">position</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Surface to match the coordinates of&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">out_affine</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span>
+        <span class="n">name_template</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_xfm&quot;</span><span class="p">,</span>
+        <span class="n">name_source</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;in_surface&quot;</span><span class="p">],</span>
+        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">position</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;the output affine file&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">SurfaceAffineRegressionOutputSpec</span><span class="p">(</span><span class="n">TraitedSpec</span><span class="p">):</span>
+    <span class="n">out_affine</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">desc</span><span class="o">=</span><span class="s2">&quot;The output affine file&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="SurfaceAffineRegression">
+<a class="viewcode-back" href="../../../api/smriprep.interfaces.workbench.html#smriprep.interfaces.workbench.SurfaceAffineRegression">[docs]</a>
+<span class="k">class</span> <span class="nc">SurfaceAffineRegression</span><span class="p">(</span><span class="n">WBCommand</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;REGRESS THE AFFINE TRANSFORM BETWEEN SURFACES ON THE SAME MESH</span>
+
+<span class="sd">    wb_command -surface-affine-regression</span>
+<span class="sd">       &lt;source&gt; - the surface to warp</span>
+<span class="sd">       &lt;target&gt; - the surface to match the coordinates of</span>
+<span class="sd">       &lt;affine-out&gt; - output - the output affine file</span>
+
+<span class="sd">    Use linear regression to compute an affine that minimizes the sum of</span>
+<span class="sd">    squares of the coordinate differences between the target surface and the</span>
+<span class="sd">    warped source surface. Note that this has a bias to shrink the surface</span>
+<span class="sd">    that is being warped. The output is written as a NIFTI &#39;world&#39; matrix,</span>
+<span class="sd">    see -convert-affine to convert it for use in other software.</span>
+
+<span class="sd">    &gt;&gt;&gt; sar = SurfaceAffineRegression()</span>
+<span class="sd">    &gt;&gt;&gt; sar.inputs.in_surface = &#39;sub-01_hemi-L_sulc.shape.gii&#39;</span>
+<span class="sd">    &gt;&gt;&gt; sar.inputs.target_surface = &#39;tpl-fsaverage_hemi-L_den-164k_sulc.shape.gii&#39;</span>
+<span class="sd">    &gt;&gt;&gt; sar.cmdline  # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE</span>
+<span class="sd">    &#39;wb_command -surface-affine-regression \</span>
+<span class="sd">    sub-01_hemi-L_sulc.shape.gii \</span>
+<span class="sd">    tpl-fsaverage_hemi-L_den-164k_sulc.shape.gii \</span>
+<span class="sd">    sub-01_hemi-L_sulc.shape_xfm&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">input_spec</span> <span class="o">=</span> <span class="n">SurfaceAffineRegressionInputSpec</span>
+    <span class="n">output_spec</span> <span class="o">=</span> <span class="n">SurfaceAffineRegressionOutputSpec</span>
+    <span class="n">_cmd</span> <span class="o">=</span> <span class="s2">&quot;wb_command -surface-affine-regression&quot;</span></div>
+
+
+
+<span class="k">class</span> <span class="nc">SurfaceApplyAffineInputSpec</span><span class="p">(</span><span class="n">CommandLineInputSpec</span><span class="p">):</span>
+    <span class="n">in_surface</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span>
+        <span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">position</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;the surface to transform&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">in_affine</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span>
+        <span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">position</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;the affine file&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">out_surface</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span>
+        <span class="n">name_template</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_xformed.surf.gii&quot;</span><span class="p">,</span>
+        <span class="n">name_source</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;in_surface&quot;</span><span class="p">],</span>
+        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">position</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;the output transformed surface&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">flirt_source</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span>
+        <span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">requires</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;flirt_target&quot;</span><span class="p">],</span>
+        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;-flirt </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">position</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Source volume (must be used if affine is a flirt affine)&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">flirt_target</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span>
+        <span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">requires</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;flirt_source&quot;</span><span class="p">],</span>
+        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">position</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Target volume (must be used if affine is a flirt affine)&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">SurfaceApplyAffineOutputSpec</span><span class="p">(</span><span class="n">TraitedSpec</span><span class="p">):</span>
+    <span class="n">out_surface</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">desc</span><span class="o">=</span><span class="s2">&quot;the output transformed surface&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="SurfaceApplyAffine">
+<a class="viewcode-back" href="../../../api/smriprep.interfaces.workbench.html#smriprep.interfaces.workbench.SurfaceApplyAffine">[docs]</a>
+<span class="k">class</span> <span class="nc">SurfaceApplyAffine</span><span class="p">(</span><span class="n">WBCommand</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;APPLY AFFINE TRANSFORM TO SURFACE FILE</span>
+
+<span class="sd">    wb_command -surface-apply-affine</span>
+<span class="sd">       &lt;in-surf&gt; - the surface to transform</span>
+<span class="sd">       &lt;affine&gt; - the affine file</span>
+<span class="sd">       &lt;out-surf&gt; - output - the output transformed surface</span>
+
+<span class="sd">       [-flirt] - MUST be used if affine is a flirt affine</span>
+<span class="sd">          &lt;source-volume&gt; - the source volume used when generating the affine</span>
+<span class="sd">          &lt;target-volume&gt; - the target volume used when generating the affine</span>
+
+<span class="sd">    For flirt matrices, you must use the -flirt option, because flirt</span>
+<span class="sd">    matrices are not a complete description of the coordinate transform they</span>
+<span class="sd">    represent.  If the -flirt option is not present, the affine must be a</span>
+<span class="sd">    nifti &#39;world&#39; affine, which can be obtained with the -convert-affine</span>
+<span class="sd">    command, or aff_conv from the 4dfp suite.</span>
+
+<span class="sd">    .. testsetup::</span>
+
+<span class="sd">    &gt;&gt;&gt; np.savetxt(&#39;affine.txt&#39;, np.eye(4), delimiter=&#39;\t&#39;)</span>
+
+<span class="sd">    .. doctest::</span>
+
+<span class="sd">    &gt;&gt;&gt; saa = SurfaceApplyAffine()</span>
+<span class="sd">    &gt;&gt;&gt; saa.inputs.in_surface = &#39;sub-01_hemi-L_sphere.surf.gii&#39;</span>
+<span class="sd">    &gt;&gt;&gt; saa.inputs.in_affine = &#39;affine.txt&#39;</span>
+<span class="sd">    &gt;&gt;&gt; saa.cmdline  # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE</span>
+<span class="sd">    &#39;wb_command -surface-apply-affine \</span>
+<span class="sd">    sub-01_hemi-L_sphere.surf.gii \</span>
+<span class="sd">    affine.txt \</span>
+<span class="sd">    sub-01_hemi-L_sphere.surf_xformed.surf.gii&#39;</span>
+
+<span class="sd">    .. testcleanup::</span>
+
+<span class="sd">    &gt;&gt;&gt; os.unlink(&#39;affine.txt&#39;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">input_spec</span> <span class="o">=</span> <span class="n">SurfaceApplyAffineInputSpec</span>
+    <span class="n">output_spec</span> <span class="o">=</span> <span class="n">SurfaceApplyAffineOutputSpec</span>
+    <span class="n">_cmd</span> <span class="o">=</span> <span class="s2">&quot;wb_command -surface-apply-affine&quot;</span></div>
+
+
+
+<span class="k">class</span> <span class="nc">SurfaceApplyWarpfieldInputSpec</span><span class="p">(</span><span class="n">CommandLineInputSpec</span><span class="p">):</span>
+    <span class="n">in_surface</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span>
+        <span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">position</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;the surface to transform&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">warpfield</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span>
+        <span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">position</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;the INVERSE warpfield&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">out_surface</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span>
+        <span class="n">name_template</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_warped.surf.gii&quot;</span><span class="p">,</span>
+        <span class="n">name_source</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;in_surface&quot;</span><span class="p">],</span>
+        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">position</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;the output transformed surface&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">fnirt_forward_warp</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span>
+        <span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;-fnirt </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">position</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;the forward warpfield (must be used if fnirt warpfield)&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">SurfaceApplyWarpfieldOutputSpec</span><span class="p">(</span><span class="n">TraitedSpec</span><span class="p">):</span>
+    <span class="n">out_surface</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">desc</span><span class="o">=</span><span class="s2">&quot;the output transformed surface&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="SurfaceApplyWarpfield">
+<a class="viewcode-back" href="../../../api/smriprep.interfaces.workbench.html#smriprep.interfaces.workbench.SurfaceApplyWarpfield">[docs]</a>
+<span class="k">class</span> <span class="nc">SurfaceApplyWarpfield</span><span class="p">(</span><span class="n">WBCommand</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;APPLY WARPFIELD TO SURFACE FILE</span>
+
+<span class="sd">    wb_command -surface-apply-warpfield</span>
+<span class="sd">      &lt;in-surf&gt; - the surface to transform</span>
+<span class="sd">      &lt;warpfield&gt; - the INVERSE warpfield</span>
+<span class="sd">      &lt;out-surf&gt; - output - the output transformed surface</span>
+
+<span class="sd">      [-fnirt] - MUST be used if using a fnirt warpfield</span>
+<span class="sd">         &lt;forward-warp&gt; - the forward warpfield</span>
+
+<span class="sd">    NOTE: warping a surface requires the INVERSE of the warpfield used to</span>
+<span class="sd">    warp the volume it lines up with.  The header of the forward warp is</span>
+<span class="sd">    needed by the -fnirt option in order to correctly interpret the</span>
+<span class="sd">    displacements in the fnirt warpfield.</span>
+
+<span class="sd">    If the -fnirt option is not present, the warpfield must be a nifti</span>
+<span class="sd">    &#39;world&#39; warpfield, which can be obtained with the -convert-warpfield</span>
+<span class="sd">    command.</span>
+
+<span class="sd">    &gt;&gt;&gt; saw = SurfaceApplyWarpfield()</span>
+<span class="sd">    &gt;&gt;&gt; saw.inputs.in_surface = &#39;sub-01_hemi-L_sphere.surf.gii&#39;</span>
+<span class="sd">    &gt;&gt;&gt; saw.inputs.warpfield = &#39;sub-01_desc-warped_T1w.nii.gz&#39;</span>
+<span class="sd">    &gt;&gt;&gt; saw.cmdline  # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE</span>
+<span class="sd">    &#39;wb_command -surface-apply-warpfield \</span>
+<span class="sd">    sub-01_hemi-L_sphere.surf.gii \</span>
+<span class="sd">    sub-01_desc-warped_T1w.nii.gz \</span>
+<span class="sd">    sub-01_hemi-L_sphere.surf_warped.surf.gii&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">input_spec</span> <span class="o">=</span> <span class="n">SurfaceApplyWarpfieldInputSpec</span>
+    <span class="n">output_spec</span> <span class="o">=</span> <span class="n">SurfaceApplyWarpfieldOutputSpec</span>
+    <span class="n">_cmd</span> <span class="o">=</span> <span class="s2">&quot;wb_command -surface-apply-warpfield&quot;</span></div>
 
 
 
@@ -538,7 +755,6 @@
         <dl>
             <dt>Branches</dt>
             <dd><a href="../../../enh_calabel/index.html">enh/calabel</a></dd>
-            <dd><a href="../../../enh_msm/index.html">enh/msm</a></dd>
             <dd><a href="../../../enh_split-surfaces/index.html">enh/split-surfaces</a></dd>
             <dd><a href="../../../fix_parcstats/index.html">fix/parcstats</a></dd>
             <dd><a href="../../../fix_recon-report/index.html">fix/recon-report</a></dd>

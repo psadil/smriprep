@@ -14,6 +14,7 @@ wf = init_smriprep_wf(
     layout=BIDSLayout('.'),
     longitudinal=False,
     low_mem=False,
+    msm_sulc=False,
     omp_nthreads=1,
     output_dir='.',
     run_uuid='testrun',

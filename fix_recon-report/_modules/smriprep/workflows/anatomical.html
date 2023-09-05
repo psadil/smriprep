@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>smriprep.workflows.anatomical &mdash; smriprep 0.12.3.dev24 documentation</title>
+  <title>smriprep.workflows.anatomical &mdash; smriprep 0.12.3.dev50 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/banner.css" type="text/css" />
@@ -33,7 +33,7 @@
             smriprep
           </a>
               <div class="version">
-                0.12.3.dev24
+                0.12.3.dev50
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -165,6 +165,7 @@
     <span class="n">cifti_output</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">sloppy</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">msm_sulc</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">existing_derivatives</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;anat_preproc_wf&quot;</span><span class="p">,</span>
     <span class="n">skull_strip_fixed_seed</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -617,7 +618,7 @@
         <span class="n">name</span><span class="o">=</span><span class="s2">&quot;surface_recon_wf&quot;</span><span class="p">,</span> <span class="n">omp_nthreads</span><span class="o">=</span><span class="n">omp_nthreads</span><span class="p">,</span> <span class="n">hires</span><span class="o">=</span><span class="n">hires</span>
     <span class="p">)</span>
     <span class="n">applyrefined</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">fsl</span><span class="o">.</span><span class="n">ApplyMask</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;applyrefined&quot;</span><span class="p">)</span>
-    <span class="n">sphere_reg_wf</span> <span class="o">=</span> <span class="n">init_sphere_reg_wf</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;sphere_reg_wf&quot;</span><span class="p">)</span>
+    <span class="n">sphere_reg_wf</span> <span class="o">=</span> <span class="n">init_sphere_reg_wf</span><span class="p">(</span><span class="n">msm_sulc</span><span class="o">=</span><span class="n">msm_sulc</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;sphere_reg_wf&quot;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">t2w</span><span class="p">:</span>
         <span class="n">t2w_template_wf</span> <span class="o">=</span> <span class="n">init_anat_template_wf</span><span class="p">(</span>
@@ -707,6 +708,7 @@
         <span class="p">(</span><span class="n">surface_recon_wf</span><span class="p">,</span> <span class="n">sphere_reg_wf</span><span class="p">,</span> <span class="p">[</span>
             <span class="p">(</span><span class="s1">&#39;outputnode.subject_id&#39;</span><span class="p">,</span> <span class="s1">&#39;inputnode.subject_id&#39;</span><span class="p">),</span>
             <span class="p">(</span><span class="s1">&#39;outputnode.subjects_dir&#39;</span><span class="p">,</span> <span class="s1">&#39;inputnode.subjects_dir&#39;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;outputnode.sulc&#39;</span><span class="p">,</span> <span class="s1">&#39;inputnode.sulc&#39;</span><span class="p">),</span>
         <span class="p">]),</span>
         <span class="p">(</span><span class="n">sphere_reg_wf</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[</span>
             <span class="p">(</span><span class="s1">&#39;outputnode.sphere_reg&#39;</span><span class="p">,</span> <span class="s1">&#39;sphere_reg&#39;</span><span class="p">),</span>
@@ -1065,7 +1067,6 @@
         <dl>
             <dt>Branches</dt>
             <dd><a href="../../../../enh_calabel/index.html">enh/calabel</a></dd>
-            <dd><a href="../../../../enh_msm/index.html">enh/msm</a></dd>
             <dd><a href="../../../../enh_split-surfaces/index.html">enh/split-surfaces</a></dd>
             <dd><a href="../../../../fix_parcstats/index.html">fix/parcstats</a></dd>
             <dd><a href="anatomical.html">fix/recon-report</a></dd>

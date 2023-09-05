@@ -11,6 +11,7 @@ wf = init_single_subject_wf(
     layout=BIDSLayout('.'),
     longitudinal=False,
     low_mem=False,
+    msm_sulc=False,
     name='single_subject_wf',
     omp_nthreads=1,
     output_dir='.',

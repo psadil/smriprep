@@ -14,6 +14,7 @@ Submodules
 
    smriprep.interfaces.cifti
    smriprep.interfaces.freesurfer
+   smriprep.interfaces.msm
    smriprep.interfaces.reports
    smriprep.interfaces.surf
    smriprep.interfaces.templateflow

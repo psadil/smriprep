@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Usage &mdash; smriprep 0.12.3.dev24 documentation</title>
+  <title>Usage &mdash; smriprep 0.12.3.dev50 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/banner.css" type="text/css" />
@@ -36,7 +36,7 @@
             smriprep
           </a>
               <div class="version">
-                0.12.3.dev24
+                0.12.3.dev50
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -150,6 +150,7 @@ Example:</p>
        <span class="p">[</span><span class="o">--</span><span class="n">fs</span><span class="o">-</span><span class="n">license</span><span class="o">-</span><span class="n">file</span> <span class="n">PATH</span><span class="p">]</span>
        <span class="p">[</span><span class="o">--</span><span class="n">fs</span><span class="o">-</span><span class="n">subjects</span><span class="o">-</span><span class="nb">dir</span> <span class="n">PATH</span><span class="p">]</span>
        <span class="p">[</span><span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">submm</span><span class="o">-</span><span class="n">recon</span><span class="p">]</span>
+       <span class="p">[</span><span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">msm</span><span class="p">]</span>
        <span class="p">[</span><span class="o">--</span><span class="n">fs</span><span class="o">-</span><span class="n">no</span><span class="o">-</span><span class="n">reconall</span><span class="p">]</span>
        <span class="p">[</span><span class="o">-</span><span class="n">w</span> <span class="n">WORK_DIR</span><span class="p">]</span>
        <span class="p">[</span><span class="o">--</span><span class="n">fast</span><span class="o">-</span><span class="n">track</span><span class="p">]</span>
@@ -267,6 +268,9 @@ Example:</p>
 <dl class="option-list">
 <dt><kbd>--no-submm-recon</kbd></dt>
 <dd><p>disable sub-millimeter (hires) reconstruction</p>
+</dd>
+<dt><kbd>--no-msm</kbd></dt>
+<dd><p>Disable Multimodal Surface Matching surface registration.</p>
 </dd>
 <dt><kbd>--fs-no-reconall</kbd></dt>
 <dd><p>disable FreeSurfer surface preprocessing.</p>
@@ -514,7 +518,6 @@ RUNNING: docker run --rm -it -v /path/to/data/dir:/data:ro \
         <dl>
             <dt>Branches</dt>
             <dd><a href="../enh_calabel/usage.html">enh/calabel</a></dd>
-            <dd><a href="../enh_msm/usage.html">enh/msm</a></dd>
             <dd><a href="../enh_split-surfaces/usage.html">enh/split-surfaces</a></dd>
             <dd><a href="../fix_parcstats/usage.html">fix/parcstats</a></dd>
             <dd><a href="usage.html">fix/recon-report</a></dd>
