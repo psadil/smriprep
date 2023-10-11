@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>smriprep.interfaces.workbench &mdash; smriprep 0.12.3.dev55 documentation</title>
+  <title>smriprep.interfaces.workbench &mdash; smriprep 0.12.3.dev57 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/banner.css" type="text/css" />
@@ -33,7 +33,7 @@
             smriprep
           </a>
               <div class="version">
-                0.12.3.dev55
+                0.12.3.dev57
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -448,6 +448,74 @@
 
 
 
+<span class="k">class</span> <span class="nc">SurfaceModifySphereInputSpec</span><span class="p">(</span><span class="n">CommandLineInputSpec</span><span class="p">):</span>
+    <span class="n">in_surface</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span>
+        <span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">position</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;the sphere to modify&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">radius</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span>
+        <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">position</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;the radius the output sphere should have&#39;</span>
+    <span class="p">)</span>
+    <span class="n">out_surface</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span>
+        <span class="n">name_template</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_mod.surf.gii&quot;</span><span class="p">,</span>
+        <span class="n">name_source</span><span class="o">=</span><span class="s2">&quot;in_surface&quot;</span><span class="p">,</span>
+        <span class="n">position</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;the modified sphere&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">recenter</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Bool</span><span class="p">(</span>
+        <span class="kc">False</span><span class="p">,</span>
+        <span class="n">position</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;-recenter&quot;</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;recenter the sphere by means of the bounding box&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">SurfaceModifySphereOutputSpec</span><span class="p">(</span><span class="n">TraitedSpec</span><span class="p">):</span>
+    <span class="n">out_surface</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">desc</span><span class="o">=</span><span class="s2">&quot;the modified sphere&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="SurfaceModifySphere">
+<a class="viewcode-back" href="../../../api/smriprep.interfaces.workbench.html#smriprep.interfaces.workbench.SurfaceModifySphere">[docs]</a>
+<span class="k">class</span> <span class="nc">SurfaceModifySphere</span><span class="p">(</span><span class="n">WBCommand</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;CHANGE RADIUS AND OPTIONALLY RECENTER A SPHERE</span>
+
+<span class="sd">    wb_command -surface-modify-sphere</span>
+<span class="sd">      &lt;sphere-in&gt; - the sphere to modify</span>
+<span class="sd">      &lt;radius&gt; - the radius the output sphere should have</span>
+<span class="sd">      &lt;sphere-out&gt; - output - the output sphere</span>
+
+<span class="sd">      [-recenter] - recenter the sphere by means of the bounding box</span>
+
+<span class="sd">    This command may be useful if you have used -surface-resample to resample</span>
+<span class="sd">    a sphere, which can suffer from problems generally not present in</span>
+<span class="sd">    -surface-sphere-project-unproject.  If the sphere should already be</span>
+<span class="sd">    centered around the origin, using -recenter may still shift it slightly</span>
+<span class="sd">    before changing the radius, which is likely to be undesireable.</span>
+
+<span class="sd">    If &lt;sphere-in&gt; is not close to spherical, or not centered around the</span>
+<span class="sd">    origin and -recenter is not used, a warning is printed.</span>
+
+<span class="sd">    &gt;&gt;&gt; sms = SurfaceModifySphere()</span>
+<span class="sd">    &gt;&gt;&gt; sms.inputs.in_surface = &#39;sub-01_hemi-L_sphere.surf.gii&#39;</span>
+<span class="sd">    &gt;&gt;&gt; sms.inputs.radius = 100</span>
+<span class="sd">    &gt;&gt;&gt; sms.cmdline  # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE</span>
+<span class="sd">    &#39;wb_command -surface-modify-sphere \</span>
+<span class="sd">    sub-01_hemi-L_sphere.surf.gii 100 sub-01_hemi-L_sphere.surf_mod.surf.gii&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">input_spec</span> <span class="o">=</span> <span class="n">SurfaceModifySphereInputSpec</span>
+    <span class="n">output_spec</span> <span class="o">=</span> <span class="n">SurfaceModifySphereOutputSpec</span>
+    <span class="n">_cmd</span> <span class="o">=</span> <span class="s1">&#39;wb_command -surface-modify-sphere&#39;</span></div>
+
+
+
 <span class="k">class</span> <span class="nc">SurfaceSphereProjectUnprojectInputSpec</span><span class="p">(</span><span class="n">TraitedSpec</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;COPY REGISTRATION DEFORMATIONS TO DIFFERENT SPHERE.</span>
 
@@ -754,6 +822,8 @@
         </dl>
         <dl>
             <dt>Branches</dt>
+            <dd><a href="../../../dependabot_pip_pillow-10.0.1/index.html">dependabot/pip/pillow-10.0.1</a></dd>
+            <dd><a href="../../../dependabot_pip_urllib3-2.0.6/index.html">dependabot/pip/urllib3-2.0.6</a></dd>
             <dd><a href="../../../enh_calabel/index.html">enh/calabel</a></dd>
             <dd><a href="../../../enh_split-surfaces/index.html">enh/split-surfaces</a></dd>
             <dd><a href="../../../fix_parcstats/index.html">fix/parcstats</a></dd>

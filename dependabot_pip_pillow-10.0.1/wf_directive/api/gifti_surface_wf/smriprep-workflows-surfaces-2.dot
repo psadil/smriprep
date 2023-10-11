@@ -1,0 +1,29 @@
+strict digraph  {
+"inputnode (utility)";
+"get_surfaces (io)";
+"save_midthickness (io)";
+"fix_surfs (surf)";
+"midthickness (freesurfer)";
+"surface_list (utility)";
+"surfmorph_list (utility)";
+"fs2gii (freesurfer)";
+"outputnode (utility)";
+"agg_surfaces (surf)";
+"morphs2gii (freesurfer)";
+"inputnode (utility)" -> "get_surfaces (io)";
+"inputnode (utility)" -> "save_midthickness (io)";
+"inputnode (utility)" -> "fix_surfs (surf)";
+"get_surfaces (io)" -> "midthickness (freesurfer)";
+"get_surfaces (io)" -> "surface_list (utility)";
+"get_surfaces (io)" -> "surfmorph_list (utility)";
+"save_midthickness (io)" -> "surface_list (utility)";
+"fix_surfs (surf)" -> "outputnode (utility)";
+"fix_surfs (surf)" -> "agg_surfaces (surf)";
+"midthickness (freesurfer)" -> "save_midthickness (io)";
+"surface_list (utility)" -> "fs2gii (freesurfer)";
+"surfmorph_list (utility)" -> "morphs2gii (freesurfer)";
+"fs2gii (freesurfer)" -> "fix_surfs (surf)";
+"agg_surfaces (surf)" -> "outputnode (utility)";
+"morphs2gii (freesurfer)" -> "outputnode (utility)";
+"morphs2gii (freesurfer)" -> "agg_surfaces (surf)";
+}

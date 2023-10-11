@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>smriprep.workflows.outputs module &mdash; smriprep 0.12.3.dev55 documentation</title>
+  <title>smriprep.workflows.outputs module &mdash; smriprep 0.12.3.dev57 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/banner.css" type="text/css" />
@@ -36,7 +36,7 @@
             smriprep
           </a>
               <div class="version">
-                0.12.3.dev55
+                0.12.3.dev57
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -111,13 +111,13 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>bids_root</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – Root path of BIDS dataset</p></li>
-<li><p><strong>freesurfer</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bool</span></code></a>) – FreeSurfer was enabled</p></li>
-<li><p><strong>num_t1w</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>) – Number of T1w images</p></li>
-<li><p><strong>output_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – Directory in which to save derivatives</p></li>
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – Workflow name (default: anat_derivatives_wf)</p></li>
-<li><p><strong>tpm_labels</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code></a>) – Tissue probability maps in order</p></li>
-<li><p><strong>cifti_output</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bool</span></code></a>) – Whether the <code class="docutils literal notranslate"><span class="pre">--cifti-output</span></code> flag was set.</p></li>
+<li><p><strong>bids_root</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – Root path of BIDS dataset</p></li>
+<li><p><strong>freesurfer</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bool</span></code></a>) – FreeSurfer was enabled</p></li>
+<li><p><strong>num_t1w</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>) – Number of T1w images</p></li>
+<li><p><strong>output_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – Directory in which to save derivatives</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – Workflow name (default: anat_derivatives_wf)</p></li>
+<li><p><strong>tpm_labels</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code></a>) – Tissue probability maps in order</p></li>
+<li><p><strong>cifti_output</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bool</span></code></a>) – Whether the <code class="docutils literal notranslate"><span class="pre">--cifti-output</span></code> flag was set.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Inputs<span class="colon">:</span></dt>
@@ -162,9 +162,9 @@ subject space to T1w</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>freesurfer</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bool</span></code></a>) – FreeSurfer was enabled</p></li>
-<li><p><strong>output_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – Directory in which to save derivatives</p></li>
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – Workflow name (default: anat_reports_wf)</p></li>
+<li><p><strong>freesurfer</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bool</span></code></a>) – FreeSurfer was enabled</p></li>
+<li><p><strong>output_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – Directory in which to save derivatives</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – Workflow name (default: anat_reports_wf)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Inputs<span class="colon">:</span></dt>
@@ -242,6 +242,8 @@ and preprocessed T1w images, defining the anatomical space.</p></li>
         </dl>
         <dl>
             <dt>Branches</dt>
+            <dd><a href="../../dependabot_pip_pillow-10.0.1/api/smriprep.workflows.outputs.html">dependabot/pip/pillow-10.0.1</a></dd>
+            <dd><a href="../../dependabot_pip_urllib3-2.0.6/api/smriprep.workflows.outputs.html">dependabot/pip/urllib3-2.0.6</a></dd>
             <dd><a href="../../enh_calabel/api/smriprep.workflows.outputs.html">enh/calabel</a></dd>
             <dd><a href="../../enh_split-surfaces/api/smriprep.workflows.outputs.html">enh/split-surfaces</a></dd>
             <dd><a href="../../fix_parcstats/api/smriprep.workflows.outputs.html">fix/parcstats</a></dd>

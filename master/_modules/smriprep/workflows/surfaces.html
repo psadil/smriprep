@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>smriprep.workflows.surfaces &mdash; smriprep 0.12.3.dev55 documentation</title>
+  <title>smriprep.workflows.surfaces &mdash; smriprep 0.12.3.dev57 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/banner.css" type="text/css" />
@@ -33,7 +33,7 @@
             smriprep
           </a>
               <div class="version">
-                0.12.3.dev55
+                0.12.3.dev57
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -680,7 +680,11 @@
 <span class="k">def</span> <span class="nf">init_msm_sulc_wf</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">sloppy</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;msm_sulc_wf&#39;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Run MSMSulc registration to fsLR surfaces, per hemisphere.&quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">..interfaces.msm</span> <span class="kn">import</span> <span class="n">MSM</span>
-    <span class="kn">from</span> <span class="nn">..interfaces.workbench</span> <span class="kn">import</span> <span class="n">SurfaceAffineRegression</span><span class="p">,</span> <span class="n">SurfaceApplyAffine</span>
+    <span class="kn">from</span> <span class="nn">..interfaces.workbench</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">SurfaceAffineRegression</span><span class="p">,</span>
+        <span class="n">SurfaceApplyAffine</span><span class="p">,</span>
+        <span class="n">SurfaceModifySphere</span><span class="p">,</span>
+    <span class="p">)</span>
 
     <span class="n">workflow</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
     <span class="n">inputnode</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span>
@@ -710,6 +714,14 @@
         <span class="n">iterfield</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;in_surface&#39;</span><span class="p">,</span> <span class="s1">&#39;in_affine&#39;</span><span class="p">],</span>
         <span class="n">name</span><span class="o">=</span><span class="s1">&#39;apply_surface_affine&#39;</span><span class="p">,</span>
     <span class="p">)</span>
+
+    <span class="c1"># Fix for oblongated sphere</span>
+    <span class="n">modify_sphere</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">MapNode</span><span class="p">(</span>
+        <span class="n">SurfaceModifySphere</span><span class="p">(</span><span class="n">radius</span><span class="o">=</span><span class="mi">100</span><span class="p">),</span>
+        <span class="n">iterfield</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;in_surface&#39;</span><span class="p">],</span>
+        <span class="n">name</span><span class="o">=</span><span class="s1">&#39;modify_sphere&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
+
     <span class="c1"># 2) Run MSMSulc</span>
     <span class="c1"># ./msm_centos_v3 --conf=MSMSulcStrainFinalconf \</span>
     <span class="c1"># --inmesh=${SUB}.${HEMI}.sphere_rot.native.surf.gii</span>
@@ -756,8 +768,9 @@
                                      <span class="p">(</span><span class="s1">&#39;sphere_reg_fsLR&#39;</span><span class="p">,</span> <span class="s1">&#39;target_surface&#39;</span><span class="p">)]),</span>
         <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">apply_surface_affine</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;sphere&#39;</span><span class="p">,</span> <span class="s1">&#39;in_surface&#39;</span><span class="p">)]),</span>
         <span class="p">(</span><span class="n">regress_affine</span><span class="p">,</span> <span class="n">apply_surface_affine</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;out_affine&#39;</span><span class="p">,</span> <span class="s1">&#39;in_affine&#39;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">apply_surface_affine</span><span class="p">,</span> <span class="n">modify_sphere</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;out_surface&#39;</span><span class="p">,</span> <span class="s1">&#39;in_surface&#39;</span><span class="p">)]),</span>
         <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">msmsulc</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;sulc&#39;</span><span class="p">,</span> <span class="s1">&#39;in_data&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">apply_surface_affine</span><span class="p">,</span> <span class="n">msmsulc</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;out_surface&#39;</span><span class="p">,</span> <span class="s1">&#39;in_mesh&#39;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">modify_sphere</span><span class="p">,</span> <span class="n">msmsulc</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;out_surface&#39;</span><span class="p">,</span> <span class="s1">&#39;in_mesh&#39;</span><span class="p">)]),</span>
         <span class="p">(</span><span class="n">msmsulc</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;warped_mesh&#39;</span><span class="p">,</span> <span class="s1">&#39;sphere_reg_fsLR&#39;</span><span class="p">)]),</span>
     <span class="p">])</span>
     <span class="c1"># fmt:on</span>
@@ -1428,6 +1441,8 @@
         </dl>
         <dl>
             <dt>Branches</dt>
+            <dd><a href="../../../../dependabot_pip_pillow-10.0.1/index.html">dependabot/pip/pillow-10.0.1</a></dd>
+            <dd><a href="../../../../dependabot_pip_urllib3-2.0.6/index.html">dependabot/pip/urllib3-2.0.6</a></dd>
             <dd><a href="../../../../enh_calabel/index.html">enh/calabel</a></dd>
             <dd><a href="../../../../enh_split-surfaces/index.html">enh/split-surfaces</a></dd>
             <dd><a href="../../../../fix_parcstats/index.html">fix/parcstats</a></dd>

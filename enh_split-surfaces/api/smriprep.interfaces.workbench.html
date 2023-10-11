@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>smriprep.interfaces.workbench module &mdash; smriprep 0.12.3.dev55 documentation</title>
+  <title>smriprep.interfaces.workbench module &mdash; smriprep 0.12.3.dev57 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/banner.css" type="text/css" />
@@ -36,7 +36,7 @@
             smriprep
           </a>
               <div class="version">
-                0.12.3.dev55
+                0.12.3.dev57
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -395,6 +395,60 @@ Maps to a command-line argument: <code class="code docutils literal notranslate"
 </dd></dl>
 
 <dl class="py class">
+<dt class="sig sig-object py" id="smriprep.interfaces.workbench.SurfaceModifySphere">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smriprep.interfaces.workbench.</span></span><span class="sig-name descname"><span class="pre">SurfaceModifySphere</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">terminal_output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_cmdline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">inputs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smriprep/interfaces/workbench.html#SurfaceModifySphere"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smriprep.interfaces.workbench.SurfaceModifySphere" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">WBCommand</span></code></p>
+<p>Wrapped executable: <code class="docutils literal notranslate"><span class="pre">wb_command</span> <span class="pre">-surface-modify-sphere</span></code>.</p>
+<p>CHANGE RADIUS AND OPTIONALLY RECENTER A SPHERE</p>
+<dl>
+<dt>wb_command -surface-modify-sphere</dt><dd><p>&lt;sphere-in&gt; - the sphere to modify
+&lt;radius&gt; - the radius the output sphere should have
+&lt;sphere-out&gt; - output - the output sphere</p>
+<p>[-recenter] - recenter the sphere by means of the bounding box</p>
+</dd>
+</dl>
+<p>This command may be useful if you have used -surface-resample to resample
+a sphere, which can suffer from problems generally not present in
+-surface-sphere-project-unproject.  If the sphere should already be
+centered around the origin, using -recenter may still shift it slightly
+before changing the radius, which is likely to be undesireable.</p>
+<p>If &lt;sphere-in&gt; is not close to spherical, or not centered around the
+origin and -recenter is not used, a warning is printed.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sms</span> <span class="o">=</span> <span class="n">SurfaceModifySphere</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sms</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_surface</span> <span class="o">=</span> <span class="s1">&#39;sub-01_hemi-L_sphere.surf.gii&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sms</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">radius</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sms</span><span class="o">.</span><span class="n">cmdline</span>  
+<span class="go">&#39;wb_command -surface-modify-sphere     sub-01_hemi-L_sphere.surf.gii 100 sub-01_hemi-L_sphere.surf_mod.surf.gii&#39;</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Mandatory Inputs<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_surface</strong> (<em>a pathlike object or string representing an existing file</em>) – The sphere to modify.
+Maps to a command-line argument: <code class="code docutils literal notranslate"><span class="pre">%s</span></code> (position: 0).</p></li>
+<li><p><strong>radius</strong> (<em>an integer</em>) – The radius the output sphere should have.
+Maps to a command-line argument: <code class="code docutils literal notranslate"><span class="pre">%d</span></code> (position: 1).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Optional Inputs<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>args</strong> (<em>a string</em>) – Additional parameters to the command.
+Maps to a command-line argument: <code class="code docutils literal notranslate"><span class="pre">%s</span></code>.</p></li>
+<li><p><strong>environ</strong> (<em>a dictionary with keys which are a bytes or None or a value of class ‘str’ and with values which are a bytes or None or a value of class ‘str’</em>) – Environment variables.
+(Nipype <strong>default</strong> value: <code class="docutils literal notranslate"><span class="pre">{}</span></code>)</p></li>
+<li><p><strong>out_surface</strong> (<em>a pathlike object or string representing a file</em>) – The modified sphere.
+Maps to a command-line argument: <code class="code docutils literal notranslate"><span class="pre">%s</span></code> (position: 2).</p></li>
+<li><p><strong>recenter</strong> (<em>a boolean</em>) – Recenter the sphere by means of the bounding box.
+Maps to a command-line argument: <code class="code docutils literal notranslate"><span class="pre">-recenter</span></code> (position: 3).</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Outputs<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>out_surface</strong> (<em>a pathlike object or string representing a file</em>) – The modified sphere.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="smriprep.interfaces.workbench.SurfaceResample">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smriprep.interfaces.workbench.</span></span><span class="sig-name descname"><span class="pre">SurfaceResample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">terminal_output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_cmdline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">inputs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smriprep/interfaces/workbench.html#SurfaceResample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smriprep.interfaces.workbench.SurfaceResample" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">WBCommand</span></code></p>
@@ -538,6 +592,8 @@ Maps to a command-line argument: <code class="code docutils literal notranslate"
         </dl>
         <dl>
             <dt>Branches</dt>
+            <dd><a href="../../dependabot_pip_pillow-10.0.1/api/smriprep.interfaces.workbench.html">dependabot/pip/pillow-10.0.1</a></dd>
+            <dd><a href="../../dependabot_pip_urllib3-2.0.6/api/smriprep.interfaces.workbench.html">dependabot/pip/urllib3-2.0.6</a></dd>
             <dd><a href="../../enh_calabel/index.html">enh/calabel</a></dd>
             <dd><a href="smriprep.interfaces.workbench.html">enh/split-surfaces</a></dd>
             <dd><a href="../../fix_parcstats/index.html">fix/parcstats</a></dd>
