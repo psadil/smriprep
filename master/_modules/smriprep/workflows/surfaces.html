@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>smriprep.workflows.surfaces &mdash; smriprep 0.12.3.dev66 documentation</title>
+  <title>smriprep.workflows.surfaces &mdash; smriprep 0.12.3.dev67 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/banner.css" type="text/css" />
@@ -33,7 +33,7 @@
             smriprep
           </a>
               <div class="version">
-                0.12.3.dev66
+                0.12.3.dev67
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -132,7 +132,6 @@
     <span class="n">PatchedRobustRegister</span> <span class="k">as</span> <span class="n">RobustRegister</span><span class="p">,</span>
     <span class="n">RefineBrainMask</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">import</span> <span class="nn">templateflow.api</span> <span class="k">as</span> <span class="nn">tf</span>
 <span class="kn">from</span> <span class="nn">..interfaces.workbench</span> <span class="kn">import</span> <span class="n">CreateSignedDistanceVolume</span>
 
 
@@ -679,6 +678,7 @@
 <a class="viewcode-back" href="../../../api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_msm_sulc_wf">[docs]</a>
 <span class="k">def</span> <span class="nf">init_msm_sulc_wf</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">sloppy</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;msm_sulc_wf&#39;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Run MSMSulc registration to fsLR surfaces, per hemisphere.&quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">..interfaces.gifti</span> <span class="kn">import</span> <span class="n">InvertShape</span>
     <span class="kn">from</span> <span class="nn">..interfaces.msm</span> <span class="kn">import</span> <span class="n">MSM</span>
     <span class="kn">from</span> <span class="nn">..interfaces.workbench</span> <span class="kn">import</span> <span class="p">(</span>
         <span class="n">SurfaceAffineRegression</span><span class="p">,</span>
@@ -722,13 +722,23 @@
         <span class="n">name</span><span class="o">=</span><span class="s1">&#39;modify_sphere&#39;</span><span class="p">,</span>
     <span class="p">)</span>
 
-    <span class="c1"># 2) Run MSMSulc</span>
+    <span class="c1"># 2) Invert sulc</span>
+    <span class="c1"># wb_command -metric-math &quot;-1 * var&quot; ...</span>
+    <span class="n">invert_sulc</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">MapNode</span><span class="p">(</span>
+        <span class="n">InvertShape</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="s1">&#39;sulc&#39;</span><span class="p">),</span>
+        <span class="n">iterfield</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;shape_file&#39;</span><span class="p">,</span> <span class="s1">&#39;hemisphere&#39;</span><span class="p">],</span>
+        <span class="n">name</span><span class="o">=</span><span class="s1">&#39;invert_sulc&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">invert_sulc</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">hemisphere</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;L&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">]</span>
+
+    <span class="c1"># 3) Run MSMSulc</span>
     <span class="c1"># ./msm_centos_v3 --conf=MSMSulcStrainFinalconf \</span>
     <span class="c1"># --inmesh=${SUB}.${HEMI}.sphere_rot.native.surf.gii</span>
     <span class="c1"># --refmesh=fsaverage.${HEMI}_LR.spherical_std.164k_fs_LR.surf.gii</span>
     <span class="c1"># --indata=sub-${SUB}_ses-${SES}_hemi-${HEMI)_sulc.shape.gii \</span>
     <span class="c1"># --refdata=tpl-fsaverage_hemi-${HEMI}_den-164k_sulc.shape.gii \</span>
     <span class="c1"># --out=${HEMI}. --verbose</span>
+    <span class="n">atlases</span> <span class="o">=</span> <span class="n">load_resource</span><span class="p">(</span><span class="s1">&#39;atlases&#39;</span><span class="p">)</span>
     <span class="n">msm_conf</span> <span class="o">=</span> <span class="n">load_resource</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;msm/MSMSulcStrain</span><span class="si">{</span><span class="s2">&quot;Sloppy&quot;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">sloppy</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s2">&quot;Final&quot;</span><span class="si">}</span><span class="s1">conf&#39;</span><span class="p">)</span>
     <span class="n">msmsulc</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">MapNode</span><span class="p">(</span>
         <span class="n">MSM</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">config_file</span><span class="o">=</span><span class="n">msm_conf</span><span class="p">),</span>
@@ -738,42 +748,24 @@
     <span class="p">)</span>
     <span class="n">msmsulc</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_base</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;lh.&#39;</span><span class="p">,</span> <span class="s1">&#39;rh.&#39;</span><span class="p">]</span>  <span class="c1"># To placate Path2BIDS</span>
     <span class="n">msmsulc</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">reference_mesh</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="nb">str</span><span class="p">(</span>
-            <span class="n">tf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-                <span class="s1">&#39;fsaverage&#39;</span><span class="p">,</span>
-                <span class="n">hemi</span><span class="o">=</span><span class="n">hemi</span><span class="p">,</span>
-                <span class="n">density</span><span class="o">=</span><span class="s1">&#39;164k&#39;</span><span class="p">,</span>
-                <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;std&#39;</span><span class="p">,</span>
-                <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;sphere&#39;</span><span class="p">,</span>
-                <span class="n">extension</span><span class="o">=</span><span class="s1">&#39;.surf.gii&#39;</span><span class="p">,</span>
-            <span class="p">)</span>
-        <span class="p">)</span>
-        <span class="k">for</span> <span class="n">hemi</span> <span class="ow">in</span> <span class="s1">&#39;LR&#39;</span>
+        <span class="nb">str</span><span class="p">(</span><span class="n">atlases</span> <span class="o">/</span> <span class="sa">f</span><span class="s1">&#39;fsaverage.</span><span class="si">{</span><span class="n">hemi</span><span class="si">}</span><span class="s1">_LR.spherical_std.164k_fs_LR.surf.gii&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">hemi</span> <span class="ow">in</span> <span class="s1">&#39;LR&#39;</span>
     <span class="p">]</span>
     <span class="n">msmsulc</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">reference_data</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="nb">str</span><span class="p">(</span>
-            <span class="n">tf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-                <span class="s1">&#39;fsaverage&#39;</span><span class="p">,</span>
-                <span class="n">hemi</span><span class="o">=</span><span class="n">hemi</span><span class="p">,</span>
-                <span class="n">density</span><span class="o">=</span><span class="s1">&#39;164k&#39;</span><span class="p">,</span>
-                <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;sulc&#39;</span><span class="p">,</span>
-                <span class="n">extension</span><span class="o">=</span><span class="s1">&#39;.shape.gii&#39;</span><span class="p">,</span>
-            <span class="p">)</span>
-        <span class="p">)</span>
-        <span class="k">for</span> <span class="n">hemi</span> <span class="ow">in</span> <span class="s1">&#39;LR&#39;</span>
+        <span class="nb">str</span><span class="p">(</span><span class="n">atlases</span> <span class="o">/</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">hemi</span><span class="si">}</span><span class="s1">.refsulc.164k_fs_LR.shape.gii&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">hemi</span> <span class="ow">in</span> <span class="s1">&#39;LR&#39;</span>
     <span class="p">]</span>
-    <span class="c1"># fmt:off</span>
     <span class="n">workflow</span><span class="o">.</span><span class="n">connect</span><span class="p">([</span>
-        <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">regress_affine</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;sphere&#39;</span><span class="p">,</span> <span class="s1">&#39;in_surface&#39;</span><span class="p">),</span>
-                                     <span class="p">(</span><span class="s1">&#39;sphere_reg_fsLR&#39;</span><span class="p">,</span> <span class="s1">&#39;target_surface&#39;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">regress_affine</span><span class="p">,</span> <span class="p">[</span>
+            <span class="p">(</span><span class="s1">&#39;sphere&#39;</span><span class="p">,</span> <span class="s1">&#39;in_surface&#39;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;sphere_reg_fsLR&#39;</span><span class="p">,</span> <span class="s1">&#39;target_surface&#39;</span><span class="p">),</span>
+        <span class="p">]),</span>
         <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">apply_surface_affine</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;sphere&#39;</span><span class="p">,</span> <span class="s1">&#39;in_surface&#39;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">invert_sulc</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;sulc&#39;</span><span class="p">,</span> <span class="s1">&#39;shape_file&#39;</span><span class="p">)]),</span>
         <span class="p">(</span><span class="n">regress_affine</span><span class="p">,</span> <span class="n">apply_surface_affine</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;out_affine&#39;</span><span class="p">,</span> <span class="s1">&#39;in_affine&#39;</span><span class="p">)]),</span>
         <span class="p">(</span><span class="n">apply_surface_affine</span><span class="p">,</span> <span class="n">modify_sphere</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;out_surface&#39;</span><span class="p">,</span> <span class="s1">&#39;in_surface&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">msmsulc</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;sulc&#39;</span><span class="p">,</span> <span class="s1">&#39;in_data&#39;</span><span class="p">)]),</span>
         <span class="p">(</span><span class="n">modify_sphere</span><span class="p">,</span> <span class="n">msmsulc</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;out_surface&#39;</span><span class="p">,</span> <span class="s1">&#39;in_mesh&#39;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">invert_sulc</span><span class="p">,</span> <span class="n">msmsulc</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;shape_file&#39;</span><span class="p">,</span> <span class="s1">&#39;in_data&#39;</span><span class="p">)]),</span>
         <span class="p">(</span><span class="n">msmsulc</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;warped_mesh&#39;</span><span class="p">,</span> <span class="s1">&#39;sphere_reg_fsLR&#39;</span><span class="p">)]),</span>
-    <span class="p">])</span>
-    <span class="c1"># fmt:on</span>
+    <span class="p">])</span>  <span class="c1"># fmt:skip</span>
     <span class="k">return</span> <span class="n">workflow</span></div>
 
 

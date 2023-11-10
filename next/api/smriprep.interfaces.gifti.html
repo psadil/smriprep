@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>smriprep.interfaces.gifti module &mdash; smriprep 0.12.3.dev66 documentation</title>
+  <title>smriprep.interfaces.gifti module &mdash; smriprep 0.12.3.dev67 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/banner.css" type="text/css" />
@@ -36,7 +36,7 @@
             smriprep
           </a>
               <div class="version">
-                0.12.3.dev66
+                0.12.3.dev67
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -107,9 +107,42 @@
 
 
 
-    <p class="scv-banner scv-sphinx_rtd_theme"><b>Warning:</b> This document is for the development version of smriprep.</p>
-<section id="smriprep-interfaces-gifti-module">
-<h1>smriprep.interfaces.gifti module<a class="headerlink" href="#smriprep-interfaces-gifti-module" title="Link to this heading"></a></h1>
+    <p class="scv-banner scv-sphinx_rtd_theme"><a href="../../master/api/smriprep.interfaces.gifti.html"><b>Warning:</b> This document is for the development version of smriprep. The main version is master.</a></p>
+<section id="module-smriprep.interfaces.gifti">
+<span id="smriprep-interfaces-gifti-module"></span><h1>smriprep.interfaces.gifti module<a class="headerlink" href="#module-smriprep.interfaces.gifti" title="Link to this heading"></a></h1>
+<p>Interfaces for manipulating GIFTI files.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="smriprep.interfaces.gifti.InvertShape">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smriprep.interfaces.gifti.</span></span><span class="sig-name descname"><span class="pre">InvertShape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">from_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resource_monitor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">inputs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smriprep/interfaces/gifti.html#InvertShape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smriprep.interfaces.gifti.InvertShape" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleInterface</span></code></p>
+<p>Prepare GIFTI shape file for use in MSMSulc</p>
+<p>This interface mirrors the action of the following portion
+of FreeSurfer2CaretConvertAndRegisterNonlinear.sh:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>wb_command -set-structure ${shape_file} CORTEX_[LEFT|RIGHT]
+wb_command -metric-math &quot;var * -1&quot; ${shape_file} -var var ${shape_file}
+wb_command -set-map-names ${shape_file} -map 1 ${subject}_[L|R]_${shape}
+</pre></div>
+</div>
+<p>We do not add palette information to the output file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Mandatory Inputs<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hemisphere</strong> (<em>‘L’ or ‘R’</em>) – Hemisphere.</p></li>
+<li><p><strong>shape_file</strong> (<em>a pathlike object or string representing an existing file</em>) – Input GIFTI file.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Optional Inputs<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>shape</strong> (<em>a string</em>) – Name of shape to invert.</p></li>
+<li><p><strong>subject_id</strong> (<em>a string</em>) – Subject ID.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Outputs<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>shape_file</strong> (<em>a pathlike object or string representing a file</em>) – Output GIFTI file.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
 
@@ -177,7 +210,7 @@
             <dd><a href="../../maint_0.12.x/index.html">maint/0.12.x</a></dd>
             <dd><a href="../../maint_0.8.x/index.html">maint/0.8.x</a></dd>
             <dd><a href="../../maint_0.9.x/index.html">maint/0.9.x</a></dd>
-            <dd><a href="../../master/index.html">master</a></dd>
+            <dd><a href="../../master/api/smriprep.interfaces.gifti.html">master</a></dd>
             <dd><a href="smriprep.interfaces.gifti.html">next</a></dd>
             <dd><a href="../../rel_0.8.0rc1/index.html">rel/0.8.0rc1</a></dd>
         </dl>
