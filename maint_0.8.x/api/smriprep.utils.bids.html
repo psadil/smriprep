@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>smriprep.utils.bids module &mdash; smriprep 0.12.3.dev67 documentation</title>
+  <title>smriprep.utils.bids module &mdash; smriprep 0.12.3.dev210 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/banner.css" type="text/css" />
@@ -36,7 +36,7 @@
             smriprep
           </a>
               <div class="version">
-                0.12.3.dev67
+                0.12.3.dev210
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -106,65 +106,8 @@
 <p>Utilities to handle BIDS inputs.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="smriprep.utils.bids.collect_derivatives">
-<span class="sig-prename descclassname"><span class="pre">smriprep.utils.bids.</span></span><span class="sig-name descname"><span class="pre">collect_derivatives</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">derivatives_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subject_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std_spaces</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freesurfer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patterns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smriprep/utils/bids.html#collect_derivatives"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smriprep.utils.bids.collect_derivatives" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">smriprep.utils.bids.</span></span><span class="sig-name descname"><span class="pre">collect_derivatives</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">derivatives_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subject_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std_spaces</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patterns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smriprep/utils/bids.html#collect_derivatives"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smriprep.utils.bids.collect_derivatives" title="Link to this definition"></a></dt>
 <dd><p>Gather existing derivatives and compose a cache.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="smriprep.utils.bids.get_outputnode_spec">
-<span class="sig-prename descclassname"><span class="pre">smriprep.utils.bids.</span></span><span class="sig-name descname"><span class="pre">get_outputnode_spec</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smriprep/utils/bids.html#get_outputnode_spec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smriprep.utils.bids.get_outputnode_spec" title="Link to this definition"></a></dt>
-<dd><p>Generate outputnode’s fields from I/O spec file.</p>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_outputnode_spec</span><span class="p">()</span>  
-<span class="go">[&#39;t1w_preproc&#39;, &#39;t1w_mask&#39;, &#39;t1w_dseg&#39;, &#39;t1w_tpms&#39;,</span>
-<span class="go">&#39;std_preproc&#39;, &#39;std_mask&#39;, &#39;std_dseg&#39;, &#39;std_tpms&#39;,</span>
-<span class="go">&#39;anat2std_xfm&#39;, &#39;std2anat_xfm&#39;,</span>
-<span class="go">&#39;t1w_aseg&#39;, &#39;t1w_aparc&#39;,</span>
-<span class="go">&#39;t1w2fsnative_xfm&#39;, &#39;fsnative2t1w_xfm&#39;,</span>
-<span class="go">&#39;surfaces&#39;, &#39;morphometrics&#39;, &#39;anat_ribbon&#39;, &#39;sphere_reg_fsLR&#39;]</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="smriprep.utils.bids.predict_derivatives">
-<span class="sig-prename descclassname"><span class="pre">smriprep.utils.bids.</span></span><span class="sig-name descname"><span class="pre">predict_derivatives</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subject_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_spaces</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freesurfer</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smriprep/utils/bids.html#predict_derivatives"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smriprep.utils.bids.predict_derivatives" title="Link to this definition"></a></dt>
-<dd><p>Generate a list of the files that should be found in the output folder.</p>
-<p>The prediction of outputs serves two purposes:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>Anticipates the set of outputs that will be generated.</p></li>
-<li><p>Informs the decision of whether the workflow should be staged or some
-sections can be skip.</p></li>
-</ul>
-</div></blockquote>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>subject_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – A subject id</p></li>
-<li><p><strong>output_spaces</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a>) – TemplateFlow identifiers of the requested output spaces</p></li>
-<li><p><strong>freesurfer</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bool</span></code></a>) – Whether the <code class="docutils literal notranslate"><span class="pre">--fs-no-reconall</span></code> flag was used.</p></li>
-</ul>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">predict_derivatives</span><span class="p">(</span><span class="s1">&#39;01&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;MNI152NLin2009cAsym&#39;</span><span class="p">],</span> <span class="kc">False</span><span class="p">)</span>  
-<span class="go">[&#39;sub-01/anat/sub-01_desc-brain_mask.nii.gz&#39;,</span>
-<span class="go"> &#39;sub-01/anat/sub-01_desc-preproc_T1w.nii.gz&#39;,</span>
-<span class="go"> &#39;sub-01/anat/sub-01_dseg.nii.gz&#39;,</span>
-<span class="go"> &#39;sub-01/anat/sub-01_from-MNI152NLin2009cAsym_to-T1w_mode-image_xfm.h5&#39;,</span>
-<span class="go"> &#39;sub-01/anat/sub-01_from-T1w_to-MNI152NLin2009cAsym_mode-image_xfm.h5&#39;,</span>
-<span class="go"> &#39;sub-01/anat/sub-01_label-CSF_probseg.nii.gz&#39;,</span>
-<span class="go"> &#39;sub-01/anat/sub-01_label-GM_probseg.nii.gz&#39;,</span>
-<span class="go"> &#39;sub-01/anat/sub-01_label-WM_probseg.nii.gz&#39;,</span>
-<span class="go"> &#39;sub-01/anat/sub-01_space-MNI152NLin2009cAsym_desc-brain_mask.nii.gz&#39;,</span>
-<span class="go"> &#39;sub-01/anat/sub-01_space-MNI152NLin2009cAsym_desc-preproc_T1w.nii.gz&#39;,</span>
-<span class="go"> &#39;sub-01/anat/sub-01_space-MNI152NLin2009cAsym_dseg.nii.gz&#39;,</span>
-<span class="go"> &#39;sub-01/anat/sub-01_space-MNI152NLin2009cAsym_label-CSF_probseg.nii.gz&#39;,</span>
-<span class="go"> &#39;sub-01/anat/sub-01_space-MNI152NLin2009cAsym_label-GM_probseg.nii.gz&#39;,</span>
-<span class="go"> &#39;sub-01/anat/sub-01_space-MNI152NLin2009cAsym_label-WM_probseg.nii.gz&#39;]</span>
-</pre></div>
-</div>
 </dd></dl>
 
 <dl class="py function">
@@ -265,7 +208,6 @@ sections can be skip.</p></li>
             <dd><a href="smriprep.utils.bids.html">maint/0.8.x</a></dd>
             <dd><a href="../../maint_0.9.x/api/smriprep.utils.bids.html">maint/0.9.x</a></dd>
             <dd><a href="../../master/api/smriprep.utils.bids.html">master</a></dd>
-            <dd><a href="../../next/api/smriprep.utils.bids.html">next</a></dd>
             <dd><a href="../../rel_0.8.0rc1/api/smriprep.utils.bids.html">rel/0.8.0rc1</a></dd>
         </dl>
     </div>

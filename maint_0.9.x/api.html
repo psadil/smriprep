@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Library API (application program interface) &mdash; smriprep 0.12.3.dev67 documentation</title>
+  <title>Library API (application program interface) &mdash; smriprep 0.12.3.dev210 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/banner.css" type="text/css" />
@@ -36,7 +36,7 @@
             smriprep
           </a>
               <div class="version">
-                0.12.3.dev67
+                0.12.3.dev210
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -136,9 +136,10 @@
 <li class="toctree-l3"><a class="reference internal" href="api/smriprep.interfaces.surf.html">smriprep.interfaces.surf module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="api/smriprep.interfaces.surf.html#smriprep.interfaces.surf.AggregateSurfaces"><code class="docutils literal notranslate"><span class="pre">AggregateSurfaces</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/smriprep.interfaces.surf.html#smriprep.interfaces.surf.FixGiftiMetadata"><code class="docutils literal notranslate"><span class="pre">FixGiftiMetadata</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/smriprep.interfaces.surf.html#smriprep.interfaces.surf.MakeRibbon"><code class="docutils literal notranslate"><span class="pre">MakeRibbon</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/smriprep.interfaces.surf.html#smriprep.interfaces.surf.NormalizeSurf"><code class="docutils literal notranslate"><span class="pre">NormalizeSurf</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/smriprep.interfaces.surf.html#smriprep.interfaces.surf.fix_gifti_metadata"><code class="docutils literal notranslate"><span class="pre">fix_gifti_metadata()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/smriprep.interfaces.surf.html#smriprep.interfaces.surf.load_transform"><code class="docutils literal notranslate"><span class="pre">load_transform()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/smriprep.interfaces.surf.html#smriprep.interfaces.surf.make_ribbon"><code class="docutils literal notranslate"><span class="pre">make_ribbon()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/smriprep.interfaces.surf.html#smriprep.interfaces.surf.normalize_surfs"><code class="docutils literal notranslate"><span class="pre">normalize_surfs()</span></code></a></li>
 </ul>
 </li>
@@ -155,8 +156,6 @@
 <li class="toctree-l2"><a class="reference internal" href="api/smriprep.utils.html#submodules">Submodules</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="api/smriprep.utils.bids.html">smriprep.utils.bids module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="api/smriprep.utils.bids.html#smriprep.utils.bids.collect_derivatives"><code class="docutils literal notranslate"><span class="pre">collect_derivatives()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/smriprep.utils.bids.html#smriprep.utils.bids.get_outputnode_spec"><code class="docutils literal notranslate"><span class="pre">get_outputnode_spec()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/smriprep.utils.bids.html#smriprep.utils.bids.predict_derivatives"><code class="docutils literal notranslate"><span class="pre">predict_derivatives()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/smriprep.utils.bids.html#smriprep.utils.bids.write_bidsignore"><code class="docutils literal notranslate"><span class="pre">write_bidsignore()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/smriprep.utils.bids.html#smriprep.utils.bids.write_derivative_description"><code class="docutils literal notranslate"><span class="pre">write_derivative_description()</span></code></a></li>
 </ul>
@@ -173,6 +172,7 @@
 <li class="toctree-l1"><a class="reference internal" href="api/smriprep.workflows.html">smriprep.workflows package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="api/smriprep.workflows.html#submodules">Submodules</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="api/smriprep.workflows.anatomical.html">smriprep.workflows.anatomical module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/smriprep.workflows.anatomical.html#smriprep.workflows.anatomical.init_anat_fit_wf"><code class="docutils literal notranslate"><span class="pre">init_anat_fit_wf()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/smriprep.workflows.anatomical.html#smriprep.workflows.anatomical.init_anat_preproc_wf"><code class="docutils literal notranslate"><span class="pre">init_anat_preproc_wf()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/smriprep.workflows.anatomical.html#smriprep.workflows.anatomical.init_anat_template_wf"><code class="docutils literal notranslate"><span class="pre">init_anat_template_wf()</span></code></a></li>
 </ul>
@@ -182,23 +182,36 @@
 <li class="toctree-l4"><a class="reference internal" href="api/smriprep.workflows.base.html#smriprep.workflows.base.init_smriprep_wf"><code class="docutils literal notranslate"><span class="pre">init_smriprep_wf()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="api/smriprep.workflows.norm.html">smriprep.workflows.norm module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api/smriprep.workflows.norm.html#smriprep.workflows.norm.init_anat_norm_wf"><code class="docutils literal notranslate"><span class="pre">init_anat_norm_wf()</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="api/smriprep.workflows.norm.html">smriprep.workflows.norm module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/smriprep.workflows.outputs.html">smriprep.workflows.outputs module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api/smriprep.workflows.outputs.html#smriprep.workflows.outputs.init_anat_derivatives_wf"><code class="docutils literal notranslate"><span class="pre">init_anat_derivatives_wf()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/smriprep.workflows.outputs.html#smriprep.workflows.outputs.init_anat_reports_wf"><code class="docutils literal notranslate"><span class="pre">init_anat_reports_wf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/smriprep.workflows.outputs.html#smriprep.workflows.outputs.init_anat_second_derivatives_wf"><code class="docutils literal notranslate"><span class="pre">init_anat_second_derivatives_wf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/smriprep.workflows.outputs.html#smriprep.workflows.outputs.init_ds_anat_volumes_wf"><code class="docutils literal notranslate"><span class="pre">init_ds_anat_volumes_wf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/smriprep.workflows.outputs.html#smriprep.workflows.outputs.init_ds_dseg_wf"><code class="docutils literal notranslate"><span class="pre">init_ds_dseg_wf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/smriprep.workflows.outputs.html#smriprep.workflows.outputs.init_ds_fs_registration_wf"><code class="docutils literal notranslate"><span class="pre">init_ds_fs_registration_wf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/smriprep.workflows.outputs.html#smriprep.workflows.outputs.init_ds_grayord_metrics_wf"><code class="docutils literal notranslate"><span class="pre">init_ds_grayord_metrics_wf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/smriprep.workflows.outputs.html#smriprep.workflows.outputs.init_ds_mask_wf"><code class="docutils literal notranslate"><span class="pre">init_ds_mask_wf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/smriprep.workflows.outputs.html#smriprep.workflows.outputs.init_ds_surface_metrics_wf"><code class="docutils literal notranslate"><span class="pre">init_ds_surface_metrics_wf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/smriprep.workflows.outputs.html#smriprep.workflows.outputs.init_ds_surfaces_wf"><code class="docutils literal notranslate"><span class="pre">init_ds_surfaces_wf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/smriprep.workflows.outputs.html#smriprep.workflows.outputs.init_ds_template_registration_wf"><code class="docutils literal notranslate"><span class="pre">init_ds_template_registration_wf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/smriprep.workflows.outputs.html#smriprep.workflows.outputs.init_ds_template_wf"><code class="docutils literal notranslate"><span class="pre">init_ds_template_wf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/smriprep.workflows.outputs.html#smriprep.workflows.outputs.init_ds_tpms_wf"><code class="docutils literal notranslate"><span class="pre">init_ds_tpms_wf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/smriprep.workflows.outputs.html#smriprep.workflows.outputs.init_template_iterator_wf"><code class="docutils literal notranslate"><span class="pre">init_template_iterator_wf()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="api/smriprep.workflows.surfaces.html">smriprep.workflows.surfaces module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_anat_ribbon_wf"><code class="docutils literal notranslate"><span class="pre">init_anat_ribbon_wf()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_autorecon_resume_wf"><code class="docutils literal notranslate"><span class="pre">init_autorecon_resume_wf()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_gifti_surface_wf"><code class="docutils literal notranslate"><span class="pre">init_gifti_surface_wf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_fsLR_reg_wf"><code class="docutils literal notranslate"><span class="pre">init_fsLR_reg_wf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_gifti_morphometrics_wf"><code class="docutils literal notranslate"><span class="pre">init_gifti_morphometrics_wf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_gifti_surfaces_wf"><code class="docutils literal notranslate"><span class="pre">init_gifti_surfaces_wf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_hcp_morphometrics_wf"><code class="docutils literal notranslate"><span class="pre">init_hcp_morphometrics_wf()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_morph_grayords_wf"><code class="docutils literal notranslate"><span class="pre">init_morph_grayords_wf()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_msm_sulc_wf"><code class="docutils literal notranslate"><span class="pre">init_msm_sulc_wf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_refinement_wf"><code class="docutils literal notranslate"><span class="pre">init_refinement_wf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_resample_midthickness_wf"><code class="docutils literal notranslate"><span class="pre">init_resample_midthickness_wf()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_segs_to_native_wf"><code class="docutils literal notranslate"><span class="pre">init_segs_to_native_wf()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_sphere_reg_wf"><code class="docutils literal notranslate"><span class="pre">init_sphere_reg_wf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_surface_derivatives_wf"><code class="docutils literal notranslate"><span class="pre">init_surface_derivatives_wf()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_surface_recon_wf"><code class="docutils literal notranslate"><span class="pre">init_surface_recon_wf()</span></code></a></li>
 </ul>
 </li>
@@ -276,7 +289,6 @@
             <dd><a href="../maint_0.8.x/api.html">maint/0.8.x</a></dd>
             <dd><a href="api.html">maint/0.9.x</a></dd>
             <dd><a href="../master/api.html">master</a></dd>
-            <dd><a href="../next/api.html">next</a></dd>
             <dd><a href="../rel_0.8.0rc1/api.html">rel/0.8.0rc1</a></dd>
         </dl>
     </div>

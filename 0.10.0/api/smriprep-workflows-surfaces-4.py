@@ -1,2 +1,2 @@
-from smriprep.workflows.surfaces import init_segs_to_native_wf
-wf = init_segs_to_native_wf()
+from smriprep.workflows.surfaces import init_gifti_surfaces_wf
+wf = init_gifti_surfaces_wf()

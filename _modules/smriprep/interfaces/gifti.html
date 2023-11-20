@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>smriprep.interfaces.gifti &mdash; smriprep 0.12.3.dev67 documentation</title>
+  <title>smriprep.interfaces.gifti &mdash; smriprep 0.12.3.dev210 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/banner.css" type="text/css" />
@@ -13,7 +13,7 @@
   
         <script src="../../../_static/jquery.js?v=1413ff29"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=7b397ac5"></script>
+        <script src="../../../_static/documentation_options.js?v=d9a209d6"></script>
         <script src="../../../_static/doctools.js?v=6afcdcd2"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
@@ -33,7 +33,7 @@
             smriprep
           </a>
               <div class="version">
-                0.12.3.dev67
+                0.12.3.dev210
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -89,7 +89,7 @@
 <span class="kn">from</span> <span class="nn">nipype.interfaces.base</span> <span class="kn">import</span> <span class="n">File</span><span class="p">,</span> <span class="n">SimpleInterface</span><span class="p">,</span> <span class="n">TraitedSpec</span><span class="p">,</span> <span class="n">isdefined</span><span class="p">,</span> <span class="n">traits</span>
 
 
-<span class="k">class</span> <span class="nc">InvertShapeInputSpec</span><span class="p">(</span><span class="n">TraitedSpec</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">MetricMathInputSpec</span><span class="p">(</span><span class="n">TraitedSpec</span><span class="p">):</span>
     <span class="n">subject_id</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Str</span><span class="p">(</span><span class="n">desc</span><span class="o">=</span><span class="s1">&#39;subject ID&#39;</span><span class="p">)</span>
     <span class="n">hemisphere</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Enum</span><span class="p">(</span>
         <span class="s2">&quot;L&quot;</span><span class="p">,</span>
@@ -97,52 +97,70 @@
         <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;hemisphere&#39;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="n">shape</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Str</span><span class="p">(</span><span class="n">desc</span><span class="o">=</span><span class="s1">&#39;name of shape to invert&#39;</span><span class="p">)</span>
-    <span class="n">shape_file</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;input GIFTI file&#39;</span><span class="p">)</span>
+    <span class="n">metric</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Str</span><span class="p">(</span><span class="n">desc</span><span class="o">=</span><span class="s1">&#39;name of metric to invert&#39;</span><span class="p">)</span>
+    <span class="n">metric_file</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;input GIFTI file&#39;</span><span class="p">)</span>
+    <span class="n">operation</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Enum</span><span class="p">(</span>
+        <span class="s2">&quot;invert&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;abs&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;bin&quot;</span><span class="p">,</span>
+        <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;operation to perform&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
 
 
-<span class="k">class</span> <span class="nc">InvertShapeOutputSpec</span><span class="p">(</span><span class="n">TraitedSpec</span><span class="p">):</span>
-    <span class="n">shape_file</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">desc</span><span class="o">=</span><span class="s1">&#39;output GIFTI file&#39;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">MetricMathOutputSpec</span><span class="p">(</span><span class="n">TraitedSpec</span><span class="p">):</span>
+    <span class="n">metric_file</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">desc</span><span class="o">=</span><span class="s1">&#39;output GIFTI file&#39;</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="InvertShape">
-<a class="viewcode-back" href="../../../api/smriprep.interfaces.gifti.html#smriprep.interfaces.gifti.InvertShape">[docs]</a>
-<span class="k">class</span> <span class="nc">InvertShape</span><span class="p">(</span><span class="n">SimpleInterface</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Prepare GIFTI shape file for use in MSMSulc</span>
+<div class="viewcode-block" id="MetricMath">
+<a class="viewcode-back" href="../../../api/smriprep.interfaces.gifti.html#smriprep.interfaces.gifti.MetricMath">[docs]</a>
+<span class="k">class</span> <span class="nc">MetricMath</span><span class="p">(</span><span class="n">SimpleInterface</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Prepare GIFTI metric file for use in MSMSulc</span>
 
 <span class="sd">    This interface mirrors the action of the following portion</span>
 <span class="sd">    of FreeSurfer2CaretConvertAndRegisterNonlinear.sh::</span>
 
-<span class="sd">        wb_command -set-structure ${shape_file} CORTEX_[LEFT|RIGHT]</span>
-<span class="sd">        wb_command -metric-math &quot;var * -1&quot; ${shape_file} -var var ${shape_file}</span>
-<span class="sd">        wb_command -set-map-names ${shape_file} -map 1 ${subject}_[L|R]_${shape}</span>
+<span class="sd">        wb_command -set-structure ${metric_file} CORTEX_[LEFT|RIGHT]</span>
+<span class="sd">        wb_command -metric-math &quot;var * -1&quot; ${metric_file} -var var ${metric_file}</span>
+<span class="sd">        wb_command -set-map-names ${metric_file} -map 1 ${subject}_[L|R]_${metric}</span>
+<span class="sd">        # If abs:</span>
+<span class="sd">        wb_command -metric-math &quot;abs(var)&quot; ${metric_file} -var var ${metric_file}</span>
 
 <span class="sd">    We do not add palette information to the output file.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">input_spec</span> <span class="o">=</span> <span class="n">InvertShapeInputSpec</span>
-    <span class="n">output_spec</span> <span class="o">=</span> <span class="n">InvertShapeOutputSpec</span>
+    <span class="n">input_spec</span> <span class="o">=</span> <span class="n">MetricMathInputSpec</span>
+    <span class="n">output_spec</span> <span class="o">=</span> <span class="n">MetricMathOutputSpec</span>
 
     <span class="k">def</span> <span class="nf">_run_interface</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">runtime</span><span class="p">):</span>
-        <span class="n">subject</span><span class="p">,</span> <span class="n">hemi</span><span class="p">,</span> <span class="n">shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">subject_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">hemisphere</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">shape</span>
+        <span class="n">subject</span><span class="p">,</span> <span class="n">hemi</span><span class="p">,</span> <span class="n">metric</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">subject_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">hemisphere</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">metric</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">isdefined</span><span class="p">(</span><span class="n">subject</span><span class="p">):</span>
             <span class="n">subject</span> <span class="o">=</span> <span class="s1">&#39;sub-XYZ&#39;</span>
 
-        <span class="n">img</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">GiftiImage</span><span class="o">.</span><span class="n">from_filename</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">shape_file</span><span class="p">)</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">GiftiImage</span><span class="o">.</span><span class="n">from_filename</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">metric_file</span><span class="p">)</span>
         <span class="c1"># wb_command -set-structure</span>
         <span class="n">img</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;AnatomicalStructurePrimary&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;L&#39;</span><span class="p">:</span> <span class="s1">&#39;CortexLeft&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">:</span> <span class="s1">&#39;CortexRight&#39;</span><span class="p">}[</span><span class="n">hemi</span><span class="p">]</span>
         <span class="n">darray</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">darrays</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="c1"># wb_command -set-map-names</span>
         <span class="n">meta</span> <span class="o">=</span> <span class="n">darray</span><span class="o">.</span><span class="n">meta</span>
-        <span class="n">meta</span><span class="p">[</span><span class="s1">&#39;Name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">subject</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">hemi</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">meta</span><span class="p">[</span><span class="s1">&#39;Name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">subject</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">hemi</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">metric</span><span class="si">}</span><span class="s2">&quot;</span>
 
-        <span class="c1"># wb_command -metric-math &quot;var * -1&quot;</span>
-        <span class="n">inv</span> <span class="o">=</span> <span class="o">-</span><span class="n">darray</span><span class="o">.</span><span class="n">data</span>
+        <span class="n">datatype</span> <span class="o">=</span> <span class="n">darray</span><span class="o">.</span><span class="n">datatype</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">operation</span> <span class="o">==</span> <span class="s2">&quot;abs&quot;</span><span class="p">:</span>
+            <span class="c1"># wb_command -metric-math &quot;abs(var)&quot;</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">darray</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">operation</span> <span class="o">==</span> <span class="s2">&quot;invert&quot;</span><span class="p">:</span>
+            <span class="c1"># wb_command -metric-math &quot;var * -1&quot;</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="o">-</span><span class="n">darray</span><span class="o">.</span><span class="n">data</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">operation</span> <span class="o">==</span> <span class="s2">&quot;bin&quot;</span><span class="p">:</span>
+            <span class="c1"># wb_command -metric-math &quot;var &gt; 0&quot;</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">darray</span><span class="o">.</span><span class="n">data</span> <span class="o">&gt;</span> <span class="mi">0</span>
+            <span class="n">datatype</span> <span class="o">=</span> <span class="s1">&#39;uint8&#39;</span>
 
         <span class="n">darray</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">gifti</span><span class="o">.</span><span class="n">GiftiDataArray</span><span class="p">(</span>
-            <span class="n">inv</span><span class="p">,</span>
+            <span class="n">data</span><span class="p">,</span>
             <span class="n">intent</span><span class="o">=</span><span class="n">darray</span><span class="o">.</span><span class="n">intent</span><span class="p">,</span>
-            <span class="n">datatype</span><span class="o">=</span><span class="n">darray</span><span class="o">.</span><span class="n">datatype</span><span class="p">,</span>
+            <span class="n">datatype</span><span class="o">=</span><span class="n">datatype</span><span class="p">,</span>
             <span class="n">encoding</span><span class="o">=</span><span class="n">darray</span><span class="o">.</span><span class="n">encoding</span><span class="p">,</span>
             <span class="n">endian</span><span class="o">=</span><span class="n">darray</span><span class="o">.</span><span class="n">endian</span><span class="p">,</span>
             <span class="n">coordsys</span><span class="o">=</span><span class="n">darray</span><span class="o">.</span><span class="n">coordsys</span><span class="p">,</span>
@@ -151,9 +169,9 @@
         <span class="p">)</span>
         <span class="n">img</span><span class="o">.</span><span class="n">darrays</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">darray</span>
 
-        <span class="n">out_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">runtime</span><span class="o">.</span><span class="n">cwd</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">subject</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">hemi</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">shape</span><span class="si">}</span><span class="s2">.native.shape.gii&quot;</span><span class="p">)</span>
+        <span class="n">out_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">runtime</span><span class="o">.</span><span class="n">cwd</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">subject</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">hemi</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">metric</span><span class="si">}</span><span class="s2">.native.shape.gii&quot;</span><span class="p">)</span>
         <span class="n">img</span><span class="o">.</span><span class="n">to_filename</span><span class="p">(</span><span class="n">out_filename</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;shape_file&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">out_filename</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;metric_file&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">out_filename</span>
         <span class="k">return</span> <span class="n">runtime</span></div>
 
 </pre></div>
@@ -220,7 +238,6 @@
             <dd><a href="../../../maint_0.8.x/index.html">maint/0.8.x</a></dd>
             <dd><a href="../../../maint_0.9.x/index.html">maint/0.9.x</a></dd>
             <dd><a href="../../../master/_modules/smriprep/interfaces/gifti.html">master</a></dd>
-            <dd><a href="../../../next/index.html">next</a></dd>
             <dd><a href="../../../rel_0.8.0rc1/index.html">rel/0.8.0rc1</a></dd>
         </dl>
     </div>

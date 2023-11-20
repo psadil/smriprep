@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>smriprep.interfaces.freesurfer &mdash; smriprep 0.12.3.dev67 documentation</title>
+  <title>smriprep.interfaces.freesurfer &mdash; smriprep 0.12.3.dev210 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/banner.css" type="text/css" />
@@ -13,7 +13,7 @@
   
         <script src="../../../_static/jquery.js?v=1413ff29"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=7b397ac5"></script>
+        <script src="../../../_static/documentation_options.js?v=d9a209d6"></script>
         <script src="../../../_static/doctools.js?v=6afcdcd2"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
@@ -33,7 +33,7 @@
             smriprep
           </a>
               <div class="version">
-                0.12.3.dev67
+                0.12.3.dev210
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -383,14 +383,22 @@
 
 
 
+<span class="k">class</span> <span class="nc">MakeMidthicknessInputSpec</span><span class="p">(</span><span class="n">nwfs</span><span class="o">.</span><span class="n">_MakeMidthicknessInputSpec</span><span class="p">,</span> <span class="n">fs</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">FSTraitedSpecOpenMP</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+
 <div class="viewcode-block" id="MakeMidthickness">
 <a class="viewcode-back" href="../../../api/smriprep.interfaces.freesurfer.html#smriprep.interfaces.freesurfer.MakeMidthickness">[docs]</a>
-<span class="k">class</span> <span class="nc">MakeMidthickness</span><span class="p">(</span><span class="n">nwfs</span><span class="o">.</span><span class="n">MakeMidthickness</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">MakeMidthickness</span><span class="p">(</span><span class="n">nwfs</span><span class="o">.</span><span class="n">MakeMidthickness</span><span class="p">,</span> <span class="n">fs</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">FSCommandOpenMP</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Patched MakeMidthickness interface</span>
 
 <span class="sd">    Ensures output filenames are specified with hemisphere labels, when appropriate.</span>
 <span class="sd">    This may not cover all use-cases in MRIsExpand, but we&#39;re just making midthickness</span>
 <span class="sd">    files.</span>
+
+<span class="sd">    This interface also sets the OMP_NUM_THREADS environment variable to floor(1.5x) the</span>
+<span class="sd">    number of threads requested by the user, as tests indicate that cores are underutilized</span>
+<span class="sd">    by a factor of 2/3.</span>
 
 <span class="sd">    &gt;&gt;&gt; from smriprep.interfaces.freesurfer import MakeMidthickness</span>
 <span class="sd">    &gt;&gt;&gt; mris_expand = MakeMidthickness(thickness=True, distance=0.5)</span>
@@ -408,12 +416,20 @@
 <span class="sd">    &#39;mris_expand -thickness lh.white 0.5 rh.graymid&#39;</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="n">input_spec</span> <span class="o">=</span> <span class="n">MakeMidthicknessInputSpec</span>
+
     <span class="k">def</span> <span class="nf">_format_arg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">trait_spec</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="c1"># FreeSurfer at some point changed whether it would add the hemi label onto the</span>
         <span class="c1"># surface. Therefore we&#39;ll do it ourselves.</span>
         <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;out_name&quot;</span><span class="p">:</span>
             <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_associated_file</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_file</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_format_arg</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">trait_spec</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_format_arg</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">trait_spec</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_num_threads_update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">num_threads</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                <span class="p">{</span><span class="s2">&quot;OMP_NUM_THREADS&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">num_threads</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)}</span>
+            <span class="p">)</span></div>
 
 </pre></div>
 
@@ -479,7 +495,6 @@
             <dd><a href="../../../maint_0.8.x/index.html">maint/0.8.x</a></dd>
             <dd><a href="../../../maint_0.9.x/index.html">maint/0.9.x</a></dd>
             <dd><a href="../../../master/_modules/smriprep/interfaces/freesurfer.html">master</a></dd>
-            <dd><a href="../../../next/index.html">next</a></dd>
             <dd><a href="../../../rel_0.8.0rc1/index.html">rel/0.8.0rc1</a></dd>
         </dl>
     </div>

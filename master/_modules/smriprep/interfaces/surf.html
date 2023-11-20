@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>smriprep.interfaces.surf &mdash; smriprep 0.12.3.dev67 documentation</title>
+  <title>smriprep.interfaces.surf &mdash; smriprep 0.12.3.dev210 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/banner.css" type="text/css" />
@@ -13,7 +13,7 @@
   
         <script src="../../../_static/jquery.js?v=1413ff29"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=7b397ac5"></script>
+        <script src="../../../_static/documentation_options.js?v=d9a209d6"></script>
         <script src="../../../_static/doctools.js?v=6afcdcd2"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
@@ -33,7 +33,7 @@
             smriprep
           </a>
               <div class="version">
-                0.12.3.dev67
+                0.12.3.dev210
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -106,10 +106,12 @@
 <span class="c1">#</span>
 <span class="sd">&quot;&quot;&quot;Handling surfaces.&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">nibabel</span> <span class="k">as</span> <span class="nn">nb</span>
+<span class="kn">import</span> <span class="nn">nitransforms</span> <span class="k">as</span> <span class="nn">nt</span>
 
 <span class="kn">from</span> <span class="nn">nipype.interfaces.base</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">BaseInterfaceInputSpec</span><span class="p">,</span>
@@ -124,7 +126,7 @@
 
 <span class="k">class</span> <span class="nc">_NormalizeSurfInputSpec</span><span class="p">(</span><span class="n">BaseInterfaceInputSpec</span><span class="p">):</span>
     <span class="n">in_file</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Freesurfer-generated GIFTI file&quot;</span><span class="p">)</span>
-    <span class="n">transform_file</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;FSL or LTA affine transform file&quot;</span><span class="p">)</span>
+    <span class="n">transform_file</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;FSL, LTA or ITK affine transform file&quot;</span><span class="p">)</span>
 
 
 <span class="k">class</span> <span class="nc">_NormalizeSurfOutputSpec</span><span class="p">(</span><span class="n">TraitedSpec</span><span class="p">):</span>
@@ -248,9 +250,40 @@
 
 
 
+<span class="k">class</span> <span class="nc">MakeRibbonInputSpec</span><span class="p">(</span><span class="n">TraitedSpec</span><span class="p">):</span>
+    <span class="n">white_distvols</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">List</span><span class="p">(</span>
+        <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">minlen</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">maxlen</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;White matter distance volumes&quot;</span>
+    <span class="p">)</span>
+    <span class="n">pial_distvols</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">List</span><span class="p">(</span>
+        <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">minlen</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">maxlen</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Pial matter distance volumes&quot;</span>
+    <span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">MakeRibbonOutputSpec</span><span class="p">(</span><span class="n">TraitedSpec</span><span class="p">):</span>
+    <span class="n">ribbon</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Binary ribbon mask&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="MakeRibbon">
+<a class="viewcode-back" href="../../../api/smriprep.interfaces.surf.html#smriprep.interfaces.surf.MakeRibbon">[docs]</a>
+<span class="k">class</span> <span class="nc">MakeRibbon</span><span class="p">(</span><span class="n">SimpleInterface</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a binary ribbon mask from white and pial distance volumes.&quot;&quot;&quot;</span>
+
+    <span class="n">input_spec</span> <span class="o">=</span> <span class="n">MakeRibbonInputSpec</span>
+    <span class="n">output_spec</span> <span class="o">=</span> <span class="n">MakeRibbonOutputSpec</span>
+
+    <span class="k">def</span> <span class="nf">_run_interface</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">runtime</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;ribbon&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_ribbon</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">white_distvols</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">pial_distvols</span><span class="p">,</span> <span class="n">newpath</span><span class="o">=</span><span class="n">runtime</span><span class="o">.</span><span class="n">cwd</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">runtime</span></div>
+
+
+
 <div class="viewcode-block" id="normalize_surfs">
 <a class="viewcode-back" href="../../../api/smriprep.interfaces.surf.html#smriprep.interfaces.surf.normalize_surfs">[docs]</a>
-<span class="k">def</span> <span class="nf">normalize_surfs</span><span class="p">(</span><span class="n">in_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">transform_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">newpath</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">normalize_surfs</span><span class="p">(</span>
+    <span class="n">in_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">transform_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">newpath</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Update GIFTI metadata and apply rigid coordinate correction.</span>
 
@@ -263,29 +296,44 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">img</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">in_file</span><span class="p">)</span>
-    <span class="n">transform</span> <span class="o">=</span> <span class="n">load_transform</span><span class="p">(</span><span class="n">transform_file</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">transform_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">transform</span> <span class="o">=</span> <span class="n">nt</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">Affine</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">xfm_fmt</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;.txt&quot;</span><span class="p">:</span> <span class="s2">&quot;itk&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;.mat&quot;</span><span class="p">:</span> <span class="s2">&quot;fsl&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;.lta&quot;</span><span class="p">:</span> <span class="s2">&quot;fs&quot;</span><span class="p">,</span>
+        <span class="p">}[</span><span class="n">Path</span><span class="p">(</span><span class="n">transform_file</span><span class="p">)</span><span class="o">.</span><span class="n">suffix</span><span class="p">]</span>
+        <span class="n">transform</span> <span class="o">=</span> <span class="n">nt</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">transform_file</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="n">xfm_fmt</span><span class="p">)</span>
     <span class="n">pointset</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">get_arrays_from_intent</span><span class="p">(</span><span class="s2">&quot;NIFTI_INTENT_POINTSET&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">transform</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">4</span><span class="p">)):</span>
-        <span class="n">pointset</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">affines</span><span class="o">.</span><span class="n">apply_affine</span><span class="p">(</span><span class="n">transform</span><span class="p">,</span> <span class="n">pointset</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
-
-    <span class="c1"># mris_convert --to-scanner removes VolGeom transform from coordinates,</span>
-    <span class="c1"># but not metadata.</span>
-    <span class="c1"># We could set to default LIA affine, but there seems little advantage</span>
-    <span class="k">for</span> <span class="n">XYZC</span> <span class="ow">in</span> <span class="s2">&quot;XYZC&quot;</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">RAS</span> <span class="ow">in</span> <span class="s2">&quot;RAS&quot;</span><span class="p">:</span>
-            <span class="n">pointset</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;VolGeom</span><span class="si">{</span><span class="n">XYZC</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">RAS</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">transform</span><span class="o">.</span><span class="n">matrix</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">4</span><span class="p">)):</span>
+        <span class="n">pointset</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">transform</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">pointset</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">inverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="n">fname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">in_file</span><span class="p">)</span>
-    <span class="k">if</span> <span class="s2">&quot;midthickness&quot;</span> <span class="ow">in</span> <span class="n">fname</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">or</span> <span class="s2">&quot;graymid&quot;</span> <span class="ow">in</span> <span class="n">fname</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+    <span class="k">if</span> <span class="s2">&quot;graymid&quot;</span> <span class="ow">in</span> <span class="n">fname</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+        <span class="c1"># Rename graymid to midthickness</span>
+        <span class="n">fname</span> <span class="o">=</span> <span class="n">fname</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;graymid&quot;</span><span class="p">,</span> <span class="s2">&quot;midthickness&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s2">&quot;midthickness&quot;</span> <span class="ow">in</span> <span class="n">fname</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
         <span class="n">pointset</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;AnatomicalStructureSecondary&quot;</span><span class="p">,</span> <span class="s2">&quot;MidThickness&quot;</span><span class="p">)</span>
         <span class="n">pointset</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;GeometricType&quot;</span><span class="p">,</span> <span class="s2">&quot;Anatomical&quot;</span><span class="p">)</span>
 
     <span class="c1"># FreeSurfer incorrectly uses &quot;Sphere&quot; for spherical surfaces</span>
     <span class="k">if</span> <span class="n">pointset</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;GeometricType&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;Sphere&quot;</span><span class="p">:</span>
         <span class="n">pointset</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;GeometricType&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Spherical&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># mris_convert --to-scanner removes VolGeom transform from coordinates,</span>
+        <span class="c1"># but not metadata.</span>
+        <span class="c1"># We could set to default LIA affine, but there seems little advantage.</span>
+        <span class="c1">#</span>
+        <span class="c1"># Following the lead of HCP pipelines, we only adjust the coordinates</span>
+        <span class="c1"># for anatomical surfaces. To ensure consistent treatment by FreeSurfer,</span>
+        <span class="c1"># we leave the metadata for spherical surfaces intact.</span>
+        <span class="k">for</span> <span class="n">XYZC</span> <span class="ow">in</span> <span class="s2">&quot;XYZC&quot;</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">RAS</span> <span class="ow">in</span> <span class="s2">&quot;RAS&quot;</span><span class="p">:</span>
+                <span class="n">pointset</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;VolGeom</span><span class="si">{</span><span class="n">XYZC</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">RAS</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">newpath</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">newpath</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">newpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
     <span class="n">out_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">newpath</span><span class="p">,</span> <span class="n">fname</span><span class="p">)</span>
     <span class="n">img</span><span class="o">.</span><span class="n">to_filename</span><span class="p">(</span><span class="n">out_file</span><span class="p">)</span>
@@ -312,7 +360,7 @@
     <span class="k">if</span> <span class="n">pointset</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;GeometricType&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;Sphere&quot;</span><span class="p">:</span>
         <span class="n">pointset</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;GeometricType&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Spherical&quot;</span>
 
-    <span class="k">if</span> <span class="n">newpath</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">newpath</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">newpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
     <span class="n">out_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">newpath</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">in_file</span><span class="p">))</span>
     <span class="n">img</span><span class="o">.</span><span class="n">to_filename</span><span class="p">(</span><span class="n">out_file</span><span class="p">)</span>
@@ -320,35 +368,30 @@
 
 
 
-<div class="viewcode-block" id="load_transform">
-<a class="viewcode-back" href="../../../api/smriprep.interfaces.surf.html#smriprep.interfaces.surf.load_transform">[docs]</a>
-<span class="k">def</span> <span class="nf">load_transform</span><span class="p">(</span><span class="n">fname</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load affine transform from file</span>
+<div class="viewcode-block" id="make_ribbon">
+<a class="viewcode-back" href="../../../api/smriprep.interfaces.surf.html#smriprep.interfaces.surf.make_ribbon">[docs]</a>
+<span class="k">def</span> <span class="nf">make_ribbon</span><span class="p">(</span>
+    <span class="n">white_distvols</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">pial_distvols</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">newpath</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">base_img</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">white_distvols</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">header</span> <span class="o">=</span> <span class="n">base_img</span><span class="o">.</span><span class="n">header</span>
+    <span class="n">header</span><span class="o">.</span><span class="n">set_data_dtype</span><span class="p">(</span><span class="s2">&quot;uint8&quot;</span><span class="p">)</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    fname : str or None</span>
-<span class="sd">        Filename of an LTA or FSL-style MAT transform file.</span>
-<span class="sd">        If ``None``, return an identity transform</span>
+    <span class="n">ribbons</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">white</span><span class="p">)</span><span class="o">.</span><span class="n">dataobj</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">pial</span><span class="p">)</span><span class="o">.</span><span class="n">dataobj</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">white</span><span class="p">,</span> <span class="n">pial</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">white_distvols</span><span class="p">,</span> <span class="n">pial_distvols</span><span class="p">)</span>
+    <span class="p">]</span>
 
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    affine : (4, 4) numpy.ndarray</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">fname</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">newpath</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">newpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+    <span class="n">out_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">newpath</span><span class="p">,</span> <span class="s2">&quot;ribbon.nii.gz&quot;</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">fname</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.mat&quot;</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">fname</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.lta&quot;</span><span class="p">):</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fobj</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fobj</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;1 4 4&quot;</span><span class="p">):</span>
-                    <span class="k">break</span>
-            <span class="n">lines</span> <span class="o">=</span> <span class="n">fobj</span><span class="o">.</span><span class="n">readlines</span><span class="p">()[:</span><span class="mi">4</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
-
-    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unknown transform type; pass FSL (.mat) or LTA (.lta)&quot;</span><span class="p">)</span></div>
+    <span class="n">ribbon_data</span> <span class="o">=</span> <span class="n">ribbons</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">|</span> <span class="n">ribbons</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">ribbon</span> <span class="o">=</span> <span class="n">base_img</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">ribbon_data</span><span class="p">,</span> <span class="n">base_img</span><span class="o">.</span><span class="n">affine</span><span class="p">,</span> <span class="n">header</span><span class="p">)</span>
+    <span class="n">ribbon</span><span class="o">.</span><span class="n">to_filename</span><span class="p">(</span><span class="n">out_file</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">out_file</span></div>
 
 </pre></div>
 
@@ -414,7 +457,6 @@
             <dd><a href="../../../../maint_0.8.x/index.html">maint/0.8.x</a></dd>
             <dd><a href="../../../../maint_0.9.x/index.html">maint/0.9.x</a></dd>
             <dd><a href="surf.html">master</a></dd>
-            <dd><a href="../../../../next/index.html">next</a></dd>
             <dd><a href="../../../../rel_0.8.0rc1/index.html">rel/0.8.0rc1</a></dd>
         </dl>
     </div>

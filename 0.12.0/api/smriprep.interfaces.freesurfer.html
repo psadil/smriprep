@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>smriprep.interfaces.freesurfer module &mdash; smriprep 0.12.3.dev67 documentation</title>
+  <title>smriprep.interfaces.freesurfer module &mdash; smriprep 0.12.3.dev210 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/banner.css" type="text/css" />
@@ -36,7 +36,7 @@
             smriprep
           </a>
               <div class="version">
-                0.12.3.dev67
+                0.12.3.dev210
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -186,12 +186,15 @@ Maps to a command-line argument: <code class="code docutils literal notranslate"
 <dl class="py class">
 <dt class="sig sig-object py" id="smriprep.interfaces.freesurfer.MakeMidthickness">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smriprep.interfaces.freesurfer.</span></span><span class="sig-name descname"><span class="pre">MakeMidthickness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">inputs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smriprep/interfaces/freesurfer.html#MakeMidthickness"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smriprep.interfaces.freesurfer.MakeMidthickness" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://www.nipreps.org/niworkflows/api/niworkflows.interfaces.freesurfer.html#niworkflows.interfaces.freesurfer.MakeMidthickness" title="(in niworkflows v0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MakeMidthickness</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://www.nipreps.org/niworkflows/api/niworkflows.interfaces.freesurfer.html#niworkflows.interfaces.freesurfer.MakeMidthickness" title="(in niworkflows v0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MakeMidthickness</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">FSCommandOpenMP</span></code></p>
 <p>Wrapped executable: <code class="docutils literal notranslate"><span class="pre">mris_expand</span></code>.</p>
 <p>Patched MakeMidthickness interface</p>
 <p>Ensures output filenames are specified with hemisphere labels, when appropriate.
 This may not cover all use-cases in MRIsExpand, but we’re just making midthickness
 files.</p>
+<p>This interface also sets the OMP_NUM_THREADS environment variable to floor(1.5x) the
+number of threads requested by the user, as tests indicate that cores are underutilized
+by a factor of 2/3.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">smriprep.interfaces.freesurfer</span> <span class="kn">import</span> <span class="n">MakeMidthickness</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mris_expand</span> <span class="o">=</span> <span class="n">MakeMidthickness</span><span class="p">(</span><span class="n">thickness</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">distance</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mris_expand</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_file</span> <span class="o">=</span> <span class="s1">&#39;lh.white&#39;</span>
@@ -230,6 +233,7 @@ Maps to a command-line argument: <code class="code docutils literal notranslate"
 <li><p><strong>graymid</strong> (<em>a list of items which are any value</em>) – Existing graymid/midthickness file.</p></li>
 <li><p><strong>nsurfaces</strong> (<em>an integer</em>) – Number of surfacces to write during expansion.
 Maps to a command-line argument: <code class="code docutils literal notranslate"><span class="pre">-N</span> <span class="pre">%d</span></code>.</p></li>
+<li><p><strong>num_threads</strong> (<em>an integer</em>) – Allows for specifying more threads.</p></li>
 <li><p><strong>out_name</strong> (<em>a string</em>) – Output surface file. If no path, uses directory of <code class="docutils literal notranslate"><span class="pre">in_file</span></code>. If no path AND missing “lh.” or “rh.”, derive from <code class="docutils literal notranslate"><span class="pre">in_file</span></code>.
 Maps to a command-line argument: <code class="code docutils literal notranslate"><span class="pre">%s</span></code> (position: -1).
 (Nipype <strong>default</strong> value: <code class="docutils literal notranslate"><span class="pre">expanded</span></code>)</p></li>
@@ -494,7 +498,6 @@ validates arguments and generates command line</p>
             <dd><a href="../../maint_0.8.x/api/smriprep.interfaces.freesurfer.html">maint/0.8.x</a></dd>
             <dd><a href="../../maint_0.9.x/api/smriprep.interfaces.freesurfer.html">maint/0.9.x</a></dd>
             <dd><a href="../../master/api/smriprep.interfaces.freesurfer.html">master</a></dd>
-            <dd><a href="../../next/api/smriprep.interfaces.freesurfer.html">next</a></dd>
             <dd><a href="../../rel_0.8.0rc1/api/smriprep.interfaces.freesurfer.html">rel/0.8.0rc1</a></dd>
         </dl>
     </div>

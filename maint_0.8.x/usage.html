@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Usage &mdash; smriprep 0.12.3.dev67 documentation</title>
+  <title>Usage &mdash; smriprep 0.12.3.dev210 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/banner.css" type="text/css" />
@@ -36,7 +36,7 @@
             smriprep
           </a>
               <div class="version">
-                0.12.3.dev67
+                0.12.3.dev210
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -134,6 +134,7 @@ Example:</p>
        <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span>
        <span class="p">[</span><span class="o">--</span><span class="n">version</span><span class="p">]</span>
        <span class="p">[</span><span class="o">--</span><span class="n">participant</span><span class="o">-</span><span class="n">label</span> <span class="n">PARTICIPANT_LABEL</span> <span class="p">[</span><span class="n">PARTICIPANT_LABEL</span> <span class="o">...</span><span class="p">]]</span>
+       <span class="p">[</span><span class="o">-</span><span class="n">d</span> <span class="p">[</span><span class="n">PATH</span> <span class="o">...</span><span class="p">]]</span>
        <span class="p">[</span><span class="o">--</span><span class="n">bids</span><span class="o">-</span><span class="nb">filter</span><span class="o">-</span><span class="n">file</span> <span class="n">PATH</span><span class="p">]</span>
        <span class="p">[</span><span class="o">--</span><span class="n">nprocs</span> <span class="n">NPROCS</span><span class="p">]</span>
        <span class="p">[</span><span class="o">--</span><span class="n">omp</span><span class="o">-</span><span class="n">nthreads</span> <span class="n">OMP_NTHREADS</span><span class="p">]</span>
@@ -149,6 +150,7 @@ Example:</p>
        <span class="p">[</span><span class="o">--</span><span class="n">skull</span><span class="o">-</span><span class="n">strip</span><span class="o">-</span><span class="n">mode</span> <span class="p">{</span><span class="n">auto</span><span class="p">,</span><span class="n">skip</span><span class="p">,</span><span class="n">force</span><span class="p">}]</span>
        <span class="p">[</span><span class="o">--</span><span class="n">fs</span><span class="o">-</span><span class="n">license</span><span class="o">-</span><span class="n">file</span> <span class="n">PATH</span><span class="p">]</span>
        <span class="p">[</span><span class="o">--</span><span class="n">fs</span><span class="o">-</span><span class="n">subjects</span><span class="o">-</span><span class="nb">dir</span> <span class="n">PATH</span><span class="p">]</span>
+       <span class="p">[</span><span class="o">--</span><span class="n">cifti</span><span class="o">-</span><span class="n">output</span> <span class="p">[{</span><span class="mi">91</span><span class="n">k</span><span class="p">,</span><span class="mi">170</span><span class="n">k</span><span class="p">}]]</span>
        <span class="p">[</span><span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">submm</span><span class="o">-</span><span class="n">recon</span><span class="p">]</span>
        <span class="p">[</span><span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">msm</span><span class="p">]</span>
        <span class="p">[</span><span class="o">--</span><span class="n">fs</span><span class="o">-</span><span class="n">no</span><span class="o">-</span><span class="n">reconall</span><span class="p">]</span>
@@ -194,6 +196,9 @@ Example:</p>
 <dl class="option-list">
 <dt><kbd>--participant-label, --participant_label</kbd></dt>
 <dd><p>a space delimited list of participant identifiers or a single identifier (the sub- prefix can be removed)</p>
+</dd>
+<dt><kbd>-d, --derivatives</kbd></dt>
+<dd><p>Search PATH(s) for pre-computed derivatives.</p>
 </dd>
 <dt><kbd>--bids-filter-file</kbd></dt>
 <dd><p>a JSON file describing custom BIDS input filters using pybids {&lt;suffix&gt;:{&lt;entity&gt;:&lt;filter&gt;,…},…} (<a class="reference external" href="https://github.com/bids-standard/pybids/blob/master/bids/layout/config/bids.json">https://github.com/bids-standard/pybids/blob/master/bids/layout/config/bids.json</a>)</p>
@@ -261,6 +266,10 @@ Example:</p>
 <dt><kbd>--fs-subjects-dir</kbd></dt>
 <dd><p>Path to existing FreeSurfer subjects directory to reuse. (default: OUTPUT_DIR/freesurfer)</p>
 </dd>
+<dt><kbd>--cifti-output</kbd></dt>
+<dd><p>Possible choices: 91k, 170k</p>
+<p>Output morphometry as CIFTI dense scalars. Optionally, the number of grayordinate can be specified (default is 91k, which equates to 2mm resolution)</p>
+</dd>
 </dl>
 </section>
 <section id="surface-preprocessing-options">
@@ -284,7 +293,7 @@ Example:</p>
 <dd><p>path where intermediate results should be stored</p>
 </dd>
 <dt><kbd>--fast-track</kbd></dt>
-<dd><p>fast-track the workflow by searching for existing derivatives.</p>
+<dd><p>fast-track the workflow by searching for existing derivatives. (DEPRECATED for –derivatives).</p>
 </dd>
 <dt><kbd>--resource-monitor</kbd></dt>
 <dd><p>enable Nipype’s resource monitoring to keep track of memory and CPU usage</p>
@@ -532,7 +541,6 @@ RUNNING: docker run --rm -it -v /path/to/data/dir:/data:ro \
             <dd><a href="usage.html">maint/0.8.x</a></dd>
             <dd><a href="../maint_0.9.x/usage.html">maint/0.9.x</a></dd>
             <dd><a href="../master/usage.html">master</a></dd>
-            <dd><a href="../next/usage.html">next</a></dd>
             <dd><a href="../rel_0.8.0rc1/usage.html">rel/0.8.0rc1</a></dd>
         </dl>
     </div>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Index &mdash; smriprep 0.12.3.dev67 documentation</title>
+  <title>Index &mdash; smriprep 0.12.3.dev210 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/banner.css" type="text/css" />
@@ -13,7 +13,7 @@
   
         <script src="_static/jquery.js?v=1413ff29"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=7b397ac5"></script>
+        <script src="_static/documentation_options.js?v=d9a209d6"></script>
         <script src="_static/doctools.js?v=6afcdcd2"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
@@ -33,7 +33,7 @@
             smriprep
           </a>
               <div class="version">
-                0.12.3.dev67
+                0.12.3.dev210
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -84,11 +84,9 @@
  | <a href="#F"><strong>F</strong></a>
  | <a href="#G"><strong>G</strong></a>
  | <a href="#I"><strong>I</strong></a>
- | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
  | <a href="#N"><strong>N</strong></a>
  | <a href="#O"><strong>O</strong></a>
- | <a href="#P"><strong>P</strong></a>
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
  | <a href="#T"><strong>T</strong></a>
@@ -168,8 +166,6 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/smriprep.utils.bids.html#smriprep.utils.bids.get_outputnode_spec">get_outputnode_spec() (in module smriprep.utils.bids)</a>
-</li>
       <li><a href="api/smriprep.cli.run.html#smriprep.cli.run.get_parser">get_parser() (in module smriprep.cli.run)</a>
 </li>
   </ul></td>
@@ -178,9 +174,7 @@
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/smriprep.workflows.outputs.html#smriprep.workflows.outputs.init_anat_derivatives_wf">init_anat_derivatives_wf() (in module smriprep.workflows.outputs)</a>
-</li>
-      <li><a href="api/smriprep.workflows.norm.html#smriprep.workflows.norm.init_anat_norm_wf">init_anat_norm_wf() (in module smriprep.workflows.norm)</a>
+      <li><a href="api/smriprep.workflows.anatomical.html#smriprep.workflows.anatomical.init_anat_fit_wf">init_anat_fit_wf() (in module smriprep.workflows.anatomical)</a>
 </li>
       <li><a href="api/smriprep.workflows.anatomical.html#smriprep.workflows.anatomical.init_anat_preproc_wf">init_anat_preproc_wf() (in module smriprep.workflows.anatomical)</a>
 </li>
@@ -188,17 +182,51 @@
 </li>
       <li><a href="api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_anat_ribbon_wf">init_anat_ribbon_wf() (in module smriprep.workflows.surfaces)</a>
 </li>
+      <li><a href="api/smriprep.workflows.outputs.html#smriprep.workflows.outputs.init_anat_second_derivatives_wf">init_anat_second_derivatives_wf() (in module smriprep.workflows.outputs)</a>
+</li>
       <li><a href="api/smriprep.workflows.anatomical.html#smriprep.workflows.anatomical.init_anat_template_wf">init_anat_template_wf() (in module smriprep.workflows.anatomical)</a>
 </li>
       <li><a href="api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_autorecon_resume_wf">init_autorecon_resume_wf() (in module smriprep.workflows.surfaces)</a>
 </li>
-      <li><a href="api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_gifti_surface_wf">init_gifti_surface_wf() (in module smriprep.workflows.surfaces)</a>
+      <li><a href="api/smriprep.workflows.outputs.html#smriprep.workflows.outputs.init_ds_anat_volumes_wf">init_ds_anat_volumes_wf() (in module smriprep.workflows.outputs)</a>
+</li>
+      <li><a href="api/smriprep.workflows.outputs.html#smriprep.workflows.outputs.init_ds_dseg_wf">init_ds_dseg_wf() (in module smriprep.workflows.outputs)</a>
+</li>
+      <li><a href="api/smriprep.workflows.outputs.html#smriprep.workflows.outputs.init_ds_fs_registration_wf">init_ds_fs_registration_wf() (in module smriprep.workflows.outputs)</a>
+</li>
+      <li><a href="api/smriprep.workflows.outputs.html#smriprep.workflows.outputs.init_ds_grayord_metrics_wf">init_ds_grayord_metrics_wf() (in module smriprep.workflows.outputs)</a>
+</li>
+      <li><a href="api/smriprep.workflows.outputs.html#smriprep.workflows.outputs.init_ds_mask_wf">init_ds_mask_wf() (in module smriprep.workflows.outputs)</a>
+</li>
+      <li><a href="api/smriprep.workflows.outputs.html#smriprep.workflows.outputs.init_ds_surface_metrics_wf">init_ds_surface_metrics_wf() (in module smriprep.workflows.outputs)</a>
+</li>
+      <li><a href="api/smriprep.workflows.outputs.html#smriprep.workflows.outputs.init_ds_surfaces_wf">init_ds_surfaces_wf() (in module smriprep.workflows.outputs)</a>
+</li>
+      <li><a href="api/smriprep.workflows.outputs.html#smriprep.workflows.outputs.init_ds_template_registration_wf">init_ds_template_registration_wf() (in module smriprep.workflows.outputs)</a>
+</li>
+      <li><a href="api/smriprep.workflows.outputs.html#smriprep.workflows.outputs.init_ds_template_wf">init_ds_template_wf() (in module smriprep.workflows.outputs)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/smriprep.workflows.outputs.html#smriprep.workflows.outputs.init_ds_tpms_wf">init_ds_tpms_wf() (in module smriprep.workflows.outputs)</a>
+</li>
+      <li><a href="api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_fsLR_reg_wf">init_fsLR_reg_wf() (in module smriprep.workflows.surfaces)</a>
+</li>
+      <li><a href="api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_gifti_morphometrics_wf">init_gifti_morphometrics_wf() (in module smriprep.workflows.surfaces)</a>
+</li>
+      <li><a href="api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_gifti_surfaces_wf">init_gifti_surfaces_wf() (in module smriprep.workflows.surfaces)</a>
+</li>
+      <li><a href="api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_hcp_morphometrics_wf">init_hcp_morphometrics_wf() (in module smriprep.workflows.surfaces)</a>
+</li>
       <li><a href="api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_morph_grayords_wf">init_morph_grayords_wf() (in module smriprep.workflows.surfaces)</a>
 </li>
       <li><a href="api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_msm_sulc_wf">init_msm_sulc_wf() (in module smriprep.workflows.surfaces)</a>
+</li>
+      <li><a href="api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_refinement_wf">init_refinement_wf() (in module smriprep.workflows.surfaces)</a>
+</li>
+      <li><a href="api/smriprep.workflows.fit.registration.html#smriprep.workflows.fit.registration.init_register_template_wf">init_register_template_wf() (in module smriprep.workflows.fit.registration)</a>
+</li>
+      <li><a href="api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_resample_midthickness_wf">init_resample_midthickness_wf() (in module smriprep.workflows.surfaces)</a>
 </li>
       <li><a href="api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_segs_to_native_wf">init_segs_to_native_wf() (in module smriprep.workflows.surfaces)</a>
 </li>
@@ -206,19 +234,11 @@
 </li>
       <li><a href="api/smriprep.workflows.base.html#smriprep.workflows.base.init_smriprep_wf">init_smriprep_wf() (in module smriprep.workflows.base)</a>
 </li>
-      <li><a href="api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_sphere_reg_wf">init_sphere_reg_wf() (in module smriprep.workflows.surfaces)</a>
+      <li><a href="api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_surface_derivatives_wf">init_surface_derivatives_wf() (in module smriprep.workflows.surfaces)</a>
 </li>
       <li><a href="api/smriprep.workflows.surfaces.html#smriprep.workflows.surfaces.init_surface_recon_wf">init_surface_recon_wf() (in module smriprep.workflows.surfaces)</a>
 </li>
-      <li><a href="api/smriprep.interfaces.gifti.html#smriprep.interfaces.gifti.InvertShape">InvertShape (class in smriprep.interfaces.gifti)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="L">L</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/smriprep.interfaces.surf.html#smriprep.interfaces.surf.load_transform">load_transform() (in module smriprep.interfaces.surf)</a>
+      <li><a href="api/smriprep.workflows.outputs.html#smriprep.workflows.outputs.init_template_iterator_wf">init_template_iterator_wf() (in module smriprep.workflows.outputs)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -228,7 +248,13 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/smriprep.cli.run.html#smriprep.cli.run.main">main() (in module smriprep.cli.run)</a>
 </li>
+      <li><a href="api/smriprep.interfaces.surf.html#smriprep.interfaces.surf.make_ribbon">make_ribbon() (in module smriprep.interfaces.surf)</a>
+</li>
       <li><a href="api/smriprep.interfaces.freesurfer.html#smriprep.interfaces.freesurfer.MakeMidthickness">MakeMidthickness (class in smriprep.interfaces.freesurfer)</a>
+</li>
+      <li><a href="api/smriprep.interfaces.surf.html#smriprep.interfaces.surf.MakeRibbon">MakeRibbon (class in smriprep.interfaces.surf)</a>
+</li>
+      <li><a href="api/smriprep.interfaces.gifti.html#smriprep.interfaces.gifti.MetricMath">MetricMath (class in smriprep.interfaces.gifti)</a>
 </li>
       <li>
     module
@@ -268,7 +294,9 @@
 </li>
         <li><a href="api/smriprep.workflows.base.html#module-smriprep.workflows.base">smriprep.workflows.base</a>
 </li>
-        <li><a href="api/smriprep.workflows.norm.html#module-smriprep.workflows.norm">smriprep.workflows.norm</a>
+        <li><a href="api/smriprep.workflows.fit.html#module-smriprep.workflows.fit">smriprep.workflows.fit</a>
+</li>
+        <li><a href="api/smriprep.workflows.fit.registration.html#module-smriprep.workflows.fit.registration">smriprep.workflows.fit.registration</a>
 </li>
         <li><a href="api/smriprep.workflows.outputs.html#module-smriprep.workflows.outputs">smriprep.workflows.outputs</a>
 </li>
@@ -300,14 +328,6 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/smriprep.interfaces.html#smriprep.interfaces.DerivativesDataSink.out_path_base">out_path_base (smriprep.interfaces.DerivativesDataSink attribute)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="P">P</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/smriprep.utils.bids.html#smriprep.utils.bids.predict_derivatives">predict_derivatives() (in module smriprep.utils.bids)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -407,8 +427,6 @@
         <li><a href="api/smriprep.utils.html#module-smriprep.utils">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     smriprep.utils.bids
 
@@ -416,6 +434,8 @@
         <li><a href="api/smriprep.utils.bids.html#module-smriprep.utils.bids">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     smriprep.utils.misc
 
@@ -445,10 +465,17 @@
 </li>
       </ul></li>
       <li>
-    smriprep.workflows.norm
+    smriprep.workflows.fit
 
       <ul>
-        <li><a href="api/smriprep.workflows.norm.html#module-smriprep.workflows.norm">module</a>
+        <li><a href="api/smriprep.workflows.fit.html#module-smriprep.workflows.fit">module</a>
+</li>
+      </ul></li>
+      <li>
+    smriprep.workflows.fit.registration
+
+      <ul>
+        <li><a href="api/smriprep.workflows.fit.registration.html#module-smriprep.workflows.fit.registration">module</a>
 </li>
       </ul></li>
       <li>
@@ -572,7 +599,6 @@
             <dd><a href="maint_0.8.x/index.html">maint/0.8.x</a></dd>
             <dd><a href="maint_0.9.x/index.html">maint/0.9.x</a></dd>
             <dd><a href="master/genindex.html">master</a></dd>
-            <dd><a href="next/index.html">next</a></dd>
             <dd><a href="rel_0.8.0rc1/index.html">rel/0.8.0rc1</a></dd>
         </dl>
     </div>
